@@ -1,0 +1,29 @@
+.Sidebar {
+    background: rgba(255, 255, 255, 0.2);
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    padding-top: 3em;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    z-index: 5;
+}
+
+.nav {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: ease-in-out 0.2s;
+}
+
+.nav:hover {
+    color: black;
+    transform: scale(1.08);
+}
+
+a.current {
+    background: #e65e5e;
+}
