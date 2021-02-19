@@ -2,14 +2,6 @@ const express = require('express');
 require('dotenv').config();
 const db = require('./database');
 
-db.connect((error) => {
-    if(error) {
-        console.log(error);
-    } else {
-        console.log('connected');
-    }
-});
-
 
 const customers = [
     {
@@ -40,8 +32,17 @@ app.use((req, res, next) => {
 
 console.log('server running');
 
-app.get('/customers', function (req, res) {
-    res.json(customers);
+app.get('/customers', (req, res) => {
+    // res.json(customers);
+
+    db.query("SELECT * FROM customers", (err, rows, fileds) => {
+        if(!err) {
+            res.send(rows);
+            console.log(rows);
+        } else {
+            console.log(err)    
+        }
+    })
 })
 
 app.get('/test', async (req, res) => {
