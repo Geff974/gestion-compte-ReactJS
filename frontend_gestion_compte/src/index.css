@@ -5,7 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: no-repeat center url('http://localhost:3000/bg-gestionCompte.jpg');
+  background: no-repeat center url('http://localhost:3000/bg-couple.jpg');
+  backdrop-filter: blur(40px);
   background-size: cover;
   height: 100vh;
 }

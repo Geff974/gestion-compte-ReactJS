@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateCustomer from './CreateCustomer';
+import Title from './Title';
 
 const Customers = () => {
 
@@ -36,6 +37,7 @@ const Customers = () => {
 
     return (
         <div>
+            <Title title='Clients' />
             <table className="table table-hover">
                 <thead>
                     <tr>
