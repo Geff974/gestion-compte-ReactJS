@@ -34,6 +34,10 @@ app.get('/customers/:name', (req, res) => {
     } )
 })
 
+app.post('/customers', (req, res) => {
+    console.log('req : ' + req.params.name);
+})
+
 
 
 

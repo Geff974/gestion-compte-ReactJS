@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CreateCustomer from './CreateCustomer';
 
 const Customers = () => {
 
@@ -36,6 +37,9 @@ const Customers = () => {
                     })}
                 </tbody>
             </table>
+
+            <h3>Ajouter un client</h3>
+            <CreateCustomer />
         </div>
     );
 };

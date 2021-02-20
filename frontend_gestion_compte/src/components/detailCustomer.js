@@ -5,35 +5,31 @@ const DetailCustomer = () => {
 
     const { name } = useParams();
     const [currentCustomer, setCustomer] = useState('');
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         currentCustomer: {}
-    //     };
-    //     const { nameParams } = this.props.params.name;
-    // }
-
-    // filtreCustomer(customers) {
-    //     const cust = customers.find(el => el.name === this.props.customer);
-    //     this.setState({ currentCustomer: cust ? cust : { name: 'Aucune correspondance !' } })
-    // }
 
     useEffect(() => {
-        console.log('nameCustomer : ' + name);
-        fetch('http://localhost:3001/customers/' + name).then((response) => {
+        fetch(`http://localhost:3001/customers/${name}`).then((response) => {
             return response.json();
         }).then((response) => {
-            // this.filtreCustomer(response);
             setCustomer(response[0]);
         })
-    }, [currentCustomer])
+    }, [name])
 
 
-        return (
-            <div>
-                <h2>{(currentCustomer.name) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-            </div>
-        );
-    }
+    return (
+        <div>
+            {currentCustomer !== undefined &&
+                <div>
+                    <h2>{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
+                    <h3>Debit : {currentCustomer.debit}</h3>
+                    <h3>Credit : {currentCustomer.credit}</h3>
+                    <h3>{currentCustomer.email}</h3>
+                </div>
+            }
+            {currentCustomer === undefined &&
+                <p><span>{name}</span> n'est pas un client connu</p>
+            }
+        </div>
+    );
+}
 
 export default DetailCustomer;

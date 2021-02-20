@@ -16,10 +16,9 @@ function Home() {
         }).then((response) => {
             setCustomers(response);
         })
-    }, [customers])
+    }, [])
 
     const ShowCustomer = (customer) => {
-        console.log('customers : ' + customer);
         history.push('/customers/' + customer.name);
     }
 
