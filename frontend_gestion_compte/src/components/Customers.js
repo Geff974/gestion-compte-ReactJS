@@ -11,7 +11,7 @@ const Customers = () => {
         }).then((response) => {
             setCustomers(response);
         })
-    }, [customers])
+    }, [])
 
     return (
         <div>

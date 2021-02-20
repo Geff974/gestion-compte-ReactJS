@@ -17,8 +17,12 @@ class CreateCustomer extends Component {
 
     submitHandler = e => {
         e.preventDefault();
-        console.log(this.state);
-        fetch('http://localhost:3001/customers', { method: 'post', body: this.state })
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.state)
+        };
+        fetch('http://localhost:3001/customers', requestOptions)
             .then((response) => {
                 console.log(response);
             })
