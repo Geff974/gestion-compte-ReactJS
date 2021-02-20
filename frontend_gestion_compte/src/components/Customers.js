@@ -27,7 +27,7 @@ const Customers = () => {
                     {customers.map((customer, k) => {
                         return (
                             <tr key={k}>
-                                <td> {customer.name_customer} </td>
+                                <td> {customer.name} </td>
                                 <td> {customer.credit} </td>
                                 <td> {customer.debit} </td>
                                 <td> {customer.credit - customer.debit},00 € </td>

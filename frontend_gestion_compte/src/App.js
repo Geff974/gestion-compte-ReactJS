@@ -18,7 +18,7 @@ function App() {
         <div className='mainContent'>
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/customers/:id' component={DefineParamsForCustomer} />
+            <Route path='/customers/:name' component={DefineParamsForCustomer} />
             <Route path='/customers' component={Customers} />
             <Route path='*' component={NotFound} />
           </Switch>
