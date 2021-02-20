@@ -13,6 +13,27 @@ const Customers = () => {
         })
     }, [])
 
+    const handler = (newCustomers) => {
+        console.log('New cust : ' + newCustomers)
+        setCustomers(newCustomers);
+    }
+
+    const EraseCustomer = (customer) => {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: customer.name })
+        };
+        fetch('http://localhost:3001/customers', requestOptions)
+            .then((err, response) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(response);
+                }
+            })
+    }
+
     return (
         <div>
             <table className="table table-hover">
@@ -22,6 +43,7 @@ const Customers = () => {
                         <th>Crédit</th>
                         <th>Débit</th>
                         <th>Balance</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +54,7 @@ const Customers = () => {
                                 <td> {customer.credit} </td>
                                 <td> {customer.debit} </td>
                                 <td> {customer.credit - customer.debit},00 € </td>
+                                <td><button onClick={() => EraseCustomer(customer)}>Effacer</button></td>
                             </tr>
                         )
                     })}
@@ -39,7 +62,7 @@ const Customers = () => {
             </table>
 
             <h3>Ajouter un client</h3>
-            <CreateCustomer />
+            <CreateCustomer handler={handler} />
         </div>
     );
 };

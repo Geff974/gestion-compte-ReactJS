@@ -23,8 +23,18 @@ class CreateCustomer extends Component {
             body: JSON.stringify(this.state)
         };
         fetch('http://localhost:3001/customers', requestOptions)
-            .then((response) => {
-                console.log(response);
+            .then((err, response) => {
+                if (err) {
+                    alert('Erreur : ' + err);
+                } else {
+                    alert('Nouveau client créé !');
+                    fetch('http://localhost:3001/customers').then((response) => {
+                        return response.json();
+                    }).then((response) => {
+                        this.props.handler(response);
+                    })
+                }
+                this.setState({name: '', email: ''});
             })
     }
 
