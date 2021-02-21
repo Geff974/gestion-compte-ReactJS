@@ -5,18 +5,18 @@ import Title from './Title';
 const Customers = () => {
 
     const [customers, setCustomers] = useState([]);
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
+        fetchCustomers();
+    }, [counter])
+
+    const fetchCustomers = () => {
         fetch('http://localhost:3001/customers').then((response) => {
             return response.json();
         }).then((response) => {
             setCustomers(response);
         })
-    }, [])
-
-    const handler = (newCustomers) => {
-        console.log('New cust : ' + newCustomers)
-        setCustomers(newCustomers);
     }
 
     const EraseCustomer = (customer) => {
@@ -26,13 +26,11 @@ const Customers = () => {
             body: JSON.stringify({ name: customer.name })
         };
         fetch('http://localhost:3001/customers', requestOptions)
-            .then((err, response) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(response);
-                }
+            .then((data) => {
+                alert("'" + customer.name + "' à été effacé avec succés !");
+                console.log('data : ' + data);
             })
+        setCounter(counter + 1);
     }
 
     return (
@@ -64,7 +62,7 @@ const Customers = () => {
             </table>
 
             <h3>Ajouter un client</h3>
-            <CreateCustomer handler={handler} />
+            <CreateCustomer setCounter={() => setCounter(counter)} />
         </div>
     );
 };
