@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 
 console.log('server running');
 
+
 app.get('/customers', (req, res) => {
     database.query("SELECT * FROM customers", (err, rows) => {
         if(!err) {
@@ -46,6 +47,7 @@ app.get('/transactions', (req, res) => {
     })
 })
 
+
 app.post('/customers', (req, res) => {
     database.query("INSERT INTO customers (name, email) VALUES ('"+ req.body.name + "','"+ req.body.email +"')", (err, rows) => {
         if(!err) {
@@ -55,6 +57,18 @@ app.post('/customers', (req, res) => {
         }
     });
 })
+
+app.post('/transactions', (req, res) => {
+    database.query("INSERT INTO transactions (date, id_customer, designation, amount) VALUES ('"+ req.body.date + "','"+ req.body.customer +"','"+ req.body.designation +"','"+ req.body.amount +"')", (err, rows) => {
+        if(!err) {
+            // res.send(req.body.name + ' créé avec succés !');
+            res.status(201).json({ message: 'Transaction create.' });
+        } else {
+            console.log(err);
+        }
+    });
+})
+
 
 app.delete('/customers', (req, res) => {
     database.query("DELETE FROM customers WHERE name= ?", [req.body.name], (err, rows, fields) => {
@@ -67,11 +81,13 @@ app.delete('/customers', (req, res) => {
 })
 
 app.delete('/transactions', (req, res) => {
-    database.query("DELETE FROM transactions WHERE id = ?", [req.body.id], (err, rows, fields) => {
-        if(!err) {
-            res.send('Deleted successfully.')
+    database.query("DELETE FROM transactions WHERE id= ?", [req.body.id], (err, rows, fields) => {
+        console.log(req.body)
+        if (!err) {
+            res.status(200).json({ message: 'Deleted successfully' });
         } else {
             console.log(err)
+            res.status(400).json({ err })
         }
     })
 })

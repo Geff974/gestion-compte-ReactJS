@@ -19,13 +19,13 @@ class CreateCustomer extends Component {
         e.preventDefault();
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state)
         };
         fetch('http://localhost:3001/customers', requestOptions)
             .then(res => {
                 alert(res)
-                this.setState({name: '', email: ''});
+                this.setState({ name: '', email: '' });
             })
         this.props.setCounter(this.props.counter + 1);
     }
@@ -33,15 +33,17 @@ class CreateCustomer extends Component {
     render() {
         const { name, email } = this.state;
         return (
-            <div>
-                <form onSubmit={this.submitHandler}>
-                    <label htmlFor="name">Nom : </label>
-                    <input type="text" name='name' value={name} onChange={this.changeHandler} />
+            <div className="row">
+                <form onSubmit={this.submitHandler} className="mt-4 col-10">
+                    <div className="input-group align-items-end">
+                        <label htmlFor="name" className="form-label ms-5 me-2">Nom : </label>
+                        <input type="text" name='name' className="form-control" value={name} onChange={this.changeHandler} />
 
-                    <label htmlFor="email">e-mail : </label>
-                    <input type="email" name='email' value={email} onChange={this.changeHandler} />
+                        <label htmlFor="email" className="form-label ms-5 me-2">e-mail : </label>
+                        <input type="email" name='email' className="form-control" value={email} onChange={this.changeHandler} />
 
-                    <button type='submit'>Ajouter</button>
+                        <button type='submit' className="btn btn-success ms-5">Ajouter</button>
+                    </div>
                 </form>
             </div>
         );
