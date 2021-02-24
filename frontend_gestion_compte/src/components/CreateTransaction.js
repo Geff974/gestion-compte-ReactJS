@@ -7,7 +7,7 @@ class CreateTransaction extends Component {
 
         this.state = {
             date: '',
-            customer: 'Jean',
+            customer: '',
             designation: '',
             amount: 0
         }
@@ -23,7 +23,12 @@ class CreateTransaction extends Component {
     }
 
     changeHandler = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        if (e.target.name === 'date') {
+            this.setState(() => ({date: e.target.value.toLocaleString()}))
+            console.log(this.state);
+        } else {
+            this.setState(() => ({ [e.target.name]: e.target.value }))
+        }
     }
 
     submitHandler = e => {
@@ -34,15 +39,15 @@ class CreateTransaction extends Component {
             body: JSON.stringify(this.state)
         };
         fetch('http://localhost:3001/transactions', requestOptions)
-            .then(res => {
-                alert(res)
+            .then(() => {
                 const reinitState = {
-                    date: new Date(),
+                    date: '',
                     customer: '',
                     designation: '',
                     amout: ''
                 };
                 this.setState(reinitState);
+                this.props.setUpdate(this.props.update + 1);
             })
     }
 

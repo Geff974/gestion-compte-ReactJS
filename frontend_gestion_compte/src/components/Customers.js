@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CreateCustomer from './CreateCustomer';
 import Title from './Title';
+import ShowCustomer from './ShowCustomer';
 
 const Customers = () => {
 
@@ -10,6 +11,8 @@ const Customers = () => {
     useEffect(() => {
         fetchCustomers();
     }, [counter])
+
+
 
     const fetchCustomers = () => {
         fetch('http://localhost:3001/customers').then((response) => {
@@ -52,7 +55,7 @@ const Customers = () => {
                         <tbody>
                             {customers.map((customer, k) => {
                                 return (
-                                    <tr key={k}>
+                                    <tr key={k} onClick={() => ShowCustomer(customer)}>
                                         <td> {customer.name} </td>
                                         <td> {customer.credit} </td>
                                         <td> {customer.debit} </td>
@@ -66,7 +69,7 @@ const Customers = () => {
 
                     <h3 className="container ms-5 mt-5">Ajouter un client</h3>
                     <div>
-                        <CreateCustomer setCounter={() => setCounter(counter)} />
+                        <CreateCustomer setCounter={setCounter.bind(this)} counter={counter} />
                     </div>
                 </div>
             </div>

@@ -38,7 +38,7 @@ app.get('/customers/:name', (req, res) => {
 })
 
 app.get('/transactions', (req, res) => {
-    database.query("SELECT transactions.id, date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id", (err, rows) => {
+    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id ORDER BY date DESC", (err, rows) => {
         if(!err) {
             res.send(rows);
         } else {
@@ -61,7 +61,6 @@ app.post('/customers', (req, res) => {
 app.post('/transactions', (req, res) => {
     database.query("INSERT INTO transactions (date, id_customer, designation, amount) VALUES ('"+ req.body.date + "','"+ req.body.customer +"','"+ req.body.designation +"','"+ req.body.amount +"')", (err, rows) => {
         if(!err) {
-            // res.send(req.body.name + ' créé avec succés !');
             res.status(201).json({ message: 'Transaction create.' });
         } else {
             console.log(err);

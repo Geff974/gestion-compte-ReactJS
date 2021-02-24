@@ -7,12 +7,12 @@ const Transactions = () => {
 
     const [transactions, setTransactions] = useState([])
     const [update, setUpdate] = useState(0)
-    const config = ['nom', 'prenom'];
 
     useEffect(() => {
         fetch('http://localhost:3001/transactions')
             .then(res => res.json())
             .then(res => setTransactions(res))
+        console.log(transactions)
     }, [update])
 
     const deleteTransaction = (transaction) => {
@@ -21,18 +21,14 @@ const Transactions = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: transaction.id })
         };
-        console.log(requestOption)
-        fetch('http://localhost:3001/transactions', requestOption).then(data => {
-            alert('Supprimer avec succée !')
-            console.log(data);
-        })
+        fetch('http://localhost:3001/transactions', requestOption)
         setUpdate(update + 1);
     }
 
     return (
         <div className="container">
             <Title title='Transactions' />
-            <CreateTransaction config={config} uri='transactions' />
+            <CreateTransaction setUpdate={setUpdate.bind(this)} update={update} />
             <div className="mx-3">
                 <table className="table table-hover">
                     <thead>

@@ -4,6 +4,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
+    dateStrings: true,
     database: 'gestionCompte_development'
 });
 
