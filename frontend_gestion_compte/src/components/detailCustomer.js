@@ -7,7 +7,7 @@ const DetailCustomer = () => {
     const [currentCustomer, setCustomer] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3001/customers/${name}`).then((response) => {
+        fetch(process.env.REACT_APP_API_URL + `/customers/${name}`).then((response) => {
             return response.json();
         }).then((response) => {
             setCustomer(response[0]);

@@ -17,7 +17,7 @@ class CreateTransaction extends Component {
     }
 
     componentDidMount = () => {
-        fetch('http://localhost:3001/customers')
+        fetch(process.env.REACT_APP_API_URL + '/customers')
         .then(res => res.json())
         .then(res => this.customers = res)
     }
@@ -38,7 +38,7 @@ class CreateTransaction extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state)
         };
-        fetch('http://localhost:3001/transactions', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/transactions', requestOptions)
             .then(() => {
                 const reinitState = {
                     date: '',

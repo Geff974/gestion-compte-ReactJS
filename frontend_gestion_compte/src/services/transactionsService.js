@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001/transactions";
+const baseUrl = process.env.REACT_APP_API_URL + "/transactions";
 
 // add
 

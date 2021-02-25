@@ -15,7 +15,7 @@ const Customers = () => {
 
 
     const fetchCustomers = () => {
-        fetch('http://localhost:3001/customers').then((response) => {
+        fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
             return response.json();
         }).then((response) => {
             setCustomers(response);
@@ -29,7 +29,7 @@ const Customers = () => {
             body: JSON.stringify({ name: customer.name })
         };
         console.log(requestOptions);
-        fetch('http://localhost:3001/customers', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
             .then((data) => {
                 alert("'" + customer.name + "' à été effacé avec succés !");
                 console.log('data : ' + data);

@@ -22,7 +22,7 @@ class CreateCustomer extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state)
         };
-        fetch('http://localhost:3001/customers', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
             .then(res => {
                 alert(res)
                 this.setState({ name: '', email: '' });

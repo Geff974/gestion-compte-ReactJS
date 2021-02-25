@@ -9,10 +9,9 @@ const Transactions = () => {
     const [update, setUpdate] = useState(0)
 
     useEffect(() => {
-        fetch('http://localhost:3001/transactions')
+        fetch(process.env.REACT_APP_API_URL + '/transactions')
             .then(res => res.json())
             .then(res => setTransactions(res))
-        console.log(transactions)
     }, [update])
 
     const deleteTransaction = (transaction) => {
@@ -21,7 +20,7 @@ const Transactions = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: transaction.id })
         };
-        fetch('http://localhost:3001/transactions', requestOption)
+        fetch(process.env.REACT_APP_API_URL + '/transactions', requestOption)
         setUpdate(update + 1);
     }
 
