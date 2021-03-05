@@ -2,4 +2,9 @@
     margin-left: 160px;
     height: 100vh;
     overflow-y: scroll;
+    color: #727270;
+}
+
+.App {
+    background-color: #F7F6F1;
 }

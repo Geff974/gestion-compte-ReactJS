@@ -13,6 +13,32 @@ app.use((req, res, next) => {
     next();
 })
 
+const updateAccount = (id) => {
+    let debit = 0;
+    let credit = 0;
+
+    database.query("SELECT * FROM transactions WHERE id_customer = ?", id, (err, rows) => {
+        if(!err) {
+            rows.map(el => {
+               if (el.amount > 0) {
+                   debit += el.amount;
+               } else {
+                   credit += el.amount;
+               }
+            })
+            database.query('UPDATE customers SET debit = ' + debit + ', credit = ' + credit + ' WHERE id = ? ', id, (err, rows) => {
+                if (!err) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+        } else {
+            console.log('probleme');
+        }
+    })
+}
+
 console.log('server running');
 
 
@@ -60,7 +86,12 @@ app.post('/customers', (req, res) => {
 app.post('/transactions', (req, res) => {
     database.query("INSERT INTO transactions (date, id_customer, designation, amount) VALUES ('"+ req.body.date + "','"+ req.body.customer +"','"+ req.body.designation +"','"+ req.body.amount +"')", (err, rows) => {
         if(!err) {
-            res.status(201).json({ message: 'Transaction create.' });
+            const updateSuccess = updateAccount(req.body.customer);
+            if (updateSuccess === 0) {
+                res.status(201).json({ message: 'Transaction create but customer dont update !' });
+            } else {
+                res.status(201).json({ message: 'Transaction create.' });
+            }
         } else {
             console.log(err);
         }
@@ -89,6 +120,7 @@ app.delete('/transactions', (req, res) => {
         }
     })
 })
+
 
 
 

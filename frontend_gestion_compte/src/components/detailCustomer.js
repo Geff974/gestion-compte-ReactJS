@@ -33,3 +33,4 @@ const DetailCustomer = () => {
 }
 
 export default DetailCustomer;
+// FC6YX-D4FJK-6243W-P3KTG-BRT8W

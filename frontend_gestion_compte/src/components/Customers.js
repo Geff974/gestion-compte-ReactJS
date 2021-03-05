@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import CreateCustomer from './CreateCustomer';
 import Title from './Title';
-import ShowCustomer from './ShowCustomer';
+import { useHistory } from 'react-router-dom';
 
 const Customers = () => {
 
     const [customers, setCustomers] = useState([]);
     const [counter, setCounter] = useState(0);
+    let history = useHistory();
 
     useEffect(() => {
         fetchCustomers();
     }, [counter])
-
-
 
     const fetchCustomers = () => {
         fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
@@ -37,6 +36,10 @@ const Customers = () => {
         setCounter(counter + 1);
     }
 
+    const showCustomer = (customer) => {
+        history.push('/customers/' + customer.name);
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -55,11 +58,11 @@ const Customers = () => {
                         <tbody>
                             {customers.map((customer, k) => {
                                 return (
-                                    <tr key={k} onClick={() => ShowCustomer(customer)}>
+                                    <tr key={k} onClick={() => showCustomer(customer)}>
                                         <td> {customer.name} </td>
                                         <td> {customer.credit} </td>
                                         <td> {customer.debit} </td>
-                                        <td> {customer.credit - customer.debit},00 € </td>
+                                        <td> {customer.debit + customer.credit},00 € </td>
                                         <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
                                     </tr>
                                 )

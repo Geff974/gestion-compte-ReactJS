@@ -8,6 +8,14 @@ const mysql = require('mysql');
 //     database: 'gestionCompte_development'
 // });
 
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'jlfs9955_develop',
+//     password: 'passDevelop!',
+//     dateStrings: true,
+//     database: 'jlfs9955_gestion_compte_dev'
+// });
+
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
