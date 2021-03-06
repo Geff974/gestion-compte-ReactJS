@@ -5,9 +5,9 @@ import Home from './components/Home';
 import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotFound from './pages/NotFound';
-import DefineParamsForCustomer from './components/DefineParamsForCustomer';
 import Customers from './components/Customers';
 import Transactions from './components/Transactions';
+import DetailCustomer from './components/detailCustomer';
 
 function App() {
 
@@ -32,7 +32,7 @@ function App() {
         <div className='mainContent'>
           <Switch>
             <Route path='/' exact component={() => <Home customers={customers} />} />
-            <Route path='/customers/:name' component={DefineParamsForCustomer} />
+            <Route path='/customers/:name' component={DetailCustomer} />
             <Route path='/customers' component={Customers} />
             <Route path='/transactions' component={Transactions} />
             <Route path='*' component={NotFound} />

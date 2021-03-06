@@ -72,6 +72,16 @@ app.get('/transactions', (req, res) => {
     })
 })
 
+app.get('/transactions/:id', (req, res) => {
+    database.query("SELECT * FROM transactions WHERE id_customer=?", req.params.id, (err, rows) => {
+        if(!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    })
+})
+
 
 app.post('/customers', (req, res) => {
     database.query("INSERT INTO customers (name, email) VALUES ('"+ req.body.name + "','"+ req.body.email +"')", (err, rows) => {
