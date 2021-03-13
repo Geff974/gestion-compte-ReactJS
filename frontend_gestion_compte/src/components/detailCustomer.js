@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import '../styles/detailCustomer.css';
 
 const DetailCustomer = () => {
 
@@ -25,27 +26,25 @@ const DetailCustomer = () => {
         <div>
             {currentCustomer !== undefined &&
                 <div>
-                    <h2>{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-                    <h3>Debit : {currentCustomer.debit}</h3>
-                    <h3>Credit : {currentCustomer.credit}</h3>
-                    <h3>{currentCustomer.email}</h3>
+                    <h2 className="customerTitle">{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
+                    <h3 className="balance">Balance : {currentCustomer.credit - currentCustomer.debit}</h3>
                 </div>
             }
             {currentCustomer === undefined &&
                 <p><span>{name}</span> n'est pas un client connu</p>
             }
             {transactions !== undefined &&
-            <div className="container">
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Client</th>
-                            <th>designation</th>
-                            <th>Montant</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <div className="container">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>designation</th>
+                                <th>Montant</th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {transactions.map((transaction, k) => {
                                 return (
@@ -59,8 +58,8 @@ const DetailCustomer = () => {
                                 )
                             })}
                         </tbody>
-                </table>
-            </div>
+                    </table>
+                </div>
             }
         </div>
     );
