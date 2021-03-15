@@ -18,9 +18,14 @@ export class CustomersService extends Component {
         this.state = {
             customers: []
         }
+        this.updateCustomers = this.updateCustomers.bind(this)
     }
 
-    componentDidMount() {
+    updateCustomers = (customers) => {
+        this.setState({ customers: customers });
+    }
+
+    componentWillMount() {
         fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
             return response.json();
         }).then((response) => {
@@ -40,7 +45,7 @@ export class CustomersService extends Component {
                         <Switch>
                             <Route path='/' exact component={() => <Home customers={this.state.customers} />} />
                             <Route path='/customers/:name' component={DetailCustomer} />
-                            <Route path='/customers' component={() => <Customers setCustomers={this.setState.bind(this)} />} />
+                            <Route path='/customers' component={() => <Customers customers={this.state.customers} updateCustomers={this.updateCustomers} />} />
                             <Route path='/transactions' component={Transactions} />
                             <Route path='*' component={NotFound} />
                         </Switch>

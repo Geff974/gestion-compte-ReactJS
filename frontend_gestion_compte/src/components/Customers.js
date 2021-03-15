@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CreateCustomer from './CreateCustomer';
 import Title from './Title';
 import { useHistory } from 'react-router-dom';
 
-const Customers = () => {
+const Customers = ({customers, updateCustomers}) => {
 
-    const [customers, setCustomers] = useState([]);
-    const [counter, setCounter] = useState(0);
+    console.log('updateCustomers : ');
+    console.log(updateCustomers);
     let history = useHistory();
-
-    useEffect(() => {
-        fetchCustomers();
-    }, [counter])
-
-    const fetchCustomers = () => {
-        fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
-            return response.json();
-        }).then((response) => {
-            setCustomers(response);
-        })
-    }
 
     const EraseCustomer = (customer) => {
         const requestOptions = {
@@ -27,17 +15,19 @@ const Customers = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: customer.name })
         };
-        console.log(requestOptions);
         fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
-            .then((data) => {
+            .then(() => {
                 alert("'" + customer.name + "' à été effacé avec succés !");
-                console.log('data : ' + data);
             })
-        setCounter(counter + 1);
+        updateCustomers(customers)
     }
 
     const showCustomer = (customer) => {
         history.push('/customers/' + customer.name);
+    }
+
+    const updateAfterAddCustomer = () => {
+        updateCustomers(customers);
     }
 
     return (
@@ -55,24 +45,26 @@ const Customers = () => {
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {customers.map((customer, k) => {
-                                return (
-                                    <tr key={k} onClick={() => showCustomer(customer)}>
-                                        <td> {customer.name} </td>
-                                        <td> {customer.credit} </td>
-                                        <td> {customer.debit} </td>
-                                        <td> {customer.debit + customer.credit},00 € </td>
-                                        <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
+                        {customers !== '' &&
+                            <tbody>
+                                {customers.map((customer, k) => {
+                                    return (
+                                        <tr key={k}>
+                                            <td onClick={() => showCustomer(customer)}> {customer.name} </td>
+                                            <td onClick={() => showCustomer(customer)}> {customer.credit} </td>
+                                            <td onClick={() => showCustomer(customer)}> {customer.debit} </td>
+                                            <td onClick={() => showCustomer(customer)}> {customer.debit + customer.credit},00 € </td>
+                                            <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        }
                     </table>
 
                     <h3 className="container ms-5 mt-5">Ajouter un client</h3>
                     <div>
-                        <CreateCustomer setCounter={setCounter.bind(this)} counter={counter} />
+                        <CreateCustomer updateAfterAddCustomer={() => updateAfterAddCustomer} customers={customers} />
                     </div>
                 </div>
             </div>

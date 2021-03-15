@@ -25,7 +25,6 @@ class CreateTransaction extends Component {
     changeHandler = e => {
         if (e.target.name === 'date') {
             this.setState(() => ({date: e.target.value.toLocaleString()}))
-            console.log(this.state);
         } else {
             this.setState(() => ({ [e.target.name]: e.target.value }))
         }
