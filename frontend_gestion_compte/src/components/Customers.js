@@ -1,13 +1,14 @@
 import React from 'react';
 import CreateCustomer from './CreateCustomer';
 import Title from './Title';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../styles/Customers.css';
 
 const Customers = ({customers, updateCustomers}) => {
 
     console.log('updateCustomers : ');
     console.log(updateCustomers);
-    let history = useHistory();
+    // let history = useHistory();
 
     const EraseCustomer = (customer) => {
         const requestOptions = {
@@ -20,10 +21,6 @@ const Customers = ({customers, updateCustomers}) => {
                 alert("'" + customer.name + "' à été effacé avec succés !");
             })
         updateCustomers(customers)
-    }
-
-    const showCustomer = (customer) => {
-        history.push('/customers/' + customer.name);
     }
 
     const updateAfterAddCustomer = () => {
@@ -50,10 +47,10 @@ const Customers = ({customers, updateCustomers}) => {
                                 {customers.map((customer, k) => {
                                     return (
                                         <tr key={k}>
-                                            <td onClick={() => showCustomer(customer)}> {customer.name} </td>
-                                            <td onClick={() => showCustomer(customer)}> {customer.credit} </td>
-                                            <td onClick={() => showCustomer(customer)}> {customer.debit} </td>
-                                            <td onClick={() => showCustomer(customer)}> {customer.debit + customer.credit},00 € </td>
+                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.name} </Link></td>
+                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.credit} </Link></td>
+                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit} </Link></td>
+                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit + customer.credit},00 € </Link></td>
                                             <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
                                         </tr>
                                     )
