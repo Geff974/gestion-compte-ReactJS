@@ -8,7 +8,6 @@ const Customers = ({customers, updateCustomers}) => {
 
     console.log('updateCustomers : ');
     console.log(updateCustomers);
-    // let history = useHistory();
 
     const EraseCustomer = (customer) => {
         const requestOptions = {
@@ -19,12 +18,12 @@ const Customers = ({customers, updateCustomers}) => {
         fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
             .then(() => {
                 alert("'" + customer.name + "' à été effacé avec succés !");
+                updateCustomers();
             })
-        updateCustomers(customers)
     }
 
     const updateAfterAddCustomer = () => {
-        updateCustomers(customers);
+        updateCustomers();
     }
 
     return (
@@ -61,7 +60,7 @@ const Customers = ({customers, updateCustomers}) => {
 
                     <h3 className="container ms-5 mt-5">Ajouter un client</h3>
                     <div>
-                        <CreateCustomer updateAfterAddCustomer={() => updateAfterAddCustomer} customers={customers} />
+                        <CreateCustomer updateAfterAddCustomer={updateAfterAddCustomer} />
                     </div>
                 </div>
             </div>

@@ -26,8 +26,8 @@ class CreateCustomer extends Component {
             .then(res => {
                 alert(res)
                 this.setState({ name: '', email: '' });
+                this.props.updateAfterAddCustomer();
             })
-        this.props.updateAfterAddCustomer();
     }
 
     render() {

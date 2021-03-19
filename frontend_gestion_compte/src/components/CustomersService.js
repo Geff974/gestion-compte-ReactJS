@@ -13,24 +13,58 @@ import DetailCustomer from './detailCustomer';
 export class CustomersService extends Component {
 
     constructor(props) {
+        let _isMounted = false;
         super(props)
 
         this.state = {
             customers: []
         }
-        this.updateCustomers = this.updateCustomers.bind(this)
+        this.updateCustomers = this.updateCustomers.bind(this);
     }
 
-    updateCustomers = (customers) => {
-        this.setState({ customers: customers });
-    }
-
-    componentWillMount() {
+    updateCustomers = () => {
         fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
             return response.json();
         }).then((response) => {
             this.setState({ customers: response });
         })
+    }
+
+    changeCustomers = () => {
+        console.log('entrer dans changeCustomer')
+        const customers2 = [
+            {
+                credit: 100,
+                debit: 100,
+                email: 'new@email.com',
+                id: 100,
+                name: 'Premier Client'
+            },
+            {
+                credit: 100,
+                debit: 100,
+                email: 'new2@email.com',
+                id: 100,
+                name: 'Deuxieme Client'
+            }
+        ]
+        this.setState({
+            customers: customers2
+        })
+    }
+
+
+    componentDidMount() {
+        fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
+            return response.json();
+        }).then((response) => {
+            this.setState({ customers: response })
+        })
+        this._isMounted=true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted=false;
     }
 
 
@@ -49,6 +83,7 @@ export class CustomersService extends Component {
                             <Route path='/transactions' component={Transactions} />
                             <Route path='*' component={NotFound} />
                         </Switch>
+                        <button type="button" onClick={this.updateCustomers}>Charger API</button>
                     </div>
                 </Router>
             </div>
