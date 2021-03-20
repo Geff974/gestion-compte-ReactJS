@@ -10,6 +10,7 @@ const Customers = ({customers, updateCustomers}) => {
     console.log(updateCustomers);
 
     const EraseCustomer = (customer) => {
+        // TODO: Afficher une alerte info pour la suppression
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },

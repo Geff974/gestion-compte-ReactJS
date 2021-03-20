@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import '../App.css';
 import '../styles/Home.css';
-import '../styles/Sidebar.css'
 import Home from './Home';
-import Sidebar from './Sidebar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotFound from '../pages/NotFound';
 import Customers from './Customers';
 import Transactions from './Transactions';
 import DetailCustomer from './detailCustomer';
+import BottomMenu from './BottomMenu';
 
 export class CustomersService extends Component {
 
@@ -72,8 +71,9 @@ export class CustomersService extends Component {
         return (
             <div className="App container-fluid">
                 <Router>
-                    <div className='Sidebar'>
-                        <Sidebar />
+                    <div className='bottomMenu'>
+                        {/* <Sidebar /> */}
+                        <BottomMenu />
                     </div>
                     <div className='mainContent'>
                         <Switch>
@@ -83,7 +83,6 @@ export class CustomersService extends Component {
                             <Route path='/transactions' component={Transactions} />
                             <Route path='*' component={NotFound} />
                         </Switch>
-                        <button type="button" onClick={this.updateCustomers}>Charger API</button>
                     </div>
                 </Router>
             </div>

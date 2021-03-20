@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { MdDeleteForever } from 'react-icons/md';
 import CreateTransaction from './CreateTransaction';
 // import { deleteTransaction, getTransactions } from '../services/transactionsService';
 import Title from './Title';
@@ -24,15 +25,19 @@ const Transactions = () => {
         setUpdate(update + 1);
     }
 
+    const dateSlice = (str) => {
+        return str.slice(5)
+    }
+
     return (
         <div className="container">
             <Title title='Transactions' />
             <CreateTransaction setUpdate={setUpdate.bind(this)} update={update} />
-            <div className="mx-3">
-                <table className="table table-hover">
+            <div className="mx-3 col-12 table-responsive">
+                <table className="table table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th className="pers">Date</th>
                             <th>Client</th>
                             <th>designation</th>
                             <th>Montant</th>
@@ -44,11 +49,11 @@ const Transactions = () => {
                             {transactions.map((transaction, k) => {
                                 return (
                                     <tr key={k}>
-                                        <td> {transaction.date} </td>
+                                        <td> {dateSlice(transaction.date)} </td>
                                         <td> {transaction.name} </td>
                                         <td> {transaction.designation} </td>
-                                        <td> {transaction.amount},00 € </td>
-                                        <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger">Effacer</button></td>
+                                        <td> {transaction.amount} € </td>
+                                        <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
                                     </tr>
                                 )
                             })}

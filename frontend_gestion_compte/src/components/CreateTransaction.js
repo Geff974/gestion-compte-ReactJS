@@ -18,13 +18,13 @@ class CreateTransaction extends Component {
 
     componentDidMount = () => {
         fetch(process.env.REACT_APP_API_URL + '/customers')
-        .then(res => res.json())
-        .then(res => this.customers = res)
+            .then(res => res.json())
+            .then(res => this.customers = res)
     }
 
     changeHandler = e => {
         if (e.target.name === 'date') {
-            this.setState(() => ({date: e.target.value.toLocaleString()}))
+            this.setState(() => ({ date: e.target.value.toLocaleString() }))
         } else {
             this.setState(() => ({ [e.target.name]: e.target.value }))
         }
@@ -43,7 +43,7 @@ class CreateTransaction extends Component {
                     date: '',
                     customer: '',
                     designation: '',
-                    amout: ''
+                    amout: 0
                 };
                 this.setState(reinitState);
                 this.props.setUpdate(this.props.update + 1);
@@ -55,27 +55,35 @@ class CreateTransaction extends Component {
         return (
             <div className="row">
                 <form onSubmit={this.submitHandler} className="my-5">
-                    <div className="input-group align-items-end">
-                        <label htmlFor="date" className="form-label ms-5 me-2">Date : </label>
-                        <input type="date" name='date' className="form-control" value={date} onChange={this.changeHandler} min="2019-01-01" max="2021-12-31" />
+                    <div className="input-group align-items-end col-sm-12">
+                        <div className="col-6 pe-1">
+                            <label htmlFor="date" className="form-label ms-5 me-2">Date : </label>
+                            <input type="date" name='date' className="form-control" value={date} onChange={this.changeHandler} min="2019-01-01" max="2021-12-31" />
+                        </div>
 
-                        <label htmlFor="customer" className="form-label ms-5 me-2">Client : </label>
-                        <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
-                            <option value=''></option>
-                            {this.customers.map((customer, k) => {
-                                return (
-                                    <option key={k} value={customer.id}>{customer.name}</option>
-                                )
-                            })}
-                        </select>
+                        <div className="col-6 ps-1">
+                            <label htmlFor="customer" className="form-label ms-5 me-2">Client : </label>
+                            <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
+                                <option value=''></option>
+                                {this.customers.map((customer, k) => {
+                                    return (
+                                        <option key={k} value={customer.id}>{customer.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
 
-                        <label htmlFor="designation" className="form-label ms-5 me-2">Designation : </label>
-                        <input type="text" name='designation' className="form-control" value={designation} onChange={this.changeHandler} />
+                        <div className="col-6 mt-3 pe-1">
+                            <label htmlFor="designation" className="form-label ms-5 me-2">Designation : </label>
+                            <input type="text" name='designation' className="form-control" value={designation} onChange={this.changeHandler} />
+                        </div>
 
-                        <label htmlFor="amount" className="form-label ms-5 me-2">Montant : </label>
-                        <input type="number" name='amount' className="form-control" value={amount} onChange={this.changeHandler} />
+                        <div className="col-6 ps-1">
+                            <label htmlFor="amount" className="form-label ms-5">Montant : </label>
+                            <input type="number" name='amount' className="form-control" value={amount} onChange={this.changeHandler} />
+                        </div>
 
-                        <button type='submit' className="btn btn-success ms-5">Ajouter</button>
+                        <button type='submit' className="btn btn-success mt-3">Ajouter</button>
                     </div>
                 </form>
             </div>
