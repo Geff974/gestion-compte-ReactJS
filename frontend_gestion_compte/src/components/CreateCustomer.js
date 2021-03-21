@@ -34,15 +34,19 @@ class CreateCustomer extends Component {
         const { name, email } = this.state;
         return (
             <div className="row">
-                <form onSubmit={this.submitHandler} className="mt-4 col-10">
+                <form onSubmit={this.submitHandler} className="mt-4">
                     <div className="input-group align-items-end">
-                        <label htmlFor="name" className="form-label ms-5 me-2">Nom : </label>
-                        <input type="text" name='name' className="form-control" value={name} onChange={this.changeHandler} />
+                        <div className="col-6 pe1">
+                            <label htmlFor="name" className="form-label ms-5 me-2">Nom : </label>
+                            <input type="text" name='name' className="form-control" value={name} onChange={this.changeHandler} />
+                        </div>
 
-                        <label htmlFor="email" className="form-label ms-5 me-2">e-mail : </label>
-                        <input type="email" name='email' className="form-control" value={email} onChange={this.changeHandler} />
+                        <div className="col-6 pe1">
+                            <label htmlFor="email" className="form-label ms-5 me-2">e-mail : </label>
+                            <input type="email" name='email' className="form-control" value={email} onChange={this.changeHandler} />
+                        </div>
 
-                        <button type='submit' className="btn btn-success ms-5">Ajouter</button>
+                        <button type='submit' className="btn btn-success mx-auto mt-3">Ajouter</button>
                     </div>
                 </form>
             </div>

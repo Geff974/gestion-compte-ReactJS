@@ -28,42 +28,39 @@ const Customers = ({customers, updateCustomers}) => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <Title title='Clients' />
-                <div className="offset-1 col-10">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Crédit</th>
-                                <th>Débit</th>
-                                <th>Balance</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        {customers !== '' &&
-                            <tbody>
-                                {customers.map((customer, k) => {
-                                    return (
-                                        <tr key={k}>
-                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.name} </Link></td>
-                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.credit} </Link></td>
-                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit} </Link></td>
-                                            <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit + customer.credit},00 € </Link></td>
-                                            <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        }
-                    </table>
-
-                    <h3 className="container ms-5 mt-5">Ajouter un client</h3>
-                    <div>
-                        <CreateCustomer updateAfterAddCustomer={updateAfterAddCustomer} />
-                    </div>
-                </div>
+        <div className="container-fluid">
+            <Title title='Clients' />
+            <div className="table-responsive">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Crédit</th>
+                            <th>Débit</th>
+                            <th>Balance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {customers !== '' &&
+                        <tbody>
+                            {customers.map((customer, k) => {
+                                return (
+                                    <tr key={k}>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.name} </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.credit} </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit} </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit + customer.credit},00 € </Link></td>
+                                        <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    }
+                </table>
+            </div>
+            <h3 className="container ms-5 mt-5">Ajouter un client</h3>
+            <div>
+                <CreateCustomer updateAfterAddCustomer={updateAfterAddCustomer} />
             </div>
         </div>
     );

@@ -44,7 +44,7 @@ const Transactions = () => {
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>
             <div className="table-responsive">
-                <table className="table table-striped table-hover align-middle">
+                <table className="table table-striped align-middle">
                     <thead>
                         <tr>
                             <th>Date</th>
