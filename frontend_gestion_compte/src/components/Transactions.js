@@ -24,8 +24,13 @@ const Transactions = ({ updateCustomers }) => {
         fetch(process.env.REACT_APP_API_URL + '/transactions', requestOption)
         .then(() => {
             setUpdate(update + 1);
-            updateCustomers()
+            updateCustomers();
         })
+    }
+
+    const updateState = () => {
+        setUpdate(update + 1);
+        updateCustomers();
     }
 
     const dateSlice = (str) => {
@@ -41,7 +46,7 @@ const Transactions = ({ updateCustomers }) => {
     return (
         <div className="container-fluid">
             <Title title='Transactions' />
-            <CreateTransaction setUpdate={setUpdate.bind(this)} update={update} />
+            <CreateTransaction updateState={updateState.bind(this)}/>
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>

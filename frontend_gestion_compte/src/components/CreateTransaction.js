@@ -46,7 +46,7 @@ class CreateTransaction extends Component {
                     amout: 0
                 };
                 this.setState(reinitState);
-                this.props.setUpdate(this.props.update + 1);
+                this.props.updateState();
             })
     }
 
