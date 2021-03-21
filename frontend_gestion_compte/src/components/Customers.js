@@ -47,9 +47,9 @@ const Customers = ({customers, updateCustomers}) => {
                                 return (
                                     <tr key={k}>
                                         <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.name} </Link></td>
-                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.credit} </Link></td>
-                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit} </Link></td>
-                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.debit + customer.credit},00 € </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.paiement} </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.facture} </Link></td>
+                                        <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.paiement + customer.paiement},00 € </Link></td>
                                         <td><button onClick={() => EraseCustomer(customer)} className="btn btn-danger">Effacer</button></td>
                                     </tr>
                                 )

@@ -27,7 +27,7 @@ const DetailCustomer = () => {
             {currentCustomer !== undefined &&
                 <div>
                     <h2 className="customerTitle">{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-                    <h3 className="balance">Balance : {currentCustomer.credit - currentCustomer.debit}</h3>
+                    <h3 className="balance">Balance : {currentCustomer.paiement - currentCustomer.facture}</h3>
                 </div>
             }
             {currentCustomer === undefined &&

@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/QuickViewCustomer.css';
 
 const calculTotals = (customer) => {
-    return (customer.debit + customer.credit);
+    return (customer.facture + customer.paiement);
 }
 
 const QuickViewCustomer = (props) => {

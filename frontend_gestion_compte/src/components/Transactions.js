@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from './CreateTransaction';
-// import { deleteTransaction, getTransactions } from '../services/transactionsService';
 import Title from './Title';
 
-const Transactions = () => {
+const Transactions = ({ updateCustomers }) => {
 
     const [transactions, setTransactions] = useState([])
     const [update, setUpdate] = useState(0)
@@ -23,7 +22,10 @@ const Transactions = () => {
             body: JSON.stringify({ id: transaction.id })
         };
         fetch(process.env.REACT_APP_API_URL + '/transactions', requestOption)
-        setUpdate(update + 1);
+        .then(() => {
+            setUpdate(update + 1);
+            updateCustomers()
+        })
     }
 
     const dateSlice = (str) => {

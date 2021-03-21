@@ -29,29 +29,6 @@ export class CustomersService extends Component {
         })
     }
 
-    changeCustomers = () => {
-        console.log('entrer dans changeCustomer')
-        const customers2 = [
-            {
-                credit: 100,
-                debit: 100,
-                email: 'new@email.com',
-                id: 100,
-                name: 'Premier Client'
-            },
-            {
-                credit: 100,
-                debit: 100,
-                email: 'new2@email.com',
-                id: 100,
-                name: 'Deuxieme Client'
-            }
-        ]
-        this.setState({
-            customers: customers2
-        })
-    }
-
 
     componentDidMount() {
         fetch(process.env.REACT_APP_API_URL + '/customers').then((response) => {
@@ -80,7 +57,7 @@ export class CustomersService extends Component {
                             <Route path='/' exact component={() => <Home customers={this.state.customers} />} />
                             <Route path='/customers/:name' component={DetailCustomer} />
                             <Route path='/customers' component={() => <Customers customers={this.state.customers} updateCustomers={this.updateCustomers} />} />
-                            <Route path='/transactions' component={Transactions} />
+                            <Route path='/transactions' component={() => <Transactions updateCustomers={this.updateCustomers} />} />
                             <Route path='*' component={NotFound} />
                         </Switch>
                     </div>
