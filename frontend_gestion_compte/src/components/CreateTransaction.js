@@ -57,12 +57,12 @@ class CreateTransaction extends Component {
                 <form onSubmit={this.submitHandler} className="my-5">
                     <div className="input-group align-items-end col-sm-12">
                         <div className="col-6 pe-1">
-                            <label htmlFor="date" className="form-label ms-5 me-2">Date : </label>
+                            <label htmlFor="date" className="form-label mx-3">Date : </label>
                             <input type="date" name='date' className="form-control" value={date} onChange={this.changeHandler} min="2019-01-01" max="2021-12-31" />
                         </div>
 
                         <div className="col-6 ps-1">
-                            <label htmlFor="customer" className="form-label ms-5 me-2">Client : </label>
+                            <label htmlFor="customer" className="form-label mx-3">Client : </label>
                             <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
                                 <option value=''></option>
                                 {this.customers.map((customer, k) => {
@@ -74,16 +74,18 @@ class CreateTransaction extends Component {
                         </div>
 
                         <div className="col-6 mt-3 pe-1">
-                            <label htmlFor="designation" className="form-label ms-5 me-2">Designation : </label>
+                            <label htmlFor="designation" className="form-label mx-3">Designation : </label>
                             <input type="text" name='designation' className="form-control" value={designation} onChange={this.changeHandler} />
                         </div>
 
                         <div className="col-6 ps-1">
-                            <label htmlFor="amount" className="form-label ms-5">Montant : </label>
+                            <label htmlFor="amount" className="form-label mx-3">Montant : </label>
                             <input type="number" name='amount' className="form-control" value={amount} onChange={this.changeHandler} />
                         </div>
 
-                        <button type='submit' className="btn btn-success mt-3">Ajouter</button>
+                        <div className="mx-auto mt-3">
+                            <button type='submit' className="btn btn-success px-5">Ajouter</button>
+                        </div>
                     </div>
                 </form>
             </div>

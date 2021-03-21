@@ -1,5 +1,10 @@
+.App {
+    padding: 0 !important;
+    margin: 0;
+}
+
 .mainContent {
-    margin: 0 0 55px 0;
+    padding: 0 0 55px 0;
     height: 100vh;
     overflow-y: scroll;
     color: #727270;
@@ -12,6 +17,7 @@
 /* BottomMenu */
 .bottomMenu {
     position: fixed;
+    z-index: 10;
     bottom: 0;
     left: 0;
     width: 100vw;
@@ -39,10 +45,6 @@ a.current {
     transform: scale(0.8);
 }
 
-.mx-3 .table-responsive-xl {
-    min-width: 800px;
-}
-
-.pers {
-    width: 80px;
+a:hover {
+    color: #198754 !important;
 }

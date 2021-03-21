@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MdDeleteForever } from 'react-icons/md';
+import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from './CreateTransaction';
 // import { deleteTransaction, getTransactions } from '../services/transactionsService';
 import Title from './Title';
@@ -8,6 +8,7 @@ const Transactions = () => {
 
     const [transactions, setTransactions] = useState([])
     const [update, setUpdate] = useState(0)
+    const [edit, setEdit] = useState(false)
 
     useEffect(() => {
         fetch(process.env.REACT_APP_API_URL + '/transactions')
@@ -26,22 +27,30 @@ const Transactions = () => {
     }
 
     const dateSlice = (str) => {
-        return str.slice(5)
+        const strSplit = str.split('-');
+        const strFinal = strSplit[2] + '/' + strSplit[1];
+        return strFinal;
+    }
+
+    const switchEdit = () => {
+        setEdit(!edit);
     }
 
     return (
-        <div className="container">
+        <div className="container-fluid">
             <Title title='Transactions' />
             <CreateTransaction setUpdate={setUpdate.bind(this)} update={update} />
-            <div className="mx-3 col-12 table-responsive">
-                <table className="table table table-hover align-middle">
+            <div className="text-right">
+                <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
+            </div>
+            <div className="table-responsive">
+                <table className="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th className="pers">Date</th>
+                            <th>Date</th>
                             <th>Client</th>
                             <th>designation</th>
                             <th>Montant</th>
-                            <th></th>
                         </tr>
                     </thead>
                     {transactions !== undefined &&
@@ -53,7 +62,9 @@ const Transactions = () => {
                                         <td> {transaction.name} </td>
                                         <td> {transaction.designation} </td>
                                         <td> {transaction.amount} € </td>
-                                        <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
+                                        {edit &&
+                                            <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
+                                        }
                                     </tr>
                                 )
                             })}
