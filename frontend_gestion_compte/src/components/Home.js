@@ -14,9 +14,9 @@ function Home({ customers }) {
     return (
         <div className="container-fluid">
             {customers !== undefined &&
-                <div className="col-12 col-md-6">
+                <div>
                     {customers.map((customer, i) => {
-                        return (<QuickViewCustomer customer={customer} key={i} onClick={() => ShowCustomer(customer)} className='quickView' />)
+                        return (<QuickViewCustomer customer={customer} key={i} onClick={() => ShowCustomer(customer)} />)
                     })}
                 </div>
             }
