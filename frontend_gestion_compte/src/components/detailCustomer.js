@@ -8,6 +8,7 @@ const DetailCustomer = () => {
     const { name } = useParams();
     const [currentCustomer, setCustomer] = useState('');
     const [transactions, setTransactions] = useState([]);
+    const [colorText, setColorText] = useState('green');
 
     useEffect(() => {
         fetch(process.env.REACT_APP_API_URL + `/customers/${name}`).then((response) => {
@@ -22,13 +23,24 @@ const DetailCustomer = () => {
         })
     }, [name])
 
+    const balanceSign = () => {
+        const balance = currentCustomer.facture - currentCustomer.paiement;
+        if (balance < 0) {
+            setColorText('negative');
+        } else {
+            setColorText('positive');
+        }
+
+        return balance;
+    }
+
 
     return (
         <div>
             {currentCustomer !== undefined &&
                 <div>
                     <h2 className="customerTitle">{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-                    <h3 className="balance">Balance : {currentCustomer.facture - currentCustomer.paiement }</h3>
+                    <h3 className={`balance ${colorText}`}>Balance : { balanceSign },00 €</h3>
                 </div>
             }
             {currentCustomer === undefined &&

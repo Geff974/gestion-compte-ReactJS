@@ -9,3 +9,11 @@
     font-size: large;
     margin-bottom: 2em;
 }
+
+.negative {
+    color: red;
+}
+
+.positive {
+    color: green;
+}
