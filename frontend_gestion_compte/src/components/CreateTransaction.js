@@ -63,14 +63,20 @@ class CreateTransaction extends Component {
 
                         <div className="col-6 ps-1">
                             <label htmlFor="customer" className="form-label mx-3">Client : </label>
-                            <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
-                                <option value=''></option>
-                                {this.customers.map((customer, k) => {
-                                    return (
-                                        <option key={k} value={customer.id}>{customer.name}</option>
-                                    )
-                                })}
-                            </select>
+                            { this.props.customer !== undefined &&
+                                <input type="text" className="form-control" name="customer" value={this.props.customer} disabled/>
+                            }
+
+                            { this.props.customer === undefined &&
+                                <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
+                                    <option value=''></option>
+                                    {this.customers.map((customer, k) => {
+                                        return (
+                                            <option key={k} value={customer.id}>{customer.name}</option>
+                                        )
+                                    })}
+                                </select>
+                            }
                         </div>
 
                         <div className="col-6 mt-3 pe-1">

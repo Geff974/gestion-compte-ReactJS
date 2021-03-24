@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/detailCustomer.css';
+import CreateTransaction from './CreateTransaction';
 
 const DetailCustomer = () => {
 
@@ -27,7 +28,7 @@ const DetailCustomer = () => {
             {currentCustomer !== undefined &&
                 <div>
                     <h2 className="customerTitle">{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-                    <h3 className="balance">Balance : {currentCustomer.paiement - currentCustomer.facture}</h3>
+                    <h3 className="balance">Balance : {currentCustomer.facture - currentCustomer.paiement }</h3>
                 </div>
             }
             {currentCustomer === undefined &&
@@ -39,7 +40,6 @@ const DetailCustomer = () => {
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Client</th>
                                 <th>designation</th>
                                 <th>Montant</th>
                                 <th></th>
@@ -50,7 +50,6 @@ const DetailCustomer = () => {
                                 return (
                                     <tr key={k}>
                                         <td> {transaction.date} </td>
-                                        <td> {transaction.name} </td>
                                         <td> {transaction.designation} </td>
                                         <td> {transaction.amount},00 € </td>
                                         <td><button className="btn btn-danger">Effacer</button></td>
@@ -61,6 +60,7 @@ const DetailCustomer = () => {
                     </table>
                 </div>
             }
+            <CreateTransaction customer={name} />
         </div>
     );
 }

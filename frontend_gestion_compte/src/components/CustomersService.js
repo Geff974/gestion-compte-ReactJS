@@ -8,6 +8,8 @@ import Customers from './Customers';
 import Transactions from './Transactions';
 import DetailCustomer from './detailCustomer';
 import BottomMenu from './BottomMenu';
+import { isMobile } from "react-device-detect";
+
 
 export class CustomersService extends Component {
 
