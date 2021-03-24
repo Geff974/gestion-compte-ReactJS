@@ -6,32 +6,33 @@ import CreateTransaction from './CreateTransaction';
 const DetailCustomer = () => {
 
     const { name } = useParams();
+    const [update, setUpdate] = useState(0)
     const [currentCustomer, setCustomer] = useState('');
     const [transactions, setTransactions] = useState([]);
-    const [colorText, setColorText] = useState('green');
+    const [colorText, setColorText] = useState('');
 
     useEffect(() => {
         fetch(process.env.REACT_APP_API_URL + `/customers/${name}`).then((response) => {
             return response.json();
         }).then((response) => {
             setCustomer(response[0]);
+            balanceSign(response[0]);
             fetch(process.env.REACT_APP_API_URL + `/transactions/${response[0].id}`).then((response) => {
                 return response.json();
             }).then((response) => {
                 setTransactions(response);
             })
         })
-    }, [name])
+    }, [name, update])
 
-    const balanceSign = () => {
-        const balance = currentCustomer.facture - currentCustomer.paiement;
+    const balanceSign = (customer) => {
+        const balance = customer.facture + customer.paiement;
+        console.log(balance);
         if (balance < 0) {
             setColorText('negative');
         } else {
             setColorText('positive');
         }
-
-        return balance;
     }
 
 
@@ -40,7 +41,7 @@ const DetailCustomer = () => {
             {currentCustomer !== undefined &&
                 <div>
                     <h2 className="customerTitle">{(currentCustomer) ? currentCustomer.name : <p>Chargement...</p>}</h2>
-                    <h3 className={`balance ${colorText}`}>Balance : { balanceSign },00 €</h3>
+                    <h3 className={`balance ${colorText}`}>Balance : {currentCustomer.facture + currentCustomer.paiement},00 €</h3>
                 </div>
             }
             {currentCustomer === undefined &&

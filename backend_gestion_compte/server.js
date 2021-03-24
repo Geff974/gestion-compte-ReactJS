@@ -73,7 +73,7 @@ app.get('/api/transactions', (req, res) => {
 })
 
 app.get('/api/transactions/:id', (req, res) => {
-    database.query("SELECT * FROM transactions WHERE id_customer=?", req.params.id, (err, rows) => {
+    database.query("SELECT * FROM transactions WHERE id_customer=? ORDER BY date DESC", req.params.id, (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
