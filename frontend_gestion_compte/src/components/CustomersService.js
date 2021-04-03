@@ -8,6 +8,7 @@ import Customers from './Customers';
 import Transactions from './Transactions';
 import DetailCustomer from './detailCustomer';
 import BottomMenu from './BottomMenu';
+import MbHome from './MbHome';
 
 
 export class CustomersService extends Component {
@@ -59,6 +60,7 @@ export class CustomersService extends Component {
                             <Route path='/customers/:name' component={DetailCustomer} />
                             <Route path='/customers' component={() => <Customers customers={this.state.customers} updateCustomers={this.updateCustomers} />} />
                             <Route path='/transactions' component={() => <Transactions updateCustomers={this.updateCustomers} />} />
+                            <Route path='/mb/home' component={() => <MbHome customers={this.state.customers} />} />
                             <Route path='*' component={NotFound} />
                         </Switch>
                     </div>

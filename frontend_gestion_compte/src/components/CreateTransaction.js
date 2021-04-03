@@ -15,7 +15,7 @@ class CreateTransaction extends Component {
         this.changeHandler = this.changeHandler.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
     }
-    
+
     componentDidMount = () => {
         fetch(process.env.REACT_APP_API_URL + '/customers')
             .then(res => res.json())

@@ -6,9 +6,6 @@ import '../styles/Customers.css';
 
 const Customers = ({customers, updateCustomers}) => {
 
-    console.log('updateCustomers : ');
-    console.log(updateCustomers);
-
     const EraseCustomer = (customer) => {
         // TODO: Afficher une alerte info pour la suppression
         const requestOptions = {
