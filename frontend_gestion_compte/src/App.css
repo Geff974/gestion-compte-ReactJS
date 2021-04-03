@@ -13,38 +13,3 @@
 .App {
     background-color: #F7F6F1;
 }
-
-/* BottomMenu */
-.bottomMenu {
-    position: fixed;
-    z-index: 10;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 55px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    overflow-x: auto;
-}
-
-.nav_link {
-    height: 55px;
-    width: 100px;
-    overflow-y: hidden;
-    align-items: center;
-    white-space: nowrap;
-    text-decoration: none;
-    color: grey;
-    transition: ease-in 0.3s;
-}
-
-a.current {
-    color: #198754;
-    background-color: rgb(172, 169, 169);
-    border-radius: 10px;
-    transform: scale(0.8);
-}
-
-a:hover {
-    color: #198754 !important;
-}

@@ -1,0 +1,47 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    width: 100vw;
+    height: 60px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: #f2f3f7;
+    overflow-x: auto;
+}
+
+.nav_link {
+    height: 45px;
+    width: 100px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    align-items: center;
+    white-space: nowrap;
+    text-decoration: none;
+    color: grey;
+    transition: ease-in 0.3s;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
+        -2px -2px 12px rgba(255, 255, 255, 0.5),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+        2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav_link:hover {
+    box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
+        inset -2px -2px 12px rgba(255, 255, 255, 0.5),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+        inset -2px -2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.current {
+    color: #45559C;
+    transform: scale(0.98);
+    box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
+        inset -2px -2px 12px rgba(255, 255, 255, 0.5),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+        inset 2px 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
