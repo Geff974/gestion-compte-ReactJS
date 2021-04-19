@@ -43,7 +43,7 @@ console.log('server running');
 
 
 app.get('/api/customers', (req, res) => {
-    database.query("SELECT * FROM customers WHERE id_user=?",[req.body.id] , (err, rows) => {
+    database.query("SELECT * FROM customers WHERE id_user=?",[req.body.id_user] , (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -63,7 +63,7 @@ app.get('/api/customers/:name', (req, res) => {
 })
 
 app.get('/api/transactions', (req, res) => {
-    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id ORDER BY date DESC", (err, rows) => {
+    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY date DESC", [req.body.id_user] , (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -104,7 +104,6 @@ app.post('/api/login', (req, res) => {
         if (result.length > 0) {
             res.send(result[0]);
         } else {
-            console.log(result);
             res.send({ message: "Wrong username/password combination !" });
         }
     })
@@ -113,7 +112,7 @@ app.post('/api/login', (req, res) => {
 
 
 app.post('/api/customers', (req, res) => {
-    database.query("INSERT INTO customers (name, email) VALUES ('" + req.body.name + "','" + req.body.email + "')", (err, rows) => {
+    database.query("INSERT INTO customers (name, email, id_user) VALUES (?,?,?)", [req.body.name, req.body.email, req.body.id_user] , (err, rows) => {
         if (!err) {
             res.send(req.body.name + ' créé avec succés !');
         } else {
@@ -123,7 +122,7 @@ app.post('/api/customers', (req, res) => {
 })
 
 app.post('/api/transactions', (req, res) => {
-    database.query("INSERT INTO transactions (date, id_customer, designation, amount) VALUES ('" + req.body.date + "','" + req.body.customer + "','" + req.body.designation + "','" + req.body.amount + "')", (err, rows) => {
+    database.query("INSERT INTO transactions (date, id_customer, designation, amount, id_user) VALUES (?,?,?,?,?)", [req.body.date, req.body.customer, req.body.designation, req.body.amount, req.body.id_user ], (err, rows) => {
         if (!err) {
             const updateSuccess = updateAccount(req.body.customer);
             if (updateSuccess === 0) {

@@ -1,27 +1,43 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import CreateCustomer from './CreateCustomer';
 import Title from './Title';
 import { Link } from 'react-router-dom';
 import '../styles/Customers.css';
+import axios from 'axios';
 
-const Customers = ({customers, updateCustomers}) => {
+const Customers = () => {
+
+    // const EraseCustomer = (customer) => {
+    //     // TODO: Afficher une alerte info pour la suppression
+    //     const requestOptions = {
+    //         method: 'DELETE',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ name: customer.name })
+    //     };
+    //     fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
+    //         .then(() => {
+    //             alert("'" + customer.name + "' à été effacé avec succés !");
+    //             updateCustomers();
+    //         })
+    // }
+
+    // const updateAfterAddCustomer = () => {
+    //     updateCustomers();
+    // }
+
+    const user = useSelector(state => state.user);
+    const customers = [];
 
     const EraseCustomer = (customer) => {
-        // TODO: Afficher une alerte info pour la suppression
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: customer.name })
+            body: JSON.stringify({ name: customer.name, id_user: user.id })
         };
-        fetch(process.env.REACT_APP_API_URL + '/customers', requestOptions)
-            .then(() => {
-                alert("'" + customer.name + "' à été effacé avec succés !");
-                updateCustomers();
-            })
-    }
-
-    const updateAfterAddCustomer = () => {
-        updateCustomers();
+        axios.post(process.env.REACT_APP_API_URL + '/customers', requestOptions)
+        .then((response) => console.log(response.data))
+        .catch((err) => alert('Une erreur est survenue : ' + err));
     }
 
     return (
@@ -57,7 +73,7 @@ const Customers = ({customers, updateCustomers}) => {
             </div>
             <h3 className="container ms-5 mt-5">Ajouter un client</h3>
             <div>
-                <CreateCustomer updateAfterAddCustomer={updateAfterAddCustomer} />
+                <CreateCustomer />
             </div>
         </div>
     );

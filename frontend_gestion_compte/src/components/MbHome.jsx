@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
+import axios from 'axios';
 import '../styles/MbHome.css';
 
 const MbHome = ({ customers }) => {
@@ -21,9 +22,8 @@ const MbHome = ({ customers }) => {
 
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_URL + '/transactions')
-            .then(res => res.json())
-            .then(res => setTransactions(() => res));
+        axios.get(process.env.REACT_APP_API_URL + '/transactions', { id_user: user.id })
+            .then(res => setTransactions(res.data));
     }, [])
 
     useEffect(() => {

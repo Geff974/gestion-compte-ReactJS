@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { userInfo } from '../Redux/User/actionUser';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import '../styles/Login.css';
 
 const Login = () => {
 
+    let history = useHistory();
     const dispatch = useDispatch();
 
     const [userInput, setUserInput] = useState({
@@ -54,12 +56,13 @@ const Login = () => {
 
     const login = e => {
         e.preventDefault();
-        axios.post(process.env.REACT_APP_API_URL + '/login', { email: userInput.usernameLogin, password: userInput.passwordLogin })
+        axios.post(process.env.REACT_APP_API_URL + '/login', { usernameLogin: userInput.usernameLogin, passwordLogin: userInput.passwordLogin })
             .then(response => {
                 if (response.data.message) {
                     alert(response.data.message);
                 } else {
-                    dispatch(userInfo(response.data));
+                    dispatch(userInfo(response.data))
+                    history.push('/');
                 }
             })
     }
