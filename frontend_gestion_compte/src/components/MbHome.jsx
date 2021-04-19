@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
 
 const MbHome = ({ customers }) => {
+
+    const user = useSelector(state => state.user);
+
+    useEffect(() => {
+        if (user.id === null) {
+            history.push('/login');
+        }
+    }, [])
 
     let history = useHistory();
     const [transactions, setTransactions] = useState([]);

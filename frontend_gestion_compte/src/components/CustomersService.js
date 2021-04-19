@@ -56,7 +56,7 @@ export class CustomersService extends Component {
                     </div>
                     <div className='mainContent'>
                         <Switch>
-                            <Route path='/' exact component={() => <Home customers={this.state.customers} />} />
+                            <Route path='/' exact component={() => <Home />} />
                             <Route path='/customers/:name' component={DetailCustomer} />
                             <Route path='/customers' component={() => <Customers customers={this.state.customers} updateCustomers={this.updateCustomers} />} />
                             <Route path='/transactions' component={() => <Transactions updateCustomers={this.updateCustomers} />} />

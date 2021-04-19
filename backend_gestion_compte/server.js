@@ -43,7 +43,7 @@ console.log('server running');
 
 
 app.get('/api/customers', (req, res) => {
-    database.query("SELECT * FROM customers", (err, rows) => {
+    database.query("SELECT * FROM customers WHERE id_user=?",[req.body.id] , (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -81,6 +81,35 @@ app.get('/api/transactions/:id', (req, res) => {
         }
     })
 })
+
+app.post('/api/register', (req, res) => {
+    console.log(req.body);
+    database.query('INSERT INTO users (username, email, password) VALUE (?,?,?)', [req.body.usernameRegistration, req.body.emailRegistration, req.body.passwordRegistration], (err, result) => {
+        if(err) {
+            res.send({err: err});
+        } else {
+            res.send(result);
+        }
+    })
+})
+
+app.post('/api/login', (req, res) => {
+    database.query("SELECT * FROM users WHERE username=? AND password=?",
+    [req.body.usernameLogin, req.body.passwordLogin],
+    (err, result) => {
+        if(err) {
+            res.send({err: err});
+        }
+        
+        if (result.length > 0) {
+            res.send(result[0]);
+        } else {
+            console.log(result);
+            res.send({ message: "Wrong username/password combination !" });
+        }
+    })
+})
+
 
 
 app.post('/api/customers', (req, res) => {
