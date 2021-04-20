@@ -2,7 +2,7 @@ import { USER_UNAUTH, USER_INFO } from './type';
 
 const initialState = {
     isAuth: false,
-    user: {
+    info: {
         id: null,
         username: '',
         email: ''
@@ -20,7 +20,7 @@ const userReducer = (state = initialState, action) => {
         case USER_INFO:
             return {
                 ...state,
-                user: {
+                info: {
                     id: action.user.id,
                     username: action.user.username,
                     email: action.user.email

@@ -7,10 +7,10 @@ import BottomMenu from './components/BottomMenu';
 import NotFound from './pages/NotFound';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
-import MbHome from './components/MbHome';
+import MbHome from './pages/MbHome';
 import DetailCustomer from './components/detailCustomer';
-import Customers from './components/Customers';
-import Transactions from './components/Transactions';
+import Customers from './pages/Customers';
+import Transactions from './pages/Transactions';
 import Login from './pages/Login';
 
 

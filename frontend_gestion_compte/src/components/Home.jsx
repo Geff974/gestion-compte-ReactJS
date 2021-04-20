@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function Home() {
 
-    const user = useSelector(state => state.user);
+    const user = useSelector(state => state.user.info);
     const dispatch = useDispatch();
     let customers = [];
 

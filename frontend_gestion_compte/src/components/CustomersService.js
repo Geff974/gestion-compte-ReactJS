@@ -8,7 +8,7 @@ import Customers from './Customers';
 import Transactions from './Transactions';
 import DetailCustomer from './detailCustomer';
 import BottomMenu from './BottomMenu';
-import MbHome from './MbHome';
+import MbHome from '../pages/MbHome';
 
 
 export class CustomersService extends Component {

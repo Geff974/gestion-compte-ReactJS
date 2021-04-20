@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userInfo } from '../Redux/User/actionUser';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import '../styles/Login.css';
+import { customerAdd } from '../Redux/Customer/actionCustomer';
+import { transactionAdd } from '../Redux/Transaction/actionTransaction';
 
 const Login = () => {
 
@@ -11,8 +13,8 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const [userInput, setUserInput] = useState({
-        usernameLogin: '',
-        passwordLogin: ''
+        usernameLogin: 'admin',
+        passwordLogin: 'admin'
     });
 
     const [userRegistration, setUserRegistration] = useState({
@@ -61,10 +63,22 @@ const Login = () => {
                 if (response.data.message) {
                     alert(response.data.message);
                 } else {
-                    dispatch(userInfo(response.data))
+                    dispatch(userInfo(response.data));
+                    console.log(response.data.id);
+                    getData(response.data.id);
                     history.push('/');
                 }
             })
+    }
+
+    const getData = (id_user) => {
+        axios.get(process.env.REACT_APP_API_URL + '/customers/' + id_user)
+            .then(res => res.data.forEach(cust => dispatch(customerAdd(cust))))
+            .catch(err => alert(err));
+
+        // axios.get(process.env.REACT_APP_API_URL + '/transactions/' + id_user)
+        //     .then(res => res.data.forEach(trans => dispatch(transactionAdd(trans))))
+        //     .catch(err => alert(err));
     }
 
     const register = e => {

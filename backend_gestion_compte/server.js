@@ -42,8 +42,8 @@ const updateAccount = (id) => {
 console.log('server running');
 
 
-app.get('/api/customers', (req, res) => {
-    database.query("SELECT * FROM customers WHERE id_user=?",[req.body.id_user] , (err, rows) => {
+app.get('/api/customers/:id_user', (req, res) => {
+    database.query("SELECT * FROM customers WHERE id_user=?",[req.params.id_user] , (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -52,18 +52,18 @@ app.get('/api/customers', (req, res) => {
     })
 })
 
-app.get('/api/customers/:name', (req, res) => {
-    database.query("SELECT * FROM customers WHERE name = ?", req.params.name, (err, rows) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err)
-        }
-    })
-})
+// app.get('/api/customers/:name', (req, res) => {
+//     database.query("SELECT * FROM customers WHERE name = ?", req.params.name, (err, rows) => {
+//         if (!err) {
+//             res.send(rows);
+//         } else {
+//             console.log(err)
+//         }
+//     })
+// })
 
-app.get('/api/transactions', (req, res) => {
-    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY date DESC", [req.body.id_user] , (err, rows) => {
+app.get('/api/transactions/:id_user', (req, res) => {
+    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY date DESC", [req.params.id_user] , (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -72,8 +72,8 @@ app.get('/api/transactions', (req, res) => {
     })
 })
 
-app.get('/api/transactions/:id', (req, res) => {
-    database.query("SELECT * FROM transactions WHERE id_customer=? ORDER BY date DESC", req.params.id, (err, rows) => {
+app.get('/api/transactions/:id_user/:id_customer', (req, res) => {
+    database.query("SELECT * FROM transactions WHERE id_user=? AND id_customer=? ORDER BY date DESC", [req.params.id_user, req.params.id_customer], (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -112,9 +112,9 @@ app.post('/api/login', (req, res) => {
 
 
 app.post('/api/customers', (req, res) => {
-    database.query("INSERT INTO customers (name, email, id_user) VALUES (?,?,?)", [req.body.name, req.body.email, req.body.id_user] , (err, rows) => {
+    database.query("INSERT INTO customers (name, email, id_user) VALUES (?,?,?)", [req.body.nameCustomer, req.body.email, req.body.id_user] , (err, rows) => {
         if (!err) {
-            res.send(req.body.name + ' créé avec succés !');
+            res.send(req.body.nameCustomer + ' créé avec succés !');
         } else {
             console.log(err);
         }
@@ -142,7 +142,7 @@ app.post('/api/transactions', (req, res) => {
 
 
 app.delete('/api/customers', (req, res) => {
-    database.query("DELETE FROM customers WHERE name= ?", [req.body.name], (err, rows, fields) => {
+    database.query("DELETE FROM customers WHERE id= ?", [req.body.id], (err, rows, fields) => {
         if (!err) {
             res.send('Deleted successfully.');
         } else {

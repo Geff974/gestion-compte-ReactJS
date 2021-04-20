@@ -1,102 +1,97 @@
-import React, { Component } from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-class CreateTransaction extends Component {
+const CreateTransaction = ({ customerDefault }) => {
 
-    constructor(props) {
-        super(props);
+    const customers = useSelector(state => state.customers.customers);
+    console.log(customers);
+    const user = useSelector(state => state.user.info);
 
-        this.state = {
-            date: '',
-            customer: '',
-            designation: '',
-            amount: 0
-        }
-        this.customers = [];
-        this.changeHandler = this.changeHandler.bind(this)
-        this.submitHandler = this.submitHandler.bind(this)
-    }
+    const [transactionToAdd, setTransactionToAdd] = useState({
+        date: '',
+        customer: '',
+        designation: '',
+        amount: 0,
+        id_user: user.id
+    });
 
-    componentDidMount = () => {
-        fetch(process.env.REACT_APP_API_URL + '/customers')
-            .then(res => res.json())
-            .then(res => this.customers = res)
-    }
-
-    changeHandler = e => {
+    const changeHandler = e => {
+        console.log(e.target.name);
+        console.log(e.target.value);
         if (e.target.name === 'date') {
-            this.setState(() => ({ date: e.target.value.toLocaleString() }))
+            setTransactionToAdd({ ...transactionToAdd, date: e.target.value.toLocaleString() });
         } else {
-            this.setState(() => ({ [e.target.name]: e.target.value }))
+            setTransactionToAdd({ ...transactionToAdd, [e.target.name]: e.target.value });
         }
     }
 
-    submitHandler = e => {
+    const submitHandler = e => {
         e.preventDefault();
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state)
-        };
-        fetch(process.env.REACT_APP_API_URL + '/transactions', requestOptions)
+        axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionToAdd)
             .then(() => {
                 const reinitState = {
                     date: '',
                     customer: '',
                     designation: '',
-                    amout: 0
+                    amout: 0,
+                    id_user: user.id
                 };
-                this.setState(reinitState);
-                this.props.updateState();
+                setTransactionToAdd(reinitState);
             })
+            .catch(err => alert(err));
     }
 
-    render() {
-        const { date, customer, designation, amount } = this.state;
-        return (
-            <div className="row">
-                <form onSubmit={this.submitHandler} className="my-5">
-                    <div className="input-group align-items-end col-sm-12">
-                        <div className="col-6 pe-1">
-                            <label htmlFor="date" className="form-label mx-3">Date : </label>
-                            <input type="date" name='date' className="form-control" value={date} onChange={this.changeHandler} min="2019-01-01" max="2021-12-31" />
-                        </div>
+    const testBtn = () => {
+        // console.log(transactionToAdd);
+    }
 
-                        <div className="col-6 ps-1">
-                            <label htmlFor="customer" className="form-label mx-3">Client : </label>
-                            { this.props.customer !== undefined &&
-                                <input type="text" className="form-control" name="customer" value={this.props.customer} disabled/>
-                            }
-
-                            { this.props.customer === undefined &&
-                                <select className="form-select" name="customer" value={customer} onChange={this.changeHandler}>
-                                    <option value=''></option>
-                                    {this.customers.map((customer, k) => {
-                                        return (
-                                            <option key={k} value={customer.id}>{customer.name}</option>
-                                        )
-                                    })}
-                                </select>
-                            }
-                        </div>
-
-                        <div className="col-6 mt-3 pe-1">
-                            <label htmlFor="designation" className="form-label mx-3">Designation : </label>
-                            <input type="text" name='designation' className="form-control" value={designation} onChange={this.changeHandler} />
-                        </div>
-
-                        <div className="col-6 ps-1">
-                            <label htmlFor="amount" className="form-label mx-3">Montant : </label>
-                            <input type="number" name='amount' className="form-control" value={amount} onChange={this.changeHandler} />
-                        </div>
-
-                        <div className="mx-auto mt-3">
-                            <button type='submit' className="btn btn-success px-5">Ajouter</button>
-                        </div>
+    const { date, customer, designation, amount } = transactionToAdd;
+    return (
+        <div className="row">
+            <form onSubmit={submitHandler} className="my-5">
+                <div className="input-group align-items-end col-sm-12">
+                    <div className="col-6 pe-1">
+                        <label htmlFor="date" className="form-label mx-3">Date : </label>
+                        <input type="date" name='date' className="form-control" value={date} onChange={changeHandler} min="2019-01-01" max="2021-12-31" />
                     </div>
-                </form>
-            </div>
-        );
-    }
+
+                    <div className="col-6 ps-1">
+                        <label htmlFor="customer" className="form-label mx-3">Client : </label>
+                        { customerDefault !== undefined &&
+                            <input type="text" className="form-control" name="customer" value={customer} disabled/>
+                        }
+
+                        { customerDefault === undefined &&
+                            <select className="form-select" name="customer" value={customer} onChange={changeHandler}>
+                                <option value=''></option>
+                                {customers.map((customer, k) => {
+                                    return (
+                                        <option key={k} value={customer.id}>{customer.name}</option>
+                                    )
+                                })}
+                            </select>
+                        }
+                    </div>
+
+                    <div className="col-6 mt-3 pe-1">
+                        <label htmlFor="designation" className="form-label mx-3">Designation : </label>
+                        <input type="text" name='designation' className="form-control" value={designation} onChange={changeHandler} />
+                    </div>
+
+                    <div className="col-6 ps-1">
+                        <label htmlFor="amount" className="form-label mx-3">Montant : </label>
+                        <input type="number" name='amount' className="form-control" value={amount} onChange={changeHandler} />
+                    </div>
+
+                    <div className="mx-auto mt-3">
+                        <button type='submit' className="btn btn-success px-5">Ajouter</button>
+                        <button type='button' onClick={testBtn} className="btn btn-info px-5">Info</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    );
 }
 
 export default CreateTransaction;
