@@ -76,8 +76,11 @@ const Login = () => {
             .then(res => res.data.forEach(cust => dispatch(customerAdd(cust))))
             .catch(err => alert(err));
 
+        axios.get(process.env.REACT_APP_API_URL + '/transactions/' + id_user)
+            .then(res => res.data.forEach(trans => dispatch(transactionAdd(trans))))
+            .catch(err => alert(err));
         // axios.get(process.env.REACT_APP_API_URL + '/transactions/' + id_user)
-        //     .then(res => res.data.forEach(trans => dispatch(transactionAdd(trans))))
+        //     .then(res => console.log(res.data))
         //     .catch(err => alert(err));
     }
 

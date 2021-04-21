@@ -1,11 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const CreateTransaction = ({ customerDefault }) => {
 
     const customers = useSelector(state => state.customers.customers);
-    console.log(customers);
     const user = useSelector(state => state.user.info);
 
     const [transactionToAdd, setTransactionToAdd] = useState({
@@ -17,8 +16,6 @@ const CreateTransaction = ({ customerDefault }) => {
     });
 
     const changeHandler = e => {
-        console.log(e.target.name);
-        console.log(e.target.value);
         if (e.target.name === 'date') {
             setTransactionToAdd({ ...transactionToAdd, date: e.target.value.toLocaleString() });
         } else {
@@ -42,10 +39,6 @@ const CreateTransaction = ({ customerDefault }) => {
             .catch(err => alert(err));
     }
 
-    const testBtn = () => {
-        // console.log(transactionToAdd);
-    }
-
     const { date, customer, designation, amount } = transactionToAdd;
     return (
         <div className="row">
@@ -59,7 +52,7 @@ const CreateTransaction = ({ customerDefault }) => {
                     <div className="col-6 ps-1">
                         <label htmlFor="customer" className="form-label mx-3">Client : </label>
                         { customerDefault !== undefined &&
-                            <input type="text" className="form-control" name="customer" value={customer} disabled/>
+                            <input type="text" className="form-control" name="customer" value={customerDefault.name} disabled/>
                         }
 
                         { customerDefault === undefined &&
@@ -86,7 +79,6 @@ const CreateTransaction = ({ customerDefault }) => {
 
                     <div className="mx-auto mt-3">
                         <button type='submit' className="btn btn-success px-5">Ajouter</button>
-                        <button type='button' onClick={testBtn} className="btn btn-info px-5">Info</button>
                     </div>
                 </div>
             </form>

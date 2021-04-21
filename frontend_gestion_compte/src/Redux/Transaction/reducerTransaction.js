@@ -9,7 +9,7 @@ const transactionReducer = (state = initialState, action) =>{
         case TRANSACTION_ADD:
             return {
                 ...state,
-                transactions: [...state.transactions, action.transactions]
+                transactions: [...state.transactions, action.transaction]
             }
         default:
             return state;

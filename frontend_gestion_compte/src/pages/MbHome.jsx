@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
-import axios from 'axios';
 import '../styles/MbHome.css';
 
 const MbHome = () => {
@@ -45,8 +44,6 @@ const MbHome = () => {
         const strFinal = strSplit[2] + '/' + strSplit[1];
         return strFinal;
     }
-
-    console.log('transaction' + transactions);
 
 
     return (
