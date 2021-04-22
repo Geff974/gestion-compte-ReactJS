@@ -21,37 +21,20 @@ const DetailCustomer = () => {
     const [currentCustomer, setCurrentCustomer] = useState('');
     const [customerTransactions, setCustomerTransactions] = useState([]);
     const [colorText, setColorText] = useState('');
-    let indexOfCustomer = '';
 
     useEffect(() => {
-        indexOfCustomer = customers.findIndex(cust => cust.name === name);
+        const indexOfCustomer = customers.findIndex(cust => cust.name === name);
         setCurrentCustomer(customers[indexOfCustomer]);
         balanceSign(currentCustomer);
     }, [])
 
     useEffect(() => {
         transactions.map(trans => {
-            console.log(currentCustomer.name);
             if(trans.name === currentCustomer.name) {
                 setCustomerTransactions([...customerTransactions, trans]);
             }
         });
     }, [currentCustomer]);
-
-
-    // useEffect(() => {
-    //     fetch(process.env.REACT_APP_API_URL + `/customers/${name}`).then((response) => {
-    //         return response.json();
-    //     }).then((response) => {
-    //         setCustomer(response[0]);
-    //         balanceSign(response[0]);
-    //         fetch(process.env.REACT_APP_API_URL + `/transactions/${response[0].id}`).then((response) => {
-    //             return response.json();
-    //         }).then((response) => {
-    //             setTransactions(response);
-    //         })
-    //     })
-    // }, [name, update])
 
     const balanceSign = (customer) => {
         const balance = customer.facture + customer.paiement;
@@ -101,7 +84,7 @@ const DetailCustomer = () => {
                     </table>
                 </div>
             }
-            <CreateTransaction customerDefault={currentCustomer} />
+            <CreateTransaction nameCustomer={name} />
         </div>
     );
 }

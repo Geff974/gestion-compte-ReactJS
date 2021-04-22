@@ -3,13 +3,19 @@
     margin: 0;
 }
 
-.mainContent {
+/* .mainContent {
     padding: 0 0 55px 0;
     height: 100vh;
     overflow-y: scroll;
     color: #727270;
-}
+} */
+/* .mainContent {
+    padding: 0;
+    height: 100vh;
+    overflow-y: scroll;
+    color: #727270;
+} */
 
 .App {
-    background-color: #F7F6F1;
+    /* background-color: #F7F6F1; */
 }

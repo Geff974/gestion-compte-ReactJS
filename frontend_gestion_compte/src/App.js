@@ -12,6 +12,7 @@ import DetailCustomer from './components/detailCustomer';
 import Customers from './pages/Customers';
 import Transactions from './pages/Transactions';
 import Login from './pages/Login';
+import Auth from './pages/Auth';
 
 
 const App = () => {
@@ -21,14 +22,14 @@ const App = () => {
     <Provider store={store} >
       <div className="App container-fluid">
           <Router>
-              <div className='bottomMenu'>
-                  {/* <Sidebar /> */}
+              {/* <div className='bottomMenu'>
+                  <Sidebar />
                   <BottomMenu />
-              </div>
+              </div> */}
               <div className='mainContent'>
                   <Switch>
                       <Route path='/' exact component={MbHome} />
-                      <Route path='/login' component={Login} />
+                      <Route path='/login' component={Auth} />
                       <Route path='/customers/:name' component={DetailCustomer} />
                       <Route path='/customers' component={Customers} />
                       <Route path='/transactions' component={Transactions} />

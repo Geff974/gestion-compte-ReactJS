@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { transactionAdd } from '../Redux/Transaction/actionTransaction';
 
-const CreateTransaction = ({ customerDefault }) => {
+const CreateTransaction = ({ nameCustomer }) => {   
 
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
+    const dispatch = useDispatch();
+    const [currentCustomer, setCurrentCustomer] = useState({name: ''});
 
     const [transactionToAdd, setTransactionToAdd] = useState({
         date: '',
@@ -14,6 +17,15 @@ const CreateTransaction = ({ customerDefault }) => {
         amount: 0,
         id_user: user.id
     });
+
+    useEffect(() => {
+        if (nameCustomer) {
+            const indexOfCustomer = customers.findIndex(cust => cust.name === nameCustomer);
+            setCurrentCustomer(customers[indexOfCustomer]);
+        }
+    }, [])
+
+    
 
     const changeHandler = e => {
         if (e.target.name === 'date') {
@@ -25,16 +37,22 @@ const CreateTransaction = ({ customerDefault }) => {
 
     const submitHandler = e => {
         e.preventDefault();
-        axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionToAdd)
+        let transactionSend = {};
+        if (!nameCustomer) {
+            transactionSend = transactionToAdd;
+        } else {
+            transactionSend = { ...transactionToAdd, customer: currentCustomer.id }
+        }
+        axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionSend)
             .then(() => {
-                const reinitState = {
+                dispatch(transactionAdd(transactionSend));
+                setTransactionToAdd({
                     date: '',
                     customer: '',
                     designation: '',
                     amout: 0,
                     id_user: user.id
-                };
-                setTransactionToAdd(reinitState);
+                });
             })
             .catch(err => alert(err));
     }
@@ -51,11 +69,11 @@ const CreateTransaction = ({ customerDefault }) => {
 
                     <div className="col-6 ps-1">
                         <label htmlFor="customer" className="form-label mx-3">Client : </label>
-                        { customerDefault !== undefined &&
-                            <input type="text" className="form-control" name="customer" value={customerDefault.name} disabled/>
+                        { nameCustomer !== undefined &&
+                            <input type="text" className="form-control" name="customer" value={currentCustomer.name} disabled/>
                         }
 
-                        { customerDefault === undefined &&
+                        { nameCustomer === undefined &&
                             <select className="form-select" name="customer" value={customer} onChange={changeHandler}>
                                 <option value=''></option>
                                 {customers.map((customer, k) => {
