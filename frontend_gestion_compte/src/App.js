@@ -11,7 +11,6 @@ import MbHome from './pages/MbHome';
 import DetailCustomer from './components/detailCustomer';
 import Customers from './pages/Customers';
 import Transactions from './pages/Transactions';
-import Login from './pages/Login';
 import Auth from './pages/Auth';
 
 
@@ -22,10 +21,6 @@ const App = () => {
     <Provider store={store} >
       <div className="App container-fluid">
           <Router>
-              {/* <div className='bottomMenu'>
-                  <Sidebar />
-                  <BottomMenu />
-              </div> */}
               <div className='mainContent'>
                   <Switch>
                       <Route path='/' exact component={MbHome} />

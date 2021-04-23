@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
+import Menu from '../components/Menu';
 
 const MbHome = () => {
 
@@ -48,6 +49,7 @@ const MbHome = () => {
 
     return (
         <div>
+            <Menu />
             <header className='header-MbHome'>
                 <div>
                     <h3>Bienvenue</h3>

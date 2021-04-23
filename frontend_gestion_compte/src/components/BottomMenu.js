@@ -3,7 +3,8 @@ import '../styles/BottomMenu.css';
 import { MdDashboard, MdSupervisorAccount, MdList } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 
-function BottomMenu() {
+const BottomMenu = () => {
+
     return (
         <nav className="nav">
             <NavLink to='/mb/home' activeClassName='current' className='nav_link text-center'> <MdDashboard size={20} /> <br /> <span className="nav_text">Accueil</span> </NavLink>

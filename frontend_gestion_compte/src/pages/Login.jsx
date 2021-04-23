@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userInfo } from '../Redux/User/actionUser';
 import { useHistory } from 'react-router';
 import axios from 'axios';
