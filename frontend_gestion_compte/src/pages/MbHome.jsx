@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
-import Menu from '../components/Menu';
 
 const MbHome = () => {
 
@@ -48,8 +47,7 @@ const MbHome = () => {
 
 
     return (
-        <div>
-            <Menu />
+        <div className="mbHome">
             <header className='header-MbHome'>
                 <div>
                     <h3>Bienvenue</h3>
@@ -58,7 +56,7 @@ const MbHome = () => {
                 <div className="profilImg">
                 </div>
             </header>
-            <div className="cardCustomers">
+            <div>
                 {customers !== null &&
                     <div className='card-list'>
                         {
@@ -91,7 +89,7 @@ const MbHome = () => {
                     <div className="transaction-list">
                         {transactions.map((transaction, k) => {
                             return (
-                                <div key={k} className="transaction-line">
+                                <div key={k} onClick={() => showCustomer(transaction)} className="transaction-line">
                                     {transaction.amount > 0 ? <p className="arrow-line arrow-up"> <MdArrowUpward size={25} /> </p> : <p className="arrow-line arrow-down"> <MdArrowDownward size={25} /> </p>}
                                     <p className='trans-detail'> <span className="trans-name">{transaction.name}</span> <span className="trans-date">{dateSlice(transaction.date)}</span></p>
                                     <p className="trans-amount">{transaction.amount},00 €</p>

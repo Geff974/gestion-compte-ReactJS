@@ -14,18 +14,19 @@ const userReducer = (state = initialState, action) => {
         case USER_UNAUTH:
             return {
                 ...state,
-                isAuth: true
+                isAuth: false,
+                info: initialState.info
             }
 
         case USER_INFO:
             return {
                 ...state,
+                isAuth: true,
                 info: {
                     id: action.user.id,
                     username: action.user.username,
                     email: action.user.email
-                },
-                isAuth: true
+                }
             }
 
         default:

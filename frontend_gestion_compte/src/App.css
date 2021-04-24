@@ -1,4 +1,108 @@
 .App {
     padding: 0 !important;
+    margin: 0 !important;
+}
+
+.hamburgerBtn {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    content: '';
+    width: 40px;
+    height: 6px;
+    background: #333;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    z-index: 10;
+}
+
+.hamburgerBtn::before,
+.hamburgerBtn::after {
+    position: absolute;
+    content: '';
+    width: 40px;
+    height: 6px;
+    background: #333;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+}
+
+.hamburgerBtn::before {
+    transform: translateY(-14px);
+}
+
+.hamburgerBtn::after {
+    transform: translateY(14px);
+}
+
+.open-mode .hamburgerBtn {
+    transform: translateX(-40px);
+    background: transparent;
+}
+
+.open-mode .hamburgerBtn::after {
+    transform: rotate(45deg) translate(35px, -35px);
+}
+
+.open-mode .hamburgerBtn::before {
+    transform: rotate(-45deg) translate(35px, 35px);
+}
+
+
+/* MENU */
+.menu-list {
+    position: fixed;
+    font-size: 20px;
+    width: 50vw;
+    height: 100vh;
+    max-width: 300px;
+    right: 1rem;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style: none;
+    z-index: -1;
+    align-items: flex-start;
+    justify-content: center;
+    font-weight: 600;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.menu-list .active {
+    transform: scale(1.1);
+    color: #4d84e2;
+    transition: all 0.4s ease-in-out;
+}
+
+.open-mode .menu-list {
+    z-index: inherit;
+    pointer-events: all;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    background: none;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+}
+
+.main-content {
+    padding: 0;
     margin: 0;
+    height: 100%;
+    min-height: 100vh;
+    transition: all 0.4s ease-in-out;
+    z-index: 1;
+    background: #eee;
+}
+
+.main-content.open-mode {
+    transform: translateX(-60%);
+    border-right: 1px solid rgb(155, 155, 155);
+    height: 100vh;
+    box-shadow: 1px 1px 10px rgb(155, 155, 155);
+    transition: 0.4s ease-in-out;
 }

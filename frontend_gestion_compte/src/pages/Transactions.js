@@ -5,6 +5,8 @@ import CreateTransaction from '../components/CreateTransaction';
 import Title from '../components/Title';
 import { useSelector } from 'react-redux';
 
+import '../styles/Customers.css';
+
 const Transactions = () => {
 
     const user = useSelector(state => state.user.info);
@@ -58,7 +60,9 @@ const Transactions = () => {
 
     return (
         <div className="container-fluid">
-            <Title title='Transactions' />
+            <div className="header-transactions">
+                <h1>Transactions</h1>
+            </div>
             <CreateTransaction />
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>

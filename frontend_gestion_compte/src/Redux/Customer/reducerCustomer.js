@@ -1,4 +1,4 @@
-import { CUSTOMER_UPDATE, CUSTOMER_ERASE, CUSTOMER_ADD } from './type';
+import { CUSTOMER_ADD, CUSTOMER_REINIT } from './type';
 
 const initialState = {
     customers: []
@@ -7,10 +7,14 @@ const initialState = {
 const customerReducer = (state = initialState, action) => {
     switch(action.type) {
         case CUSTOMER_ADD:
-                return {
-                    ...state,
-                    customers: [...state.customers, action.customer]
-                }
+            return {
+                ...state,
+                customers: [...state.customers, action.customer]
+            }
+        case CUSTOMER_REINIT:
+            return {
+                customers: initialState.customers
+            }
         default:
             return state;
     }

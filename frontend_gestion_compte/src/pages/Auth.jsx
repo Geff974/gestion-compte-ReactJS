@@ -84,32 +84,35 @@ const Auth = () => {
     const { usernameLogin, passwordLogin } = userLogin;
     const { usernameRegistration, emailRegistration, passwordRegistration, confirmPassword } = userRegistration;
 
+    const disableRegistration = usernameRegistration === '' || emailRegistration === '' || passwordRegistration === '' || passwordRegistration !== confirmPassword ? true : false;
+    const disableLogin = usernameLogin === '' || passwordLogin === '' ? true : false;
 
     return (
         <div className={'auth-container ' + signUpMode} ref={authContainer}>
 
 
             <div className="form-container">
+
                 <div className="signin-signup">
 
                     <form action="#" className="sign-in-form">
                         <h2 className="title">Se connecter</h2>
                         <div className="input-field">
                             <i> <FaUser /> </i>
-                            <input type="text" onClick={login} placeholder="Nom d'utilisateur" id="usernameLogin" value={usernameLogin} onChange={handleChangeLogin} />
+                            <input type="text" placeholder="Nom d'utilisateur" id="usernameLogin" value={usernameLogin} onChange={handleChangeLogin} />
                         </div>
                         <div className="input-field">
                             <i> <FaLock /> </i>
                             <input type="password" placeholder="Mot de passe" id="passwordLogin" value={passwordLogin} onChange={handleChangeLogin} />
                         </div>
-                        <input type="submit" value="Login" onClick={login} className="sign-btn solid" />
+                        <input type="submit" value="Login" onClick={login} className="sign-btn solid" disabled={disableLogin} />
 
                         <p className="social-text">Contactez-moi sur mes réseaux</p>
                         <div className="social-media">
-                            <a href="#" className="social-icon"> <FaRegEnvelope /> </a>
-                            <a href="#" className="social-icon"> <FaWhatsapp /> </a>
-                            <a href="#" className="social-icon"> <FaLinkedinIn /> </a>
-                            <a href="#" className="social-icon"> <FaExternalLinkAlt /> </a>
+                            <a href="/" className="social-icon"> <FaRegEnvelope /> </a>
+                            <a href="/" className="social-icon"> <FaWhatsapp /> </a>
+                            <a href="/" className="social-icon"> <FaLinkedinIn /> </a>
+                            <a href="/" className="social-icon"> <FaExternalLinkAlt /> </a>
                         </div>
                     </form>
 
@@ -132,14 +135,14 @@ const Auth = () => {
                             <i> <FaLock /> </i>
                             <input type="password" placeholder="Confirmer mot de passe" id="confirmPassword" value={confirmPassword} onChange={handleChangeRegistration} />
                         </div>
-                        <input type="submit" value="Login" onClick={register} className="sign-btn solid" />
+                        <input type="submit" value="Login" onClick={register} className="sign-btn solid" disabled={disableRegistration} />
 
-                        <p className="social-text">Contactez-moi sur mes réseaux social professionnel</p>
+                        <p className="social-text">Contactez-moi sur mes réseaux.</p>
                         <div className="social-media">
-                            <a href="#" className="social-icon"> <FaRegEnvelope /> </a>
-                            <a href="#" className="social-icon"> <FaWhatsapp /> </a>
-                            <a href="#" className="social-icon"> <FaLinkedinIn /> </a>
-                            <a href="#" className="social-icon"> <FaExternalLinkAlt /> </a>
+                            <a href="/" className="social-icon"> <FaRegEnvelope /> </a>
+                            <a href="/" className="social-icon"> <FaWhatsapp /> </a>
+                            <a href="/" className="social-icon"> <FaLinkedinIn /> </a>
+                            <a href="/" className="social-icon"> <FaExternalLinkAlt /> </a>
                         </div>
                     </form>
 

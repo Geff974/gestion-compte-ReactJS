@@ -4,8 +4,8 @@ import { useHistory } from 'react-router';
 import CreateCustomer from '../components/CreateCustomer';
 import Title from '../components/Title';
 import { Link } from 'react-router-dom';
-import '../styles/Customers.css';
 import axios from 'axios';
+import '../styles/Customers.css';
 
 const Customers = () => {
 
