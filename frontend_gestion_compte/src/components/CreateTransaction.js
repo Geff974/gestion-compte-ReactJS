@@ -43,11 +43,12 @@ const CreateTransaction = ({ nameCustomer }) => {
         } else {
             transactionSend = { ...transactionToAdd, customer: currentCustomer.id }
         }
+
         axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionSend)
             .then(() => {
                 dispatch(transactionAdd(transactionSend));
                 setTransactionToAdd({
-                    date: '',
+                    date: '2021-04-24',
                     customer: '',
                     designation: '',
                     amout: 0,
@@ -58,6 +59,11 @@ const CreateTransaction = ({ nameCustomer }) => {
     }
 
     const { date, customer, designation, amount } = transactionToAdd;
+
+    const disableAdd = () => {
+        return date === "" || customer === "" || amount === null ? true : false;
+    }
+
     return (
         <div className="row">
             <form onSubmit={submitHandler} className="my-5">

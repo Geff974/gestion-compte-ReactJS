@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
 import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction';
-import Title from '../components/Title';
 import { useSelector } from 'react-redux';
 
 import '../styles/Customers.css';
@@ -20,30 +19,6 @@ const Transactions = () => {
     const transactions = useSelector(state => state.transactions.transactions)
     const [edit, setEdit] = useState(false)
 
-    // useEffect(() => {
-    //     fetch(process.env.REACT_APP_API_URL + '/transactions')
-    //         .then(res => res.json())
-    //         .then(res => setTransactions(res))
-    // }, [update])
-
-    // const deleteTransaction = (transaction) => {
-    //     const requestOption = {
-    //         method: 'DELETE',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ id: transaction.id })
-    //     };
-    //     fetch(process.env.REACT_APP_API_URL + '/transactions', requestOption)
-    //     .then(() => {
-    //         setUpdate(update + 1);
-    //         updateCustomers();
-    //     })
-    // }
-
-    // const updateState = () => {
-    //     setUpdate(update + 1);
-    //     updateCustomers();
-    // }
-
     const deleteTransaction = (transaction) => {
         console.log(transaction);
     }
@@ -59,7 +34,7 @@ const Transactions = () => {
     }
 
     return (
-        <div className="container-fluid">
+        <div className="transactions-component">
             <div className="header-transactions">
                 <h1>Transactions</h1>
             </div>

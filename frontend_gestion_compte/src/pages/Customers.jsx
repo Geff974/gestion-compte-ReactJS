@@ -34,7 +34,7 @@ const Customers = () => {
                 <h1>Liste des clients</h1>
             </div>
 
-            <table>
+            <table className="table-customers">
                 <thead>
                     <tr>
                         <th>Nom</th>
