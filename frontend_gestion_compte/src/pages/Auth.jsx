@@ -56,7 +56,6 @@ const Auth = () => {
                     alert(response.data.message);
                 } else {
                     dispatch(userInfo(response.data));
-                    console.log(response.data);
                     getData(response.data.id);
                     history.push('/');
                 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
-import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
+import { MdDeleteForever, MdEdit, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction';
 import { useSelector } from 'react-redux';
 
 import '../styles/Customers.css';
+import EditTransaction from '../components/EditTransaction';
 
 const Transactions = () => {
 
@@ -18,6 +19,11 @@ const Transactions = () => {
 
     const transactions = useSelector(state => state.transactions.transactions)
     const [edit, setEdit] = useState(false)
+    const [transactionToEdit, settransactionToEdit] = useState({ id: 0, date: "2017-03-11", name: 0, designation: 'Aucune', amount: 0 })
+
+    const editTransaction = (transaction) => {
+        settransactionToEdit(transaction);
+    }
 
     const deleteTransaction = (transaction) => {
         console.log(transaction);
@@ -62,6 +68,9 @@ const Transactions = () => {
                                         <td> {transaction.designation} </td>
                                         <td> {transaction.amount} € </td>
                                         {edit &&
+                                            <td><button onClick={() => editTransaction(transaction)} className="btn btn-secondary"><MdEdit /></button></td>
+                                        }
+                                        {edit &&
                                             <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
                                         }
                                     </tr>
@@ -71,6 +80,7 @@ const Transactions = () => {
                     }
                 </table>
             </div>
+            <EditTransaction transaction={transactionToEdit} />
         </div>
     )
 }

@@ -12,7 +12,7 @@
     box-shadow: 0 5px 10px lightgray;
     background-color: #fff;
     text-align: left;
-    overflow: hidden;
+    overflow-x: scroll;
 
 }
 

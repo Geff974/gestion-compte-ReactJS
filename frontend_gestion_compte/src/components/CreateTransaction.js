@@ -1,7 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionAdd } from '../Redux/Transaction/actionTransaction';
+import axios from 'axios';
+import '../styles/CreateTransaction.css';
 
 const CreateTransaction = ({ nameCustomer }) => {   
 
@@ -46,9 +47,13 @@ const CreateTransaction = ({ nameCustomer }) => {
 
         axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionSend)
             .then(() => {
+                const customerWhoAdded = customers.find(el => el.id == transactionToAdd.customer);
+                delete transactionSend.customer;
+                transactionSend = { ...transactionSend, name: customerWhoAdded.name };
+                console.log(transactionSend);
                 dispatch(transactionAdd(transactionSend));
                 setTransactionToAdd({
-                    date: '2021-04-24',
+                    ...transactionToAdd,
                     customer: '',
                     designation: '',
                     amout: 0,
@@ -59,10 +64,8 @@ const CreateTransaction = ({ nameCustomer }) => {
     }
 
     const { date, customer, designation, amount } = transactionToAdd;
-
-    const disableAdd = () => {
-        return date === "" || customer === "" || amount === null ? true : false;
-    }
+    
+    const disableAdd = date === "" || customer === "" || amount === null ? true : false;
 
     return (
         <div className="row">
@@ -102,7 +105,7 @@ const CreateTransaction = ({ nameCustomer }) => {
                     </div>
 
                     <div className="mx-auto mt-3">
-                        <button type='submit' className="btn btn-success px-5">Ajouter</button>
+                        <button type='submit' className="btn btn-success px-5" disabled={disableAdd}>Ajouter</button>
                     </div>
                 </div>
             </form>
