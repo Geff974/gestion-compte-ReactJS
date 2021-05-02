@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
 import { MdDeleteForever, MdEdit, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction';
@@ -9,6 +9,7 @@ import EditTransaction from '../components/EditTransaction';
 
 const Transactions = () => {
 
+    const refEditTransaction = useRef(null);
     const user = useSelector(state => state.user.info);
     let history = useHistory();
     useEffect(() => {
@@ -23,6 +24,7 @@ const Transactions = () => {
 
     const editTransaction = (transaction) => {
         settransactionToEdit(transaction);
+        refEditTransaction.current.className = "edit-transaction open";
     }
 
     const deleteTransaction = (transaction) => {
@@ -80,7 +82,7 @@ const Transactions = () => {
                     }
                 </table>
             </div>
-            <EditTransaction transaction={transactionToEdit} />
+            <EditTransaction transaction={transactionToEdit} ref={refEditTransaction} />
         </div>
     )
 }

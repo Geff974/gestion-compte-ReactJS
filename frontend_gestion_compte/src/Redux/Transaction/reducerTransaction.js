@@ -1,4 +1,4 @@
-import { TRANSACTION_ADD, TRANSACTION_REINIT } from './type';
+import { TRANSACTION_ADD, TRANSACTION_REINIT, TRANSACTION_UPDATE } from './type';
 
 const initialState = {
     transactions: []
@@ -14,6 +14,14 @@ const transactionReducer = (state = initialState, action) =>{
         case TRANSACTION_REINIT:
             return {
                 transactions: initialState.transactions
+            }
+        case TRANSACTION_UPDATE:
+            const indexOfTransaction = state.transactions.findIndex(trans => trans.id === action.transaction.id);
+            const newTransactions = state.transactions;
+            newTransactions[indexOfTransaction] = action.transaction;
+            return {
+                ...state,
+                transactions: newTransactions
             }
         default:
             return state;

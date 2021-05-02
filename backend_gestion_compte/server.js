@@ -42,45 +42,7 @@ const updateAccount = (id) => {
 console.log('server running');
 
 
-app.get('/api/customers/:id_user', (req, res) => {
-    database.query("SELECT * FROM customers WHERE id_user=?",[req.params.id_user] , (err, rows) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err)
-        }
-    })
-})
-
-// app.get('/api/customers/:name', (req, res) => {
-//     database.query("SELECT * FROM customers WHERE name = ?", req.params.name, (err, rows) => {
-//         if (!err) {
-//             res.send(rows);
-//         } else {
-//             console.log(err)
-//         }
-//     })
-// })
-
-app.get('/api/transactions/:id_user', (req, res) => {
-    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY date DESC", [req.params.id_user] , (err, rows) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    })
-})
-
-app.get('/api/transactions/:id_user/:id_customer', (req, res) => {
-    database.query("SELECT * FROM transactions WHERE id_user=? AND id_customer=? ORDER BY date DESC", [req.params.id_user, req.params.id_customer], (err, rows) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    })
-})
+// -------------- CREATE --------------
 
 app.post('/api/register', (req, res) => {
     console.log(req.body);
@@ -108,8 +70,6 @@ app.post('/api/login', (req, res) => {
         }
     })
 })
-
-
 
 app.post('/api/customers', (req, res) => {
     database.query("INSERT INTO customers (name, email, id_user) VALUES (?,?,?)", [req.body.nameCustomer, req.body.email, req.body.id_user] , (err, rows) => {
@@ -140,6 +100,60 @@ app.post('/api/transactions', (req, res) => {
     });
 })
 
+
+// -------------- READ --------------
+
+app.get('/api/customers/:id_user', (req, res) => {
+    database.query("SELECT * FROM customers WHERE id_user=?",[req.params.id_user] , (err, rows) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err)
+        }
+    })
+})
+
+app.get('/api/transactions/:id_user', (req, res) => {
+    database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY date DESC", [req.params.id_user] , (err, rows) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    })
+})
+
+app.get('/api/transactions/:id_user/:id_customer', (req, res) => {
+    database.query("SELECT * FROM transactions WHERE id_user=? AND id_customer=? ORDER BY date DESC", [req.params.id_user, req.params.id_customer], (err, rows) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    })
+})
+
+
+// -------------- UPDATE --------------
+
+app.put('/api/transactions', (req, res) => {
+    database.query("UPDATE transactions SET designation=? , amount=?, id_customer=?, date=? WHERE id=?", [req.body.designation, req.body.amount, req.body.name, req.body.date, req.body.id], (err, rows) => {
+        if(!err) {
+            database.query("SELECT * FROM transactions WHERE id=?", [req.body.id], (err, row) => {
+                if (!err) {
+                    res.send(row)
+                } else {
+                    res.send({ warning: 'Transaction update, but can not send it back. Try log out.'})
+                }
+            })
+        } else {
+            console.log(err);
+        }
+    })
+})
+
+
+// -------------- DELETE --------------
 
 app.delete('/api/customers', (req, res) => {
     database.query("DELETE FROM customers WHERE id= ?", [req.body.id], (err, rows, fields) => {
