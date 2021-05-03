@@ -11,6 +11,7 @@ const EditTransaction = React.forwardRef((props, ref) => {
     const dispatch = useDispatch();
 
     console.log(ref);
+    const user = useSelector(state => state.user.info);
     const customers = useSelector(state => state.customers.customers);
     const sizeOfIcon = 35;
 
@@ -19,14 +20,15 @@ const EditTransaction = React.forwardRef((props, ref) => {
         date: props.transaction.date,
         name: props.transaction.name,
         designation: props.transaction.designation,
-        amount: props.transaction.amount
+        amount: props.transaction.amount,
+        id_user: user.id
     })
 
     useEffect(() => {
         if (customers) {
             const customerSelected = customers.find(cust => cust.name === props.transaction.name);
             if (customerSelected) {
-                setTransactionEdit({ ...props.transaction, name: customerSelected.id });
+                setTransactionEdit({ ...props.transaction, name: customerSelected.id, id_user: user.id });
                 ref.current.className = "edit-transaction open";
             }
         }

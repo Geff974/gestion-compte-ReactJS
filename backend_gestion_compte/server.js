@@ -13,11 +13,11 @@ app.use((req, res, next) => {
     next();
 })
 
-const updateAccount = (id) => {
+const updateAccount = (id_customer, id_user) => {
     let facture = 0;
     let paiement = 0;
 
-    database.query("SELECT * FROM transactions WHERE id_customer = ?", id, (err, rows) => {
+    database.query("SELECT * FROM transactions WHERE id_customer = ? AND id_user = ?", [id_customer, id_user], (err, rows) => {
         if (!err) {
             rows.map(el => {
                 if (el.amount > 0) {
@@ -84,7 +84,7 @@ app.post('/api/customers', (req, res) => {
 app.post('/api/transactions', (req, res) => {
     database.query("INSERT INTO transactions (date, id_customer, designation, amount, id_user) VALUES (?,?,?,?,?)", [req.body.date, req.body.customer, req.body.designation, req.body.amount, req.body.id_user ], (err, rows) => {
         if (!err) {
-            const updateSuccess = updateAccount(req.body.customer);
+            const updateSuccess = updateAccount(req.body.customer, req.body.id_user);
             if (updateSuccess === 0) {
                 res.status(201).json({
                     message: 'Transaction create but customer dont update !'
@@ -139,6 +139,7 @@ app.get('/api/transactions/:id_user/:id_customer', (req, res) => {
 app.put('/api/transactions', (req, res) => {
     database.query("UPDATE transactions SET designation=? , amount=?, id_customer=?, date=? WHERE id=?", [req.body.designation, req.body.amount, req.body.name, req.body.date, req.body.id], (err, rows) => {
         if(!err) {
+            const updateSuccess = updateAccount(req.body.name, req.body.id_user);
             database.query("SELECT * FROM transactions WHERE id=?", [req.body.id], (err, row) => {
                 if (!err) {
                     res.send(row)

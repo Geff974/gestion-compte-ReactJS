@@ -13,24 +13,23 @@
     background-color: #fff;
     text-align: left;
     overflow-x: scroll;
-
 }
 
-thead {
+.table-customers thead {
     box-shadow: 0 5px 10px lightgray;
 }
 
-th {
+.table-customers th {
     padding: 1rem 2rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
 }
 
-td {
+.table-customers td {
     padding: 1rem 1rem;
 }
 
-td.nav-link {
+.table-customers td.nav-link {
     padding: 0 !important;
 }
 
@@ -50,6 +49,6 @@ td.nav-link {
     color: #c62828;
 }
 
-tr:nth-child(even) {
+.table-customers tr:nth-child(even) {
     background: #f4f6fb;
 }

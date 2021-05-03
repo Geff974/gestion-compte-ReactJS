@@ -4,7 +4,7 @@ import { MdDeleteForever, MdEdit, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction';
 import { useSelector } from 'react-redux';
 
-import '../styles/Customers.css';
+import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
 
 const Transactions = () => {
@@ -50,38 +50,36 @@ const Transactions = () => {
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>
-            <div className="table-responsive">
-                <table className="table table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Client</th>
-                            <th>designation</th>
-                            <th>Montant</th>
-                        </tr>
-                    </thead>
-                    {transactions !== undefined &&
-                        <tbody>
-                            {transactions.map((transaction, k) => {
-                                return (
-                                    <tr key={k}>
-                                        <td> {dateSlice(transaction.date)} </td>
-                                        <td> {transaction.name} </td>
-                                        <td> {transaction.designation} </td>
-                                        <td> {transaction.amount} € </td>
-                                        {edit &&
-                                            <td><button onClick={() => editTransaction(transaction)} className="btn btn-secondary"><MdEdit /></button></td>
-                                        }
-                                        {edit &&
-                                            <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
-                                        }
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    }
-                </table>
-            </div>
+            <table className="table-transactions">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Client</th>
+                        <th>designation</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                {transactions !== undefined &&
+                    <tbody>
+                        {transactions.map((transaction, k) => {
+                            return (
+                                <tr key={k} onDoubleClick={() => editTransaction(transaction)}>
+                                    <td> {dateSlice(transaction.date)} </td>
+                                    <td> {transaction.name} </td>
+                                    <td> {transaction.designation} </td>
+                                    <td className="amount"> {transaction.amount} € </td>
+                                    {edit &&
+                                        <td><button onClick={() => editTransaction(transaction)} className="btn btn-secondary"><MdEdit /></button></td>
+                                    }
+                                    {edit &&
+                                        <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
+                                    }
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                }
+            </table>
             <EditTransaction transaction={transactionToEdit} ref={refEditTransaction} />
         </div>
     )

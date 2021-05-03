@@ -1,0 +1,33 @@
+.table-transactions {
+    font-size: 14px;
+    height: 150vh;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px lightgray;
+    background-color: #fff;
+    text-align: left;
+    overflow-x: scroll !important;
+}
+
+.table-transactions thead {
+    box-shadow: 0 5px 10px lightgray;
+    position: sticky !important;
+    top: 0;
+}
+
+.table-transactions th {
+    padding: 0.5rem 0.3rem;
+}
+
+.table-transactions td {
+    padding: 0.3rem 0.3rem;
+}
+
+.table-transactions .amount {
+    padding-right: 1rem;
+    text-align: right;
+}
+
+.table-transactions tr:nth-child(even) {
+    background: #f4f6fb;
+}

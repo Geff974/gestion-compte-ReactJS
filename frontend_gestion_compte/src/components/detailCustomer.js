@@ -25,20 +25,21 @@ const DetailCustomer = () => {
     useEffect(() => {
         const indexOfCustomer = customers.findIndex(cust => cust.name === name);
         setCurrentCustomer(customers[indexOfCustomer]);
-        balanceSign(currentCustomer);
     }, [])
-
+    
     useEffect(() => {
+        balanceSign(currentCustomer);
+        const transactionList = []
         transactions.map(trans => {
             if(trans.name === currentCustomer.name) {
-                setCustomerTransactions([...customerTransactions, trans]);
+                transactionList.push(trans);
             }
         });
+        setCustomerTransactions(transactionList);
     }, [currentCustomer]);
 
     const balanceSign = (customer) => {
         const balance = customer.facture + customer.paiement;
-        console.log(balance);
         if (balance < 0) {
             setColorText('negative');
         } else {
