@@ -23,8 +23,6 @@ const CreateCustomer = () => {
     })
 
     const changeHandler = e => {
-        console.log(e);
-        console.log(customer);
         setCustomer({...customer, [e.target.name]: e.target.value});
     }
 

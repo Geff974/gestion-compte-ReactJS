@@ -26,7 +26,7 @@ const updateAccount = (id_customer, id_user) => {
                     paiement += el.amount;
                 }
             })
-            database.query('UPDATE customers SET facture = ' + facture + ', paiement = ' + paiement + ' WHERE id = ? ', id, (err, rows) => {
+            database.query('UPDATE customers SET facture = ' + facture + ', paiement = ' + paiement + ' WHERE id = ? ', id_customer, (err, rows) => {
                 if (!err) {
                     return 1;
                 } else {
@@ -40,6 +40,14 @@ const updateAccount = (id_customer, id_user) => {
 }
 
 console.log('server running');
+
+app.get('/test', (req, res) => {
+    database.query("SELECT * FROM transactions WHERE id_customer = 52 AND id_user = 1", (err, rows) => {
+        if (!err) {
+            console.log(rows);
+        }
+    })
+})
 
 
 // -------------- CREATE --------------

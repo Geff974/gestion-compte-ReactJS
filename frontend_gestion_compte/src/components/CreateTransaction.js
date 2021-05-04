@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { transactionAdd } from '../Redux/Transaction/actionTransaction';
 import axios from 'axios';
 import '../styles/CreateTransaction.css';
+import { customerUpdate } from '../Redux/Customer/actionCustomer';
 
 const CreateTransaction = ({ nameCustomer }) => {   
 
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
+    const transactions = useSelector(state => state.transactions.transactions)
     const dispatch = useDispatch();
     const [currentCustomer, setCurrentCustomer] = useState({name: ''});
 
@@ -50,8 +52,8 @@ const CreateTransaction = ({ nameCustomer }) => {
                 const customerWhoAdded = customers.find(el => el.id == transactionToAdd.customer);
                 delete transactionSend.customer;
                 transactionSend = { ...transactionSend, name: customerWhoAdded.name };
-                console.log(transactionSend);
                 dispatch(transactionAdd(transactionSend));
+                dispatch(customerUpdate(transactions, customerWhoAdded.name));
                 setTransactionToAdd({
                     ...transactionToAdd,
                     customer: '',
@@ -61,6 +63,11 @@ const CreateTransaction = ({ nameCustomer }) => {
                 });
             })
             .catch(err => alert(err));
+    }
+
+    const test = () => {
+        const index = customers.findIndex(cust => cust.id == transactionToAdd.customer);
+        dispatch(customerUpdate(transactions, customers[index].name));
     }
 
     const { date, customer, designation, amount } = transactionToAdd;
@@ -106,6 +113,9 @@ const CreateTransaction = ({ nameCustomer }) => {
 
                     <div className="mx-auto mt-3">
                         <button type='submit' className="btn btn-success px-5" disabled={disableAdd}>Ajouter</button>
+                    </div>
+                    <div className="mx-auto mt-3">
+                        <button type='button' onClick={test} className="btn btn-success px-5">Test</button>
                     </div>
                 </div>
             </form>

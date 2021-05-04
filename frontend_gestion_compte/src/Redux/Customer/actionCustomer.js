@@ -7,9 +7,19 @@ export const customerAdd = (customer) => {
     }
 }
 
-export const customerUpdate = () => {
+export const customerUpdate = (transactions, name_customer) => {
+    let paiement = 0;
+    let facture = 0;
+    transactions.map(trans => {
+        if (trans.name == name_customer) {
+            trans.amount > 0 ? facture += trans.amount : paiement+= trans.amount;
+        }
+    })
     return {
-        type: CUSTOMER_UPDATE
+        type: CUSTOMER_UPDATE,
+        customer: name_customer,
+        paiement: paiement,
+        facture: facture
     }
 }
 

@@ -5,12 +5,12 @@ import { FcCalendar, FcContacts, FcCurrencyExchange, FcSms } from 'react-icons/f
 import '../styles/EditTransaction.css';
 import axios from 'axios';
 import { transactionUpdate } from '../Redux/Transaction/actionTransaction';
+import { customerUpdate } from '../Redux/Customer/actionCustomer';
 
 const EditTransaction = React.forwardRef((props, ref) => {
 
     const dispatch = useDispatch();
 
-    console.log(ref);
     const user = useSelector(state => state.user.info);
     const customers = useSelector(state => state.customers.customers);
     const sizeOfIcon = 35;
@@ -32,7 +32,6 @@ const EditTransaction = React.forwardRef((props, ref) => {
                 ref.current.className = "edit-transaction open";
             }
         }
-        console.log('update');
     }, [props.transaction])
 
     const handleChange = e => {
@@ -71,6 +70,7 @@ const EditTransaction = React.forwardRef((props, ref) => {
                 transactionToDispatch = result.data[0];
                 transactionToDispatch = { ...transactionToDispatch, name: customerSelected.name }
                 dispatch(transactionUpdate(transactionToDispatch));
+                dispatch(customerUpdate(customerSelected.name));
             })
             .catch(err => alert(err));
         closeModal();

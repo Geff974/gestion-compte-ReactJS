@@ -41,10 +41,6 @@ const Transactions = () => {
         setEdit(!edit);
     }
 
-    const Test = () => {
-        console.log('Ýess')
-    }
-
     return (
         <div className="transactions-component">
             <div className="header-transactions">
