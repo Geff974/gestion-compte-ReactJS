@@ -41,6 +41,10 @@ const Transactions = () => {
         setEdit(!edit);
     }
 
+    const Test = () => {
+        console.log('Ýess')
+    }
+
     return (
         <div className="transactions-component">
             <div className="header-transactions">
@@ -50,36 +54,35 @@ const Transactions = () => {
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>
-            <table className="table-transactions">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Client</th>
-                        <th>designation</th>
-                        <th>Montant</th>
-                    </tr>
-                </thead>
-                {transactions !== undefined &&
-                    <tbody>
-                        {transactions.map((transaction, k) => {
-                            return (
-                                <tr key={k} onDoubleClick={() => editTransaction(transaction)}>
-                                    <td> {dateSlice(transaction.date)} </td>
-                                    <td> {transaction.name} </td>
-                                    <td> {transaction.designation} </td>
-                                    <td className="amount"> {transaction.amount} € </td>
-                                    {edit &&
-                                        <td><button onClick={() => editTransaction(transaction)} className="btn btn-secondary"><MdEdit /></button></td>
-                                    }
-                                    {edit &&
-                                        <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
-                                    }
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                }
-            </table>
+            <div className="table-transactions">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>designation</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    {transactions !== undefined &&
+                        <tbody>
+                            {transactions.map((transaction, k) => {
+                                return (
+                                    <tr key={k} onDoubleClick={() => editTransaction(transaction)}>
+                                        <td className="date-table"> {dateSlice(transaction.date)} </td>
+                                        <td> {transaction.name} </td>
+                                        <td> {transaction.designation} </td>
+                                        <td className="amount"> {transaction.amount} € </td>
+                                        {edit &&
+                                            <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
+                                        }
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    }
+                </table>
+            </div>
             <EditTransaction transaction={transactionToEdit} ref={refEditTransaction} />
         </div>
     )

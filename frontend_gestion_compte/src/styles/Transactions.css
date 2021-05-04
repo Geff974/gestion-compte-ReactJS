@@ -1,33 +1,47 @@
 .table-transactions {
+    overflow: auto;
+}
+
+.table-transactions table {
     font-size: 14px;
-    height: 150vh;
     width: 100%;
     border-collapse: collapse;
     box-shadow: 0 5px 10px lightgray;
     background-color: #fff;
     text-align: left;
-    overflow-x: scroll !important;
+    table-layout: auto;
 }
 
-.table-transactions thead {
-    box-shadow: 0 5px 10px lightgray;
-    position: sticky !important;
-    top: 0;
-}
-
-.table-transactions th {
-    padding: 0.5rem 0.3rem;
-}
-
+.table-transactions table,
+.table-transactions th,
 .table-transactions td {
-    padding: 0.3rem 0.3rem;
+    border: 1px solid lightgray;
 }
 
-.table-transactions .amount {
+.table-transactions table thead {
+    box-shadow: 0 5px 10px lightgray;
+}
+
+.table-transactions table th {
+    padding: 1rem 0.3rem;
+    position: sticky;
+    top: 1px;
+}
+
+.table-transactions table td {
+    padding: 0.8rem 0.3rem;
+}
+
+.table-transactions table .amount {
     padding-right: 1rem;
     text-align: right;
 }
 
-.table-transactions tr:nth-child(even) {
+.table-transactions table .date-table {
+    max-width: 80px;
+}
+
+
+.table-transactions table tr:nth-child(even) {
     background: #f4f6fb;
 }
