@@ -38,6 +38,9 @@ const MbHome = () => {
     const showCustomer = (customer) => {
         history.push('/customers/' + customer.name);
     }
+    const provTest = () => {
+        history.push('/test');
+    }
 
     const dateSlice = (str) => {
         const strSplit = str.split('-');
@@ -57,6 +60,7 @@ const MbHome = () => {
                 </div>
             </header>
             <div>
+                <button onClick={provTest}>Test</button>
                 {customers !== null &&
                     <div className='card-list'>
                         {

@@ -16,6 +16,7 @@ import Auth from './pages/Auth';
 import { MdDashboard, MdSupervisorAccount, MdList } from "react-icons/md";
 import './App.css';
 import Account from './pages/Account';
+import CustomerInfo from './components/CustomerInfo';
 
 
 const App = () => {
@@ -71,6 +72,7 @@ const App = () => {
             <Route path='/customers' component={Customers} />
             <Route path='/transactions' component={Transactions} />
             <Route path='/mb/home' component={MbHome} />
+            <Route path='/test' component={CustomerInfo} />
             <Route path='*' component={NotFound} />
           </Switch>
         </div>

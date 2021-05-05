@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import '../styles/Customers.css';
+import CustomerInfo from '../components/CustomerInfo';
 
 const Customers = () => {
 
@@ -34,7 +35,7 @@ const Customers = () => {
                 <h1>Liste des clients</h1>
             </div>
 
-            <table className="table-customers">
+            {/* <table className="table-customers">
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -53,7 +54,10 @@ const Customers = () => {
                         )
                     })}
                 </tbody>
-            </table>
+            </table> */}
+            {customers.map((customer, k) => {
+                return <CustomerInfo customer={customer} key={k} />
+            })}
         </div>
     );
 };
