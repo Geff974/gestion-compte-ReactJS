@@ -60,7 +60,6 @@ const MbHome = () => {
                 </div>
             </header>
             <div>
-                <button onClick={provTest}>Test</button>
                 {customers !== null &&
                     <div className='card-list'>
                         {

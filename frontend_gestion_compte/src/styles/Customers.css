@@ -1,48 +1,12 @@
 .header-customers,
 .header-transactions {
-    padding-top: 5rem;
+    padding-top: 3rem;
     padding-bottom: 3rem;
     text-align: center;
     margin-bottom: 5rem;
-    background: #4481eb;
+    background: linear-gradient(-45deg, #4481eb, rgb(21, 175, 226));
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-}
-
-.table-customers {
-    margin-top: 2rem;
-    font-size: 14px;
-    border-collapse: collapse;
-    box-shadow: 0 5px 10px lightgray;
-    background-color: #fff;
-    text-align: left;
-    overflow-x: scroll;
-}
-
-.table-customers thead {
-    box-shadow: 0 5px 10px lightgray;
-}
-
-.table-customers th {
-    padding: 1rem 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-}
-
-.table-customers td {
-    padding: 1rem 1rem;
-}
-
-.table-customers td.nav-link {
-    padding: 0 !important;
-}
-
-.nav-link.positif {
-    color: #34daa3 !important;
-}
-
-.nav-link.negatif {
-    color: #ffcdd2 !important;
 }
 
 .btn-erase {
@@ -53,6 +17,11 @@
     color: #c62828;
 }
 
-.table-customers tr:nth-child(even) {
-    background: #f4f6fb;
+.customers-customerInfo {
+    margin: .5rem 0;
+}
+
+.header-customers ButtonHeader {
+    position: absolute;
+    bottom: 0;
 }

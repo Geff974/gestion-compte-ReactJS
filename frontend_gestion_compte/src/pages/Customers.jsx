@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import '../styles/Customers.css';
 import CustomerInfo from '../components/CustomerInfo';
+import ButtonHeader from '../components/smallComponents/ButtonHeader';
 
 const Customers = () => {
 
@@ -33,14 +33,19 @@ const Customers = () => {
             .catch((err) => alert('Une erreur est survenue : ' + err));
     }
 
+    const test = () => {
+        console.log('Reussi');
+    }
+
     return (
         <div>
             <div className="header-customers">
                 <h1>Liste des clients</h1>
+                <ButtonHeader clickEvent={test}>Test</ButtonHeader>
             </div>
             {customers.map((customer, k) => {
                 return (
-                    <div onClick={() => goToCustomer(customer)} key={k}>
+                    <div onClick={() => goToCustomer(customer)} key={k} className="customers-customerInfo">
                         <CustomerInfo customer={customer} />
                     </div>
                 )

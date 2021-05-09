@@ -1,3 +1,9 @@
+body {
+    --color-primary: #4481eb;
+    --color-primary3: #008773;
+    --color-secondary: #F2A811;
+}
+
 .App {
     padding: 0 !important;
     margin: 0 !important;

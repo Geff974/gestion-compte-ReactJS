@@ -5,9 +5,6 @@
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px lightgray;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     display: grid;
     grid-template-columns: 2fr 5fr 3fr;
 }
