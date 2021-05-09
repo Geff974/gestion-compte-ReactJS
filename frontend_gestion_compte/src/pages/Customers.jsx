@@ -18,6 +18,10 @@ const Customers = () => {
         }
     }, [])
 
+    const goToCustomer = (customer) => {
+        history.push('/customers/' + customer.name);
+    }
+
     const balanceSign = (customer) => {
         const balance = customer.facture + customer.paiement;
         return balance >= 0 ? 'positif' : 'negatif';
@@ -34,29 +38,12 @@ const Customers = () => {
             <div className="header-customers">
                 <h1>Liste des clients</h1>
             </div>
-
-            {/* <table className="table-customers">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Balance</th>
-                        <th>Effacer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customers.map((customer, k) => {
-                        return (
-                            <tr key={k}>
-                                <td><Link className="nav-link" to={`/customers/${customer.name}`}> {customer.name} </Link></td>
-                                <td><Link className={'nav-link ' + balanceSign(customer)} to={`/customers/${customer.name}`}> {customer.facture + customer.paiement},00 € </Link></td>
-                                <td><button className="btn-erase" onClick={() => EraseCustomer(customer)}>Effacer</button></td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table> */}
             {customers.map((customer, k) => {
-                return <CustomerInfo customer={customer} key={k} />
+                return (
+                    <div onClick={() => goToCustomer(customer)} key={k}>
+                        <CustomerInfo customer={customer} />
+                    </div>
+                )
             })}
         </div>
     );

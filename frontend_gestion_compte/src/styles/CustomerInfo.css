@@ -3,11 +3,13 @@
     height: 5rem;
     margin: 0 auto;
     background: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
     box-shadow: 0 0 5px lightgray;
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 2fr 5fr 3fr;
 }
 
 .customer-info .logo-info {
@@ -26,37 +28,43 @@
 .customer-info .customer-name-info {
     display: flex;
     flex-direction: column;
-    width: 55%;
 }
 
 .customer-info h4 {
+    font-size: 1.3rem;
     text-align: center;
     margin-top: auto;
     vertical-align: bottom;
     font-weight: 500;
     letter-spacing: 2px;
+    text-align: left;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 
 .customer-info .facture-paiement-info {
-    font-size: 14px;
+    font-size: 0.8rem;
     font-weight: 500;
     margin: auto 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .customer-info .facture-info {
-    color: #34daa3;
+    color: #94daa3;
+    margin: 0 5px;
 }
 
 .customer-info .paiement-info {
-    color: #c62828;
+    color: #c18f8f;
 }
 
 .customer-info .balance-info {
     margin: auto 0;
     font-size: 20px;
     font-weight: 600;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .customer-info .negatif-info {
