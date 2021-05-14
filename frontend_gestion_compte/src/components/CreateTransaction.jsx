@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionAdd } from '../Redux/Transaction/actionTransaction';
 import axios from 'axios';
 import '../styles/CreateTransaction.css';
 import { customerUpdate } from '../Redux/Customer/actionCustomer';
+import { MdEuroSymbol } from 'react-icons/md';
 
-const CreateTransaction = ({ nameCustomer }) => {   
+const CreateTransaction = React.forwardRef((props, ref) => {
 
+    const refCreateTransaction = useRef(ref)
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
     const transactions = useSelector(state => state.transactions.transactions)
     const dispatch = useDispatch();
-    const [currentCustomer, setCurrentCustomer] = useState({name: ''});
+    const [currentCustomer, setCurrentCustomer] = useState({ name: '' });
 
     const [transactionToAdd, setTransactionToAdd] = useState({
         date: '',
@@ -22,13 +24,13 @@ const CreateTransaction = ({ nameCustomer }) => {
     });
 
     useEffect(() => {
-        if (nameCustomer) {
-            const indexOfCustomer = customers.findIndex(cust => cust.name === nameCustomer);
+        if (props.nameCustomer) {
+            const indexOfCustomer = customers.findIndex(cust => cust.name === props.nameCustomer);
             setCurrentCustomer(customers[indexOfCustomer]);
         }
     }, [])
 
-    
+
 
     const changeHandler = e => {
         if (e.target.name === 'date') {
@@ -41,7 +43,7 @@ const CreateTransaction = ({ nameCustomer }) => {
     const submitHandler = e => {
         e.preventDefault();
         let transactionSend = {};
-        if (!nameCustomer) {
+        if (!props.nameCustomer) {
             transactionSend = transactionToAdd;
         } else {
             transactionSend = { ...transactionToAdd, customer: currentCustomer.id }
@@ -71,25 +73,38 @@ const CreateTransaction = ({ nameCustomer }) => {
     }
 
     const { date, customer, designation, amount } = transactionToAdd;
-    
+
     const disableAdd = date === "" || customer === "" || amount === null ? true : false;
 
+    const handlerCancel = () => {
+        refCreateTransaction.current.className = 'create-transaction';
+    }
+
     return (
-        <div className="row">
-            <form onSubmit={submitHandler} className="my-5">
-                <div className="input-group align-items-end col-sm-12">
-                    <div className="col-6 pe-1">
-                        <label htmlFor="date" className="form-label mx-3">Date : </label>
-                        <input type="date" name='date' className="form-control" value={date} onChange={changeHandler} min="2019-01-01" max="2021-12-31" />
+
+        <div className="create-transaction" ref={ref}>
+            <div className="container">
+                <div className="CT-title">
+                    <h3>Ajouter une transaction</h3>
+                </div>
+                <form onSubmit={submitHandler}>
+                    <div className="CT-item designation">
+                        <label htmlFor="designation">Designation</label>
+                        <input type="text" name="designation" placeholder="Description de la transaction" value={designation} onChange={changeHandler} />
                     </div>
 
-                    <div className="col-6 ps-1">
-                        <label htmlFor="customer" className="form-label mx-3">Client : </label>
-                        { nameCustomer !== undefined &&
-                            <input type="text" className="form-control" name="customer" value={currentCustomer.name} disabled/>
+                    <div className="CT-item date">
+                        <label htmlFor="date">Date</label>
+                        <input type="date" name="date" value={date} onChange={changeHandler} min="2019-01-01" />
+                    </div>
+
+                    <div className="CT-item customer">
+                        <label htmlFor="customer">Client</label>
+                        {props.nameCustomer !== undefined &&
+                            <input type="text" className="form-control" name="customer" value={currentCustomer.name} disabled />
                         }
 
-                        { nameCustomer === undefined &&
+                        {props.nameCustomer === undefined &&
                             <select className="form-select" name="customer" value={customer} onChange={changeHandler}>
                                 <option value=''></option>
                                 {customers.map((customer, k) => {
@@ -101,26 +116,21 @@ const CreateTransaction = ({ nameCustomer }) => {
                         }
                     </div>
 
-                    <div className="col-6 mt-3 pe-1">
-                        <label htmlFor="designation" className="form-label mx-3">Designation : </label>
-                        <input type="text" name='designation' className="form-control" value={designation} onChange={changeHandler} />
+                    <div className="CT-item amount">
+                        <label htmlFor="amount">Montant</label>
+                        <div className="CT-amount-input">
+                            <MdEuroSymbol className="euro" />
+                            <input type="number" name="amount" placeholder='0' value={amount} onChange={changeHandler} />
+                        </div>
                     </div>
 
-                    <div className="col-6 ps-1">
-                        <label htmlFor="amount" className="form-label mx-3">Montant : </label>
-                        <input type="number" name='amount' className="form-control" value={amount} onChange={changeHandler} />
-                    </div>
-
-                    <div className="mx-auto mt-3">
-                        <button type='submit' className="btn btn-success px-5" disabled={disableAdd}>Ajouter</button>
-                    </div>
-                    <div className="mx-auto mt-3">
-                        <button type='button' onClick={test} className="btn btn-success px-5">Test</button>
-                    </div>
-                </div>
-            </form>
+                    <button type="submit" className="CT-btn btn-add" disabled={disableAdd}>Ajouter</button>
+                    <button type="button" className="CT-btn btn-cancel" onClick={props.hideCreateTransaction}>Annuler</button>
+                </form>
+            </div>
         </div>
+
     );
-}
+})
 
 export default CreateTransaction;

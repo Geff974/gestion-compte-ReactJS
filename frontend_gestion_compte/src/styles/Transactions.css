@@ -4,6 +4,24 @@
 
 .table-transactions {
     overflow: auto;
+    transition: cubic-bezier(0, .42, .19, 1.45) 1s .5s;
+}
+
+.table-transactions.put-down {
+    transform: translateY(300px);
+}
+
+.transactions-component {
+    position: relative;
+}
+
+.transactions-component .btn-create-transaction {
+    padding: .5em 2em;
+    border-radius: 10px;
+    border: none;
+    position: absolute;
+    top: 130px;
+    background-color: var(--color-secondary);
 }
 
 .table-transactions table {

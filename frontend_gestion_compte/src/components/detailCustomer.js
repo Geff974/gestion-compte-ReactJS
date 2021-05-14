@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import '../styles/detailCustomer.css';
-import CreateTransaction from './CreateTransaction';
+import CreateTransaction from './CreateTransaction.jsx';
 
 const DetailCustomer = () => {
     

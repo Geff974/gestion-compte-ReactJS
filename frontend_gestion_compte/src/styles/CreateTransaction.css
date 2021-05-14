@@ -1,0 +1,138 @@
+.create-transaction {
+    width: 100%;
+    height: 550px;
+    padding-top: 2em;
+    position: absolute;
+    top: -100%;
+    /* transform: translateY(-800px); */
+    transition: cubic-bezier(.58, -0.13, .19, 1.41) 1s;
+    background: #fff;
+    box-shadow: 0 0 20px lightgray;
+}
+
+.create-transaction .container {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.create-transaction .CT-title {
+    margin-bottom: 2em;
+}
+
+.create-transaction .CT-title h3 {
+    font-size: 1.6em;
+}
+
+.create-transaction .CT-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-transaction form {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 10%;
+    grid-row-gap: 10%;
+}
+
+.create-transaction .designation,
+.create-transaction .amount {
+    grid-column-end: span 2;
+}
+
+.create-transaction .date input {
+    font-size: .8em;
+    padding: calc(.2em + 15px) 15px !important;
+}
+
+.create-transaction .CT-item input,
+.create-transaction .CT-item select {
+    border: 1px solid #D6D9DF;
+    padding: 15px;
+    max-width: 100%;
+    border-radius: 3px;
+}
+
+.create-transaction .CT-item input:focus {
+    border: 1px solid var(--color-secondary);
+}
+
+.create-transaction .CT-item label {
+    color: #9DA8B1;
+}
+
+.create-transaction .CT-amount-input {
+    position: relative;
+}
+
+.create-transaction .CT-amount-input input {
+    text-align: right;
+}
+
+.create-transaction .euro {
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    color: #fff;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 15px;
+    background: var(--color-primary);
+}
+
+.create-transaction .CT-btn {
+    padding: 0.5em 2em;
+    border-radius: 5px;
+    border: none;
+}
+
+.create-transaction .btn-add {
+    color: #fff;
+    background: var(--color-primary);
+}
+
+/* SHOW */
+/* .create-transaction {
+    transition: ease-in-out 0;
+}
+
+.create-transaction .container {
+    transition: ease-in-out 0;
+}
+
+.create-transaction .CT-title {
+    transition: ease-in-out .5s;
+}
+
+.create-transaction .CT-item .designation,
+.create-transaction .CT-item .date {
+    transition: ease-in-out 0.5s;
+}
+
+.create-transaction .CT-item .customer {
+    transition: ease-in-out 0.5s;
+}
+
+.create-transaction .CT-item .amount {
+    transition: ease-in-out 0.5s;
+}
+
+.create-transaction .CT-btn {
+    transition: ease-in-out .5s;
+}
+
+
+.create-transaction.show,
+.create-transaction.show .container,
+.create-transaction.show .CT-title,
+.create-transaction.show .CT-item,
+.create-transaction.show form,
+.create-transaction.show .CT-btn {
+    transform: translateY(0);
+} */
+.create-transaction.show {
+    top: 0;
+    /* transform: translateY(0); */
+}

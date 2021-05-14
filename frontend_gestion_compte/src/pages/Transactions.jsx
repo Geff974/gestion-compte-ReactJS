@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
-import { MdDeleteForever, MdEdit, MdModeEdit } from 'react-icons/md';
-import CreateTransaction from '../components/CreateTransaction';
+import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
+import CreateTransaction from '../components/CreateTransaction.jsx';
 import { useSelector } from 'react-redux';
 
 import '../styles/Transactions.css';
@@ -10,6 +10,8 @@ import EditTransaction from '../components/EditTransaction';
 const Transactions = () => {
 
     const refEditTransaction = useRef(null);
+    const refCreateTransaction = useRef(null);
+    const tableTransaction = useRef(null)
     const user = useSelector(state => state.user.info);
     let history = useHistory();
     useEffect(() => {
@@ -41,16 +43,28 @@ const Transactions = () => {
         setEdit(!edit);
     }
 
+    const showCreateTransaction = () => {
+        refCreateTransaction.current.className = 'create-transaction show';
+        tableTransaction.current.className = 'table-transactions put-down';
+    }
+
+    const hideCreateTransaction = () => {
+        console.log('Reussi')
+        refCreateTransaction.current.className = 'create-transaction';
+        tableTransaction.current.className = 'table-transactions';
+    }
+
     return (
         <div className="transactions-component">
             <div className="header-transactions">
                 <h1>Transactions</h1>
+                <button type="button" className="btn-create-transaction" onClick={showCreateTransaction}>+ Transaction</button>
             </div>
-            <CreateTransaction />
+            <CreateTransaction ref={refCreateTransaction} hideCreateTransaction={hideCreateTransaction} />
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>
-            <div className="table-transactions">
+            <div className="table-transactions" ref={tableTransaction}>
                 <table>
                     <thead>
                         <tr>

@@ -112,9 +112,9 @@
     background: #333;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
+.auth-container input:-webkit-autofill,
+.auth-container input:-webkit-autofill:hover,
+.auth-container input:-webkit-autofill:focus {
     border: none;
     border-radius: 50px;
     -webkit-text-fill-color: #4481eb;
