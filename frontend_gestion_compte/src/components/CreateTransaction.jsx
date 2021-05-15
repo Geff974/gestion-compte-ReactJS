@@ -50,12 +50,10 @@ const CreateTransaction = React.forwardRef((props, ref) => {
         }
 
         axios.post(process.env.REACT_APP_API_URL + '/transactions', transactionSend)
-            .then(() => {
-                const customerWhoAdded = customers.find(el => el.id == transactionToAdd.customer);
-                delete transactionSend.customer;
-                transactionSend = { ...transactionSend, name: customerWhoAdded.name };
-                dispatch(transactionAdd(transactionSend));
-                dispatch(customerUpdate(transactions, customerWhoAdded.name));
+            .then((res) => {
+                console.log(res);
+                dispatch(transactionAdd(res.data));
+                dispatch(customerUpdate(transactions, res.data.name));
                 setTransactionToAdd({
                     ...transactionToAdd,
                     customer: '',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
-import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
+import { MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,6 +8,7 @@ import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
 import axios from 'axios';
 import { transactionErase } from '../Redux/Transaction/actionTransaction.js';
+import ButtonEraseTransaction from '../components/smallComponents/ButtonEraseTransaction.jsx';
 
 const Transactions = () => {
 
@@ -44,7 +45,7 @@ const Transactions = () => {
         axios.delete(process.env.REACT_APP_API_URL + '/transactions', {
             data: { source: transactionToDelete }
         })
-            .then(res => dispatch(transactionErase(transaction.id)))
+            .then(() => dispatch(transactionErase(transaction.id)))
             .catch(err => console.log(err));
     }
 
@@ -99,7 +100,7 @@ const Transactions = () => {
                                         <td> {transaction.designation} </td>
                                         <td className="amount"> {transaction.amount} € </td>
                                         {edit &&
-                                            <td><button onClick={() => deleteTransaction(transaction)} className="btn btn-danger"><MdDeleteForever /></button></td>
+                                            <td><ButtonEraseTransaction transaction={transaction} /></td>
                                         }
                                     </tr>
                                 )

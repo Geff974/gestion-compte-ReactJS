@@ -7,9 +7,18 @@ const initialState = {
 const transactionReducer = (state = initialState, action) =>{
     switch(action.type) {
         case TRANSACTION_ADD:
+            const transactionsAfterAdd = [action.transaction, ...state.transactions];
+            transactionsAfterAdd.sort((a, b) => {
+                if(a.date < b.date) {
+                    return 1;
+                }
+                if(a.date > b.date) {
+                    return -1;
+                }
+            })
             return {
                 ...state,
-                transactions: [action.transaction, ...state.transactions]
+                transactions: transactionsAfterAdd
             }
         case TRANSACTION_REINIT:
             return {

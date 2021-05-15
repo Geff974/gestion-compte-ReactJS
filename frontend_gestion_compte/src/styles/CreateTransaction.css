@@ -3,7 +3,7 @@
     height: 550px;
     padding-top: 2em;
     position: absolute;
-    top: -100%;
+    top: -200%;
     /* transform: translateY(-800px); */
     transition: cubic-bezier(.58, -0.13, .19, 1.41) 1s;
     background: #fff;
