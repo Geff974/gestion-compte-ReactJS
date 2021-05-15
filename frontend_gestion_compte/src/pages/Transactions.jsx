@@ -2,16 +2,18 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
 import { MdDeleteForever, MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction.jsx';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
+import axios from 'axios';
+import { transactionErase } from '../Redux/Transaction/actionTransaction.js';
 
 const Transactions = () => {
 
     const refEditTransaction = useRef(null);
     const refCreateTransaction = useRef(null);
-    const tableTransaction = useRef(null)
+    const tableTransaction = useRef(null);
     const user = useSelector(state => state.user.info);
     let history = useHistory();
     useEffect(() => {
@@ -20,8 +22,10 @@ const Transactions = () => {
         }
     }, [])
 
-    const transactions = useSelector(state => state.transactions.transactions)
-    const [edit, setEdit] = useState(false)
+    const transactions = useSelector(state => state.transactions.transactions);
+    const customers = useSelector(state => state.customers.customers);
+    const dispatch = useDispatch();
+    const [edit, setEdit] = useState(false);
     const [transactionToEdit, settransactionToEdit] = useState({ id: 0, date: "2017-03-11", name: 0, designation: 'Aucune', amount: 0 })
 
     const editTransaction = (transaction) => {
@@ -30,7 +34,18 @@ const Transactions = () => {
     }
 
     const deleteTransaction = (transaction) => {
-        console.log(transaction);
+        const id_customer = customers.find(cust => cust.name === transaction.name);
+        const transactionToDelete = {
+            id_customer: id_customer.id,
+            id_transaction: transaction.id,
+            id_user: user.id
+        };
+        console.log(transactionToDelete);
+        axios.delete(process.env.REACT_APP_API_URL + '/transactions', {
+            data: { source: transactionToDelete }
+        })
+            .then(res => dispatch(transactionErase(transaction.id)))
+            .catch(err => console.log(err));
     }
 
     const dateSlice = (str) => {

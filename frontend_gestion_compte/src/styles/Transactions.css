@@ -4,7 +4,7 @@
 
 .table-transactions {
     overflow: auto;
-    transition: cubic-bezier(0, .42, .19, 1.45) 1s .5s;
+    transition: cubic-bezier(.58, -0.13, .19, 1.41) .7s .2s;
 }
 
 .table-transactions.put-down {

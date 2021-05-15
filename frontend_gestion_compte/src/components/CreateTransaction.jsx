@@ -63,6 +63,7 @@ const CreateTransaction = React.forwardRef((props, ref) => {
                     amout: 0,
                     id_user: user.id
                 });
+                props.hideCreateTransaction();
             })
             .catch(err => alert(err));
     }

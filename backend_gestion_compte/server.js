@@ -175,26 +175,19 @@ app.delete('/api/customers', (req, res) => {
 })
 
 app.delete('/api/transactions', (req, res) => {
-    database.query("SELECT customers.id FROM customers INNER JOIN transactions ON customers.id = transactions.id_customer AND transactions.id = ?", [req.body.id], (err, rows, fields) => {
-        if (!err) {
-            const idCustomer = rows[0].id;
-            database.query("DELETE FROM transactions WHERE id= ?", [req.body.id], (err, rows, fields) => {
-                if (!err) {
-                    res.status(200).json({
-                        message: 'Deleted successfully'
-                    });
-                    updateAccount(idCustomer);
-                } else {
-                    console.log(err)
-                    res.status(400).json({
-                        err
-                    })
-                }
-            })
-        } else {
-            console.log(err)
-        }
-    })
+    console.log('id_transaction');
+    console.log(req.body.source.id_transaction);
+        database.query("DELETE FROM transactions WHERE id= ?", [req.body.source.id_transaction], (err, rows, fields) => {
+            if (!err) {
+                res.status(200).json({message: 'Deleted successfully'});
+                updateAccount(req.body.source.id_customer, req.body.source.id_user);
+            } else {
+                console.log(err)
+                res.status(400).json({
+                    err
+                })
+            }
+        })
 })
 
 

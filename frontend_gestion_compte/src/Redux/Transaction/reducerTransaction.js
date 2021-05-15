@@ -1,4 +1,4 @@
-import { TRANSACTION_ADD, TRANSACTION_REINIT, TRANSACTION_UPDATE } from './type';
+import { TRANSACTION_ADD, TRANSACTION_REINIT, TRANSACTION_UPDATE, TRANSACTION_ERASE } from './type';
 
 const initialState = {
     transactions: []
@@ -22,6 +22,14 @@ const transactionReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 transactions: newTransactions
+            }
+        case TRANSACTION_ERASE:
+            const indexOfTransactionDelete = state.transactions.findIndex(trans => trans.id === action.id_transaction)
+            const transactionsAfterDelete = state.transactions;
+            transactionsAfterDelete.splice(indexOfTransactionDelete, 1)
+            return {
+                ...state,
+                transactions: transactionsAfterDelete
             }
         default:
             return state;
