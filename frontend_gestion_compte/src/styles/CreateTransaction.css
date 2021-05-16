@@ -83,7 +83,7 @@
 }
 
 .create-transaction .CT-btn {
-    padding: 0.5em 2em;
+    padding: .5em 2em;
     border-radius: 5px;
     border: none;
 }
@@ -94,45 +94,6 @@
 }
 
 /* SHOW */
-/* .create-transaction {
-    transition: ease-in-out 0;
-}
-
-.create-transaction .container {
-    transition: ease-in-out 0;
-}
-
-.create-transaction .CT-title {
-    transition: ease-in-out .5s;
-}
-
-.create-transaction .CT-item .designation,
-.create-transaction .CT-item .date {
-    transition: ease-in-out 0.5s;
-}
-
-.create-transaction .CT-item .customer {
-    transition: ease-in-out 0.5s;
-}
-
-.create-transaction .CT-item .amount {
-    transition: ease-in-out 0.5s;
-}
-
-.create-transaction .CT-btn {
-    transition: ease-in-out .5s;
-}
-
-
-.create-transaction.show,
-.create-transaction.show .container,
-.create-transaction.show .CT-title,
-.create-transaction.show .CT-item,
-.create-transaction.show form,
-.create-transaction.show .CT-btn {
-    transform: translateY(0);
-} */
 .create-transaction.show {
     top: 0;
-    /* transform: translateY(0); */
 }

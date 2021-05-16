@@ -1,4 +1,4 @@
-import { CUSTOMER_UPDATE, CUSTOMER_ADD, CUSTOMER_REINIT } from './type';
+import { CUSTOMER_UPDATE, CUSTOMER_ADD, CUSTOMER_REINIT, CUSTOMER_ERASE } from './type';
 
 export const customerAdd = (customer) => {
     return {
@@ -20,6 +20,13 @@ export const customerUpdate = (transactions, name_customer) => {
         customer: name_customer,
         paiement: paiement,
         facture: facture
+    }
+}
+
+export const customerErase = (customer) => {
+    return {
+        type: CUSTOMER_ERASE,
+        customer: customer
     }
 }
 

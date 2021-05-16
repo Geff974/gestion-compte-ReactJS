@@ -88,9 +88,15 @@ app.post('/api/login', (req, res) => {
 app.post('/api/customers', (req, res) => {
     database.query("INSERT INTO customers (name, email, id_user) VALUES (?,?,?)", [req.body.nameCustomer, req.body.email, req.body.id_user] , (err, rows) => {
         if (!err) {
-            res.send(req.body.nameCustomer + ' créé avec succés !');
+            database.query("SELECT * FROM customers WHERE id_user=? ORDER BY id DESC LIMIT 1", [req.body.id_user], (err, rows) => {
+                if(!err) {
+                    res.send(rows[0]);
+                } else {
+                    res.send({error: err});
+                }
+            })
         } else {
-            console.log(err);
+            res.send({error: err});
         }
     });
 })
@@ -100,14 +106,11 @@ app.post('/api/transactions', (req, res) => {
     database.query("INSERT INTO transactions (date, id_customer, designation, amount, id_user) VALUES (?,?,?,?,?)", [req.body.date, req.body.customer, req.body.designation, req.body.amount, req.body.id_user ], (err, rows) => {
         if (!err) {
             updateAccount(req.body.customer);
-            console.log('start');
             database.query("SELECT transactions.id, CAST(`date` AS DATE) AS date, name, designation, amount FROM transactions INNER JOIN customers ON id_customer = customers.id AND transactions.id_user = ? ORDER BY id DESC LIMIT 1",[req.body.id_user], (err, rows) => {
-                console.log('rows 1 er');
-                console.log(rows);
                 res.send(rows[0]);
             })
         } else {
-            console.log(err);
+            res.send({error: err});
         }
     });
 })
@@ -116,12 +119,9 @@ app.post('/api/transactions', (req, res) => {
 // -------------- READ --------------
 
 app.get('/api/updateAll', (req, res) => {
-    console.log(req.body.id_user)
     database.query("SELECT * FROM customers WHERE id_user = ?", [req.body.id_user], (err, rows) => {
         if(!err) {
-            rows.forEach(customer => {
-                updateAccount(customer.id);
-            });
+            rows.forEach(customer => updateAccount(customer.id));
             res.send({message: "Mise a jour réussi"});
         } else {
             res.send({error: "Probleme detecté lors de la mise a jour"});
@@ -174,7 +174,7 @@ app.put('/api/transactions', (req, res) => {
                 }
             })
         } else {
-            console.log(err);
+            res.send({error: err});
         }
     })
 })
@@ -187,7 +187,7 @@ app.delete('/api/customers', (req, res) => {
         if (!err) {
             res.send('Deleted successfully.');
         } else {
-            console.log(err)
+            res.send({error: err});
         }
     })
 })
@@ -205,8 +205,6 @@ app.delete('/api/transactions', (req, res) => {
             }
         })
 })
-
-
 
 
 

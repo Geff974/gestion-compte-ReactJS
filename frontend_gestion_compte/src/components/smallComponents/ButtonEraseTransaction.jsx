@@ -15,7 +15,6 @@ const ButtonEraseTransaction = ({ transaction }) => {
             id_customer: id_customer.id,
             id_transaction: transaction.id
         };
-        console.log(transactionToDelete);
         axios.delete(process.env.REACT_APP_API_URL + '/transactions', {
             data: { source: transactionToDelete }
         })

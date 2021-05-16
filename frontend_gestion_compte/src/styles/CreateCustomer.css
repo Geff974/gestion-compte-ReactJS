@@ -1,0 +1,72 @@
+.create-customer {
+    width: 100%;
+    height: 400px;
+    padding-top: 2em;
+    position: absolute;
+    top: -100%;
+    transition: cubic-bezier(.58, -0.13, .19, 1.41) 1s;
+    background: #fff;
+    box-shadow: 0 0 20px lightgray;
+}
+
+.create-customer .container {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.create-customer .CC-title {
+    margin-bottom: 2em;
+}
+
+.create-customer .CC-title h3 {
+    font-size: 1.6em;
+}
+
+.create-customer .CC-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-customer form {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 10%;
+    grid-row-gap: 10%;
+}
+
+.create-customer .name,
+.create-customer .email {
+    grid-column-end: span 2;
+}
+
+.create-customer .CC-item input {
+    border: 1px solid #D6D9DF;
+    padding: 15px;
+    max-width: 100%;
+    border-radius: 3px;
+}
+
+.create-customer .CC-item input:focus {
+    border: 1px solid var(--color-secondary);
+}
+
+.create-customer .CC-item label {
+    color: #9DA8B1;
+}
+
+.create-customer .CC-btn {
+    padding: .5em 2em;
+    border-radius: 5px;
+    border: none;
+}
+
+.create-customer .btn-add {
+    color: #fff;
+    background: var(--color-primary);
+}
+
+.create-customer.show {
+    top: 0;
+}

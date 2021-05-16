@@ -2,12 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
 import { MdModeEdit } from 'react-icons/md';
 import CreateTransaction from '../components/CreateTransaction.jsx';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
-import axios from 'axios';
-import { transactionErase } from '../Redux/Transaction/actionTransaction.js';
 import ButtonEraseTransaction from '../components/smallComponents/ButtonEraseTransaction.jsx';
 
 const Transactions = () => {
@@ -24,29 +22,12 @@ const Transactions = () => {
     }, [])
 
     const transactions = useSelector(state => state.transactions.transactions);
-    const customers = useSelector(state => state.customers.customers);
-    const dispatch = useDispatch();
     const [edit, setEdit] = useState(false);
     const [transactionToEdit, settransactionToEdit] = useState({ id: 0, date: "2017-03-11", name: 0, designation: 'Aucune', amount: 0 })
 
     const editTransaction = (transaction) => {
         settransactionToEdit(transaction);
         refEditTransaction.current.className = "edit-transaction open";
-    }
-
-    const deleteTransaction = (transaction) => {
-        const id_customer = customers.find(cust => cust.name === transaction.name);
-        const transactionToDelete = {
-            id_customer: id_customer.id,
-            id_transaction: transaction.id,
-            id_user: user.id
-        };
-        console.log(transactionToDelete);
-        axios.delete(process.env.REACT_APP_API_URL + '/transactions', {
-            data: { source: transactionToDelete }
-        })
-            .then(() => dispatch(transactionErase(transaction.id)))
-            .catch(err => console.log(err));
     }
 
     const dateSlice = (str) => {
@@ -65,7 +46,6 @@ const Transactions = () => {
     }
 
     const hideCreateTransaction = () => {
-        console.log('Reussi')
         refCreateTransaction.current.className = 'create-transaction';
         tableTransaction.current.className = 'table-transactions';
     }

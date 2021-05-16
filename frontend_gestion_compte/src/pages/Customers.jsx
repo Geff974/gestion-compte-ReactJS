@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import axios from 'axios';
 
 import '../styles/Customers.css';
 import CustomerInfo from '../components/CustomerInfo';
-import ButtonHeader from '../components/smallComponents/ButtonHeader';
+import CreateCustomer from '../components/CreateCustomer';
+import { MdEdit } from 'react-icons/md';
+import ButtonEraseCustomer from '../components/smallComponents/ButtonEraseCustomer';
 
 const Customers = () => {
 
@@ -18,6 +19,11 @@ const Customers = () => {
         }
     }, [])
 
+    const refCreateCustomer = useRef(null);
+    const customersList = useRef(null);
+
+    const [editCustomer, setEditCustomer] = useState(false)
+
     const goToCustomer = (customer) => {
         history.push('/customers/' + customer.name);
     }
@@ -27,29 +33,42 @@ const Customers = () => {
         return balance >= 0 ? 'positif' : 'negatif';
     }
 
-    const EraseCustomer = (customer) => {
-        axios.post(process.env.REACT_APP_API_URL + '/customers', customer)
-            .then((response) => console.log(response.data))
-            .catch((err) => alert('Une erreur est survenue : ' + err));
+    const showCreateCustomer = () => {
+        refCreateCustomer.current.className = 'create-customer show';
+        customersList.current.className = 'customers-list put-down';
     }
 
-    const test = () => {
-        console.log('Reussi');
+    const hideCreateCustomer = () => {
+        refCreateCustomer.current.className = 'create-customer';
+        customersList.current.className = 'customers-list';
+    }
+
+    const switchEditCustomer = () => {
+        setEditCustomer(!editCustomer);
     }
 
     return (
         <div>
             <div className="header-customers">
-                <h1>Liste des clients</h1>
-                <ButtonHeader clickEvent={test}>Test</ButtonHeader>
+                <h1>Clients</h1>
+                <button type="button" onClick={showCreateCustomer} className="btn-create-customer">+ Client</button>
             </div>
-            {customers.map((customer, k) => {
-                return (
-                    <div onClick={() => goToCustomer(customer)} key={k} className="customers-customerInfo">
-                        <CustomerInfo customer={customer} />
-                    </div>
-                )
-            })}
+            <CreateCustomer ref={refCreateCustomer} hideCreateCustomer={hideCreateCustomer} />
+            <div ref={customersList} className="customers-list">
+                {customers.map((customer, k) => {
+                    return (
+                        <div onClick={() => goToCustomer(customer)} key={k} className="customers-customerInfo">
+                            <CustomerInfo customer={customer} />
+                            { editCustomer &&
+                                <div className="btn-erase">
+                                    <ButtonEraseCustomer customer={customer} className="btn-erase" />
+                                </div>
+                            }
+                        </div>
+                    )
+                })}
+            </div>
+            <button type="button" onClick={switchEditCustomer}> <MdEdit /> </button>
         </div>
     );
 };

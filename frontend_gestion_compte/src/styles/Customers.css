@@ -21,6 +21,15 @@
     left: -350%;
 } */
 
+.btn-create-customer {
+    padding: .5em 2em;
+    border-radius: 10px;
+    border: none;
+    position: absolute;
+    top: 130px;
+    background-color: var(--color-secondary);
+}
+
 .btn-erase {
     border-radius: 5px;
     background-color: #ffcdd2;
@@ -31,9 +40,25 @@
 
 .customers-customerInfo {
     margin: .5rem 0;
+    position: relative;
 }
 
 .header-customers ButtonHeader {
     position: absolute;
     bottom: 0;
+}
+
+.customers-list.put-down {
+    transform: translateY(200px);
+}
+
+.customers-list {
+    transition: cubic-bezier(.58, -0.13, .19, 1.41) .7s .2s;
+}
+
+.btn-erase {
+    position: absolute;
+    right: 1em;
+    z-index: 5;
+    bottom: 1em;
 }

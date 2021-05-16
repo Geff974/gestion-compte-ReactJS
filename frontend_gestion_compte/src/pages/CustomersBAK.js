@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import CreateCustomer from '../components/CreateCustomer';
+import CreateCustomer from '../components/CreateCustomer.jsx';
 import Title from '../components/Title';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
