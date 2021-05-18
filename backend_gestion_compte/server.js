@@ -183,7 +183,7 @@ app.put('/api/transactions', (req, res) => {
 // -------------- DELETE --------------
 
 app.delete('/api/customers', (req, res) => {
-    database.query("DELETE FROM customers WHERE id= ?", [req.body.id], (err, rows, fields) => {
+    database.query("DELETE FROM customers WHERE id= ?", [req.body.source.id], (err, rows, fields) => {
         if (!err) {
             res.send('Deleted successfully.');
         } else {

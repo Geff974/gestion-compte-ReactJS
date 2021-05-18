@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
 import ButtonEraseTransaction from '../components/smallComponents/ButtonEraseTransaction.jsx';
+import TransactionItem from '../components/TransactionItem.jsx';
 
 const Transactions = () => {
 
@@ -42,12 +43,12 @@ const Transactions = () => {
 
     const showCreateTransaction = () => {
         refCreateTransaction.current.className = 'create-transaction show';
-        tableTransaction.current.className = 'table-transactions put-down';
+        tableTransaction.current.className = 'transactions-list put-down';
     }
 
     const hideCreateTransaction = () => {
         refCreateTransaction.current.className = 'create-transaction';
-        tableTransaction.current.className = 'table-transactions';
+        tableTransaction.current.className = 'transactions-list';
     }
 
     return (
@@ -60,34 +61,24 @@ const Transactions = () => {
             <div className="text-right">
                 <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
             </div>
-            <div className="table-transactions" ref={tableTransaction}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Client</th>
-                            <th>designation</th>
-                            <th>Montant</th>
-                        </tr>
-                    </thead>
+            <div className="transactions-list" ref={tableTransaction}>
+                <h4 className="transactions-list-title">Liste des transaction</h4>
+                <div>
                     {transactions !== undefined &&
-                        <tbody>
+                        <div>
                             {transactions.map((transaction, k) => {
                                 return (
-                                    <tr key={k} onDoubleClick={() => editTransaction(transaction)}>
-                                        <td className="date-table"> {dateSlice(transaction.date)} </td>
-                                        <td> {transaction.name} </td>
-                                        <td> {transaction.designation} </td>
-                                        <td className="amount"> {transaction.amount} € </td>
-                                        {edit &&
-                                            <td><ButtonEraseTransaction transaction={transaction} /></td>
-                                        }
-                                    </tr>
+                                    <div onDoubleClick={() => editTransaction(transaction)}>
+                                        <TransactionItem transaction={transaction} />
+                                    </div>
+                                    //     {edit &&
+                                    //         <td><ButtonEraseTransaction transaction={transaction} /></td>
+                                    //     }
                                 )
                             })}
-                        </tbody>
+                        </div>
                     }
-                </table>
+                </div>
             </div>
             <EditTransaction transaction={transactionToEdit} ref={refEditTransaction} />
         </div>

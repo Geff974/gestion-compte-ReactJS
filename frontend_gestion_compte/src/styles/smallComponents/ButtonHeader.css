@@ -4,7 +4,7 @@
     width: 130px;
     height: 3em;
     border-radius: 10px;
-    background: var(--color-secondary);
+    background: var(--color-tertiary);
     border: none;
     box-shadow: 0 0 5px rgb(53, 53, 53);
 }

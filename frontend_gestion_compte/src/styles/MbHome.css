@@ -35,7 +35,7 @@
 }
 
 .customer-card {
-    background: linear-gradient(-45deg, #4481eb, rgb(21, 175, 226));
+    background: linear-gradient(-45deg, var(--color-secondary), var(--color-primary));
     color: #fff;
     border: 1px solid rgb(155, 155, 155);
     border-radius: 15px;
@@ -82,11 +82,15 @@
 }
 
 .arrow-up {
-    background: #badce4;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    box-shadow: 0 0 5px var(--color-primary);
 }
 
 .arrow-down {
-    background: #bdc0d3;
+    background: var(--color-secondary-light);
+    color: var(--color-secondary);
+    box-shadow: 0 0 5px var(--color-secondary);
 }
 
 .recap-card {
@@ -112,12 +116,12 @@
     margin: auto;
 }
 
-.transaction-line {
+/* .transaction-line {
     display: flex;
     align-items: center;
     border-bottom: 1px solid lightgray;
     padding: 3px 0;
-}
+} */
 
 .arrow-line {
     margin: 0 10px 0 0;

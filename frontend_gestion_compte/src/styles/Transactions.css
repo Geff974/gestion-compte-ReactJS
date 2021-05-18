@@ -2,12 +2,13 @@
 .header-transaction {}
 
 
-.table-transactions {
+.transactions-list {
     overflow: auto;
     transition: cubic-bezier(.58, -0.13, .19, 1.41) .7s .2s;
+    background: #fff;
 }
 
-.table-transactions.put-down {
+.transactions-list.put-down {
     transform: translateY(300px);
 }
 
@@ -21,49 +22,10 @@
     border: none;
     position: absolute;
     top: 130px;
-    background-color: var(--color-secondary);
+    background-color: var(--color-tertiary);
 }
 
-.table-transactions table {
-    font-size: 14px;
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 5px 10px lightgray;
-    background-color: #fff;
-    text-align: left;
-    table-layout: auto;
-}
-
-.table-transactions table,
-.table-transactions th,
-.table-transactions td {
-    border: 1px solid lightgray;
-}
-
-.table-transactions table thead {
-    box-shadow: 0 5px 10px lightgray;
-}
-
-.table-transactions table th {
-    padding: 1rem 0.3rem;
-    position: sticky;
-    top: 1px;
-}
-
-.table-transactions table td {
-    padding: 0.8rem 0.3rem;
-}
-
-.table-transactions table .amount {
-    padding-right: 1rem;
-    text-align: right;
-}
-
-.table-transactions table .date-table {
-    max-width: 80px;
-}
-
-
-.table-transactions table tr:nth-child(even) {
-    background: #f4f6fb;
+.transactions-list-title {
+    margin: 1em 0;
+    margin-left: 1em;
 }

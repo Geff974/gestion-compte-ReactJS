@@ -28,11 +28,6 @@ const Customers = () => {
         history.push('/customers/' + customer.name);
     }
 
-    const balanceSign = (customer) => {
-        const balance = customer.facture + customer.paiement;
-        return balance >= 0 ? 'positif' : 'negatif';
-    }
-
     const showCreateCustomer = () => {
         refCreateCustomer.current.className = 'create-customer show';
         customersList.current.className = 'customers-list put-down';
@@ -57,8 +52,10 @@ const Customers = () => {
             <div ref={customersList} className="customers-list">
                 {customers.map((customer, k) => {
                     return (
-                        <div onClick={() => goToCustomer(customer)} key={k} className="customers-customerInfo">
-                            <CustomerInfo customer={customer} />
+                        <div key={k} className="customers-customerInfo">
+                            <div onClick={() => goToCustomer(customer)}>
+                                <CustomerInfo customer={customer} />
+                            </div>
                             { editCustomer &&
                                 <div className="btn-erase">
                                     <ButtonEraseCustomer customer={customer} className="btn-erase" />

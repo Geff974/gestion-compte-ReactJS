@@ -1,7 +1,15 @@
 body {
-    --color-primary: #4481eb;
+    /* --color-primary: #4481eb;
     --color-primary3: #008773;
-    --color-secondary: #F2A811;
+    --color-secondary: #F2A811; */
+
+    --color-primary: #76A19E;
+    --color-secondary: #C33C27;
+    --color-tertiary: #E6BE90;
+
+    --color-primary-light: #F1F6F5;
+    --color-secondary-light: #F9ECEA;
+    --color-tertiary-light: #e2ddd7;
 }
 
 .App {
