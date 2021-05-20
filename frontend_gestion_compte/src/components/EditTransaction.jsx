@@ -6,6 +6,7 @@ import '../styles/EditTransaction.css';
 import axios from 'axios';
 import { transactionUpdate } from '../Redux/Transaction/actionTransaction';
 import { customerUpdate } from '../Redux/Customer/actionCustomer';
+import { MdEuroSymbol } from 'react-icons/md';
 
 const EditTransaction = React.forwardRef((props, ref) => {
 
@@ -13,6 +14,7 @@ const EditTransaction = React.forwardRef((props, ref) => {
 
     const user = useSelector(state => state.user.info);
     const customers = useSelector(state => state.customers.customers);
+    const transactions = useSelector(state => state.transactions.transactions)
     const sizeOfIcon = 35;
 
     const [transactionEdit, setTransactionEdit] = useState({
@@ -70,7 +72,7 @@ const EditTransaction = React.forwardRef((props, ref) => {
                 transactionToDispatch = result.data[0];
                 transactionToDispatch = { ...transactionToDispatch, name: customerSelected.name }
                 dispatch(transactionUpdate(transactionToDispatch));
-                dispatch(customerUpdate(customerSelected.name));
+                dispatch(customerUpdate(transactions, customerSelected.name));
             })
             .catch(err => alert(err));
         closeModal();
@@ -79,13 +81,23 @@ const EditTransaction = React.forwardRef((props, ref) => {
     return (
         <div ref={ref} className="edit-transaction">
             <form>
-                <div className="input-edit-transaction">
-                    <i> <FcCalendar size={sizeOfIcon} /> </i>
+                <div className="ET-title">
+                    <h3>Modifier la transaction</h3>
+                </div>
+
+                <div className="ET-item">
+                    <label htmlFor="designation">Designation</label>
+                    <input type="text" placeholder={transactionEdit.designation} value={transactionEdit.designation} name='designation' onChange={handleChange} />
+                </div>
+
+                <div className="ET-item">
+                    <label htmlFor="date">Date</label>
                     <input type="date" placeholder={transactionEdit.date} value={transactionEdit.date} name='date' onChange={handleChange} />
                 </div>
+
                 {customers &&
-                    <div className="input-edit-transaction">
-                        <i> <FcContacts size={sizeOfIcon} /> </i>
+                    <div className="ET-item">
+                        <label htmlFor="name">Client</label>
                         <select name="name" value={transactionEdit.name} onChange={handleChange}>
                             {customers.map((customer, k) => {
                                 return (
@@ -95,19 +107,17 @@ const EditTransaction = React.forwardRef((props, ref) => {
                         </select>
                     </div>
                 }
-                <div className="input-edit-transaction">
-                    <i> <FcSms size={sizeOfIcon} /> </i>
-                    <input type="text" placeholder={transactionEdit.designation} value={transactionEdit.designation} name='designation' onChange={handleChange} />
-                </div>
-                <div className="input-edit-transaction">
-                    <i> <FcCurrencyExchange size={sizeOfIcon} /> </i>
-                    <input type="text" className="input-edit-transaction-money" placeholder={transactionEdit.amount} value={transactionEdit.amount} name='amount' onBlur={handleBlurCurrency} onFocus={handleFocusCurrency} onChange={handleChange} />
+
+                <div className="ET-item">
+                    <label htmlFor="amount">Montant</label>
+                    <div className="ET-item-amount">
+                        <MdEuroSymbol className="euro" />
+                        <input type="text" className="ET-item-money" placeholder={transactionEdit.amount} value={transactionEdit.amount} name='amount' onBlur={handleBlurCurrency} onFocus={handleFocusCurrency} onChange={handleChange} />
+                    </div>
                 </div>
 
-                <div className="input-edit-transaction">
-                    <button type="submit" className="btn-edit btn-valider" onClick={sendEdit}>Modifier</button>
-                    <button type="submit" className="btn-edit btn-cancel" onClick={closeModal}>Annuler</button>
-                </div>
+                <button type="submit" className="ET-btn btn-valider" onClick={sendEdit}>Modifier</button>
+                <button type="submit" className="ET-btn btn-cancel" onClick={closeModal}>Annuler</button>
             </form>
         </div>
     );

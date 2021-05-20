@@ -58,17 +58,17 @@ const Transactions = () => {
                 <button type="button" className="btn-create-transaction" onClick={showCreateTransaction}>+ Transaction</button>
             </div>
             <CreateTransaction ref={refCreateTransaction} hideCreateTransaction={hideCreateTransaction} />
-            <div className="text-right">
-                <button className="btn btn-secondary" onClick={switchEdit}> <MdModeEdit /> </button>
-            </div>
             <div className="transactions-list" ref={tableTransaction}>
-                <h4 className="transactions-list-title">Liste des transaction</h4>
+                <div className="transactions-title">
+                    <h4>Liste des transaction</h4>
+                    <p className="btn-edit" onClick={switchEdit}> <MdModeEdit /> </p>
+                </div>
                 <div>
                     {transactions !== undefined &&
                         <div>
                             {transactions.map((transaction, k) => {
                                 return (
-                                    <div onDoubleClick={() => editTransaction(transaction)}>
+                                    <div key={k} onDoubleClick={() => editTransaction(transaction)}>
                                         <TransactionItem transaction={transaction} />
                                     </div>
                                     //     {edit &&

@@ -95,9 +95,6 @@ const MbHome = () => {
                             return (
                                 <div key={k} onClick={() => showCustomer(transaction)} className="transaction-line">
                                     <TransactionItem transaction={transaction} />
-                                    {/* {transaction.amount > 0 ? <p className="arrow-line arrow-up"> <MdArrowUpward size={25} /> </p> : <p className="arrow-line arrow-down"> <MdArrowDownward size={25} /> </p>}
-                                    <p className='trans-detail'> <span className="trans-name">{transaction.name}</span> <span className="trans-date">{dateSlice(transaction.date)}</span></p>
-                                    <p className="trans-amount">{transaction.amount},00 €</p> */}
                                 </div>
                             )
                         })}
