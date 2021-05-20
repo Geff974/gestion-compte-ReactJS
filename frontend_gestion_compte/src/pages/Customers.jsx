@@ -53,14 +53,9 @@ const Customers = () => {
                 {customers.map((customer, k) => {
                     return (
                         <div key={k} className="customers-customerInfo">
-                            <div onClick={() => goToCustomer(customer)}>
-                                <CustomerInfo customer={customer} />
+                            <div>
+                                <CustomerInfo goToCustomer={goToCustomer} customer={customer} edit={editCustomer} />
                             </div>
-                            { editCustomer &&
-                                <div className="btn-erase">
-                                    <ButtonEraseCustomer customer={customer} className="btn-erase" />
-                                </div>
-                            }
                         </div>
                     )
                 })}
