@@ -5,8 +5,7 @@ import { useHistory } from 'react-router';
 import '../styles/Customers.css';
 import CustomerInfo from '../components/CustomerInfo';
 import CreateCustomer from '../components/CreateCustomer';
-import { MdEdit } from 'react-icons/md';
-import ButtonEraseCustomer from '../components/smallComponents/ButtonEraseCustomer';
+import { MdModeEdit } from 'react-icons/md';
 
 const Customers = () => {
 
@@ -22,7 +21,8 @@ const Customers = () => {
     const refCreateCustomer = useRef(null);
     const customersList = useRef(null);
 
-    const [editCustomer, setEditCustomer] = useState(false)
+    const [editCustomer, setEditCustomer] = useState(false);
+    const [activeBtnEdit, setActiveBtnEdit] = useState('')
 
     const goToCustomer = (customer) => {
         history.push('/customers/' + customer.name);
@@ -39,11 +39,12 @@ const Customers = () => {
     }
 
     const switchEditCustomer = () => {
+        editCustomer === true ? setActiveBtnEdit('') : setActiveBtnEdit('btn-edit-active');
         setEditCustomer(!editCustomer);
     }
 
     return (
-        <div>
+        <div className="customers-component">
             <div className="header-customers">
                 <h1>Clients</h1>
                 <button type="button" onClick={showCreateCustomer} className="btn-create-customer">+ Client</button>
@@ -60,7 +61,7 @@ const Customers = () => {
                     )
                 })}
             </div>
-            <button type="button" onClick={switchEditCustomer}> <MdEdit /> </button>
+            <p className={`CC-btn-edit ${activeBtnEdit}`} onClick={switchEditCustomer}> <MdModeEdit /> </p>
         </div>
     );
 };
