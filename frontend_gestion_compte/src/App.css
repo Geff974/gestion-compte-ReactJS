@@ -5,11 +5,11 @@ body {
 
     --color-primary: #76A19E;
     --color-secondary: #C33C27;
-    --color-tertiary: #E6BE90;
+    --color-tertiary: #cf995b;
 
     --color-primary-light: #F1F6F5;
     --color-secondary-light: #F9ECEA;
-    --color-tertiary-light: #f1e1ce;
+    --color-tertiary-light: #f1eae1;
 }
 
 .App {

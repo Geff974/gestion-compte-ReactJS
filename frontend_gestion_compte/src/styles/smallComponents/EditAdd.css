@@ -1,0 +1,39 @@
+.edit-add {
+    height: 80px;
+    width: 60%;
+    margin: 0 auto 3em;
+    background: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 5px 20px #ccc;
+}
+
+.edit-add .add,
+.edit-add .edit {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.edit-add .add {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    box-shadow: 0 0 5px var(--color-primary);
+}
+
+.edit-add .edit {
+    background: var(--color-tertiary-light);
+    color: var(--color-tertiary);
+    box-shadow: 0 0 5px var(--color-tertiary);
+    transition: all .3s ease-in-out;
+}
+
+.edit-add .edit.active {
+    transform: translatey(-5px);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+}

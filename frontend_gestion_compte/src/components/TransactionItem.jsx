@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import '../styles/TransactionItem.css';
+import ButtonEraseTransaction from './smallComponents/ButtonEraseTransaction';
 
-const TransactionItem = ({ transaction }) => {
+const TransactionItem = ({ transaction, edit = false }) => {
 
     const signAmount = transaction.amount > 0 ? 'positive' : 'negative';
 
@@ -26,6 +27,9 @@ const TransactionItem = ({ transaction }) => {
             <div className="trans-item-date-amount">
                 <p className="trans-date">{dateSlice(transaction.date)}</p>
                 {transaction.amount > 0 ? <h4>+ {transaction.amount},00 €</h4> : <h4 className="amount-negative">- {-transaction.amount},00 €</h4>}
+                {edit &&
+                    <ButtonEraseTransaction transaction={transaction} />
+                }
             </div>
         </div>
     );

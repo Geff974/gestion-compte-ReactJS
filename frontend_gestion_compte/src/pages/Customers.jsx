@@ -7,6 +7,9 @@ import CustomerInfo from '../components/CustomerInfo';
 import CreateCustomer from '../components/CreateCustomer';
 import { MdModeEdit } from 'react-icons/md';
 
+import { ReactComponent as HeaderImg } from '../styles/img/header-customer.svg'
+import EditAdd from '../components/smallComponents/EditAdd';
+
 const Customers = () => {
 
     const customers = useSelector(state => state.customers.customers);
@@ -30,12 +33,12 @@ const Customers = () => {
 
     const showCreateCustomer = () => {
         refCreateCustomer.current.className = 'create-customer show';
-        customersList.current.className = 'customers-list put-down';
+        // customersList.current.className = 'customers-list put-down';
     }
 
     const hideCreateCustomer = () => {
         refCreateCustomer.current.className = 'create-customer';
-        customersList.current.className = 'customers-list';
+        // customersList.current.className = 'customers-list';
     }
 
     const switchEditCustomer = () => {
@@ -45,11 +48,17 @@ const Customers = () => {
 
     return (
         <div className="customers-component">
-            <div className="header-customers">
+            {/* <div className="header-customers">
                 <h1>Clients</h1>
                 <button type="button" onClick={showCreateCustomer} className="btn-create-customer">+ Client</button>
+            </div> */}
+            <div className="header-customer">
+                <HeaderImg className="header-img" />
             </div>
-            <CreateCustomer ref={refCreateCustomer} hideCreateCustomer={hideCreateCustomer} />
+            <div className="customers-bloc">
+                <EditAdd add={showCreateCustomer} edit={switchEditCustomer} editActive={editCustomer} />
+                <CreateCustomer ref={refCreateCustomer} hideCreateCustomer={hideCreateCustomer} />
+            </div>
             <div ref={customersList} className="customers-list">
                 {customers.map((customer, k) => {
                     return (
@@ -61,7 +70,6 @@ const Customers = () => {
                     )
                 })}
             </div>
-            <p className={`CC-btn-edit ${activeBtnEdit}`} onClick={switchEditCustomer}> <MdModeEdit /> </p>
         </div>
     );
 };

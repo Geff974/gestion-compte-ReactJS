@@ -69,11 +69,8 @@ const Transactions = () => {
                             {transactions.map((transaction, k) => {
                                 return (
                                     <div key={k} onDoubleClick={() => editTransaction(transaction)}>
-                                        <TransactionItem transaction={transaction} />
+                                        <TransactionItem transaction={transaction} edit={edit} />
                                     </div>
-                                    //     {edit &&
-                                    //         <td><ButtonEraseTransaction transaction={transaction} /></td>
-                                    //     }
                                 )
                             })}
                         </div>
