@@ -10,39 +10,9 @@
     /* border-bottom-right-radius: 25px; */
 }
 
-/* .header-customers::before,
-.header-transactions::before {
-    content: '';
-    height: 3000px;
-    width: 3000px;
-    background: #4481eb;
-    position: absolute;
-    border-radius: 50%;
-    bottom: 85%;
-    left: -350%;
-} */
-
-.btn-create-customer {
-    padding: .5em 2em;
-    border-radius: 10px;
-    border: none;
-    position: absolute;
-    top: 130px;
-    background-color: var(--color-tertiary);
-}
-
 .customers-customerInfo {
     margin: .5rem 0;
     position: relative;
-}
-
-.header-customers ButtonHeader {
-    position: absolute;
-    bottom: 0;
-}
-
-.customers-list.put-down {
-    /* transform: translateY(200px); */
 }
 
 .customers-list {
@@ -67,15 +37,4 @@
     background: var(--color-tertiary-light);
     border: 1px solid var(--color-tertiary);
     box-shadow: 0 0 5px var(--color-tertiary);
-}
-
-.header-customer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.header-img {
-    width: 250px;
-    margin: 50px 0 0;
 }

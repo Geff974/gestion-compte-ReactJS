@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router';
-import { MdModeEdit } from 'react-icons/md';
+import { AiOutlineLeftCircle } from 'react-icons/ai';
 import CreateTransaction from '../components/CreateTransaction.jsx';
 import { useSelector } from 'react-redux';
 
 import '../styles/Transactions.css';
 import EditTransaction from '../components/EditTransaction';
-import ButtonEraseTransaction from '../components/smallComponents/ButtonEraseTransaction.jsx';
-import TransactionItem from '../components/TransactionItem.jsx';
+import { ReactComponent as HeaderImg } from '../styles/img/header-transaction.svg';
+import EditAdd from '../components/smallComponents/EditAdd.jsx';
+import ListTransactions from '../components/ListTransactions.jsx';
 
 const Transactions = () => {
 
@@ -22,19 +23,15 @@ const Transactions = () => {
         }
     }, [])
 
+
     const transactions = useSelector(state => state.transactions.transactions);
     const [edit, setEdit] = useState(false);
+    const [addActive, setAddActive] = useState(false)
     const [transactionToEdit, settransactionToEdit] = useState({ id: 0, date: "2017-03-11", name: 0, designation: 'Aucune', amount: 0 })
 
     const editTransaction = (transaction) => {
         settransactionToEdit(transaction);
         refEditTransaction.current.className = "edit-transaction open";
-    }
-
-    const dateSlice = (str) => {
-        const strSplit = str.split('-');
-        const strFinal = strSplit[2] + '/' + strSplit[1];
-        return strFinal;
     }
 
     const switchEdit = () => {
@@ -44,35 +41,47 @@ const Transactions = () => {
     const showCreateTransaction = () => {
         refCreateTransaction.current.className = 'create-transaction show';
         tableTransaction.current.className = 'transactions-list put-down';
+        setAddActive(true);
+
     }
 
     const hideCreateTransaction = () => {
         refCreateTransaction.current.className = 'create-transaction';
         tableTransaction.current.className = 'transactions-list';
+        setAddActive(false);
+    }
+
+    const goToHome = () => {
+        history.push('/');
     }
 
     return (
         <div className="transactions-component">
-            <div className="header-transactions">
-                <h1>Transactions</h1>
-                <button type="button" className="btn-create-transaction" onClick={showCreateTransaction}>+ Transaction</button>
+            <h1 className="title-component"> <AiOutlineLeftCircle size={30} className="header-backward" onClick={goToHome} /> Transactions</h1>
+            <div className="header-component">
+                <HeaderImg className="header-img" />
             </div>
-            <CreateTransaction ref={refCreateTransaction} hideCreateTransaction={hideCreateTransaction} />
+            <div>
+                <EditAdd add={showCreateTransaction} edit={switchEdit} editActive={edit} addActive={addActive} />
+                <CreateTransaction ref={refCreateTransaction} hideCreateTransaction={hideCreateTransaction} />
+            </div>
             <div className="transactions-list" ref={tableTransaction}>
                 <div className="transactions-title">
                     <h4>Liste des transaction</h4>
-                    <p className="btn-edit" onClick={switchEdit}> <MdModeEdit /> </p>
                 </div>
                 <div>
                     {transactions !== undefined &&
+                        // <div>
+                        //     {transactions.map((transaction, k) => {
+                        //         return (
+                        //             <div key={k} onDoubleClick={() => editTransaction(transaction)}>
+                        //                 <TransactionItem transaction={transaction} edit={edit} />
+                        //             </div>
+                        //         )
+                        //     })}
+                        // </div>
                         <div>
-                            {transactions.map((transaction, k) => {
-                                return (
-                                    <div key={k} onDoubleClick={() => editTransaction(transaction)}>
-                                        <TransactionItem transaction={transaction} edit={edit} />
-                                    </div>
-                                )
-                            })}
+                            <ListTransactions transactions={transactions} edit={edit} doubleClick={editTransaction} />
                         </div>
                     }
                 </div>

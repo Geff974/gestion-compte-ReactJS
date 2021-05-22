@@ -4,17 +4,18 @@ import { MdModeEdit } from 'react-icons/md';
 
 import '../../styles/smallComponents/EditAdd.css';
 
-const EditAdd = ({ add, edit, editActive }) => {
+const EditAdd = ({ add, edit, editActive, addActive }) => {
 
-    const active = editActive ? 'active' : '';
+    const activeEdit = editActive ? 'activeEdit' : '';
+    const activeAdd = addActive ? 'activeAdd' : '';
 
     return (
         <div className="edit-add">
-            <div className="add" onClick={add}>
+            <div className={`add ${activeAdd}`} onClick={add}>
                 <IoMdAdd />
             </div>
 
-            <div className={`edit ${active}`} onClick={edit}>
+            <div className={`edit ${activeEdit}`} onClick={edit}>
                 <MdModeEdit />
             </div>
         </div>

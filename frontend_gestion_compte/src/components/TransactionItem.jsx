@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import '../styles/TransactionItem.css';
 import ButtonEraseTransaction from './smallComponents/ButtonEraseTransaction';

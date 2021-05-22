@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { FcCalendar, FcContacts, FcCurrencyExchange, FcSms } from 'react-icons/fc';
 import '../styles/EditTransaction.css';
 import axios from 'axios';
 import { transactionUpdate } from '../Redux/Transaction/actionTransaction';
@@ -15,7 +14,6 @@ const EditTransaction = React.forwardRef((props, ref) => {
     const user = useSelector(state => state.user.info);
     const customers = useSelector(state => state.customers.customers);
     const transactions = useSelector(state => state.transactions.transactions)
-    const sizeOfIcon = 35;
 
     const [transactionEdit, setTransactionEdit] = useState({
         id: props.transaction.id,
@@ -65,7 +63,7 @@ const EditTransaction = React.forwardRef((props, ref) => {
 
     const sendEdit = e => {
         e.preventDefault();
-        const customerSelected = customers.find(cust => cust.id === transactionEdit.name);
+        const customerSelected = customers.find(cust => cust.id == transactionEdit.name);
         let transactionToDispatch = {};
         axios.put(process.env.REACT_APP_API_URL + '/transactions', transactionEdit)
             .then(result => {

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import '../styles/Customers.css';
 import CustomerInfo from '../components/CustomerInfo';
 import CreateCustomer from '../components/CreateCustomer';
-import { MdModeEdit } from 'react-icons/md';
+import { AiOutlineLeftCircle } from 'react-icons/ai';
 
 import { ReactComponent as HeaderImg } from '../styles/img/header-customer.svg'
 import EditAdd from '../components/smallComponents/EditAdd';
@@ -25,7 +25,7 @@ const Customers = () => {
     const customersList = useRef(null);
 
     const [editCustomer, setEditCustomer] = useState(false);
-    const [activeBtnEdit, setActiveBtnEdit] = useState('')
+    const [activeAdd, setactiveAdd] = useState(false);
 
     const goToCustomer = (customer) => {
         history.push('/customers/' + customer.name);
@@ -33,30 +33,30 @@ const Customers = () => {
 
     const showCreateCustomer = () => {
         refCreateCustomer.current.className = 'create-customer show';
-        // customersList.current.className = 'customers-list put-down';
+        setactiveAdd(true);
     }
 
     const hideCreateCustomer = () => {
         refCreateCustomer.current.className = 'create-customer';
-        // customersList.current.className = 'customers-list';
+        setactiveAdd(false);
     }
 
     const switchEditCustomer = () => {
-        editCustomer === true ? setActiveBtnEdit('') : setActiveBtnEdit('btn-edit-active');
         setEditCustomer(!editCustomer);
+    }
+
+    const goToHome = () => {
+        history.push('/');
     }
 
     return (
         <div className="customers-component">
-            {/* <div className="header-customers">
-                <h1>Clients</h1>
-                <button type="button" onClick={showCreateCustomer} className="btn-create-customer">+ Client</button>
-            </div> */}
-            <div className="header-customer">
+            <h1 className="title-component"> <AiOutlineLeftCircle size={30} className="header-backward" onClick={goToHome} /> Client</h1>
+            <div className="header-component">
                 <HeaderImg className="header-img" />
             </div>
-            <div className="customers-bloc">
-                <EditAdd add={showCreateCustomer} edit={switchEditCustomer} editActive={editCustomer} />
+            <div>
+                <EditAdd add={showCreateCustomer} edit={switchEditCustomer} editActive={editCustomer} addActive={activeAdd} />
                 <CreateCustomer ref={refCreateCustomer} hideCreateCustomer={hideCreateCustomer} />
             </div>
             <div ref={customersList} className="customers-list">

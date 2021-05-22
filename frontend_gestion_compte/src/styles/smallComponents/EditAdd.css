@@ -33,7 +33,12 @@
     transition: all .3s ease-in-out;
 }
 
-.edit-add .edit.active {
-    transform: translatey(-5px);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+.edit.activeEdit {
+    transform: translatey(1px);
+    box-shadow: 0 0 10px inset var(--color-tertiary);
+}
+
+.add.activeAdd {
+    transform: translateY(1px);
+    box-shadow: 0 0 10px inset var(--color-primary);
 }

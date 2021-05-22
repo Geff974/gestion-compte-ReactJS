@@ -16,8 +16,8 @@ const Auth = () => {
     const dispatch = useDispatch();
 
     const [userLogin, setUserLogin] = useState({
-        usernameLogin: 'admin',
-        passwordLogin: 'admin'
+        usernameLogin: 'demo',
+        passwordLogin: 'demo'
     });
 
     const [userRegistration, setUserRegistration] = useState({
@@ -48,8 +48,7 @@ const Auth = () => {
         setSignUpMode('');
     }
 
-    const login = e => {
-        e.preventDefault();
+    const login = () => {
         axios.post(process.env.REACT_APP_API_URL + '/login', userLogin)
             .then(response => {
                 if (response.data.message) {
@@ -62,10 +61,15 @@ const Auth = () => {
             })
     }
 
-    const register = e => {
-        e.preventDefault();
+    const register = () => {
         axios.post(process.env.REACT_APP_API_URL + '/register', userRegistration)
-            .then(response => dispatch(userInfo(response.data)))
+            .then(() => {
+                setUserLogin({
+                    usernameLogin: userRegistration.usernameRegistration,
+                    passwordLogin: userRegistration.passwordRegistration
+                })
+                login();
+            })
             .catch((error) => alert('Une erreur est survenue. ' + error));
     }
 
@@ -94,7 +98,7 @@ const Auth = () => {
 
                 <div className="signin-signup">
 
-                    <form action="#" className="sign-in-form">
+                    <form className="sign-in-form">
                         <h2 className="title">Se connecter</h2>
                         <div className="input-field">
                             <i> <FaUser /> </i>
@@ -104,7 +108,7 @@ const Auth = () => {
                             <i> <FaLock /> </i>
                             <input type="password" placeholder="Mot de passe" id="passwordLogin" value={passwordLogin} onChange={handleChangeLogin} />
                         </div>
-                        <input type="submit" value="Login" onClick={login} className="sign-btn solid" disabled={disableLogin} />
+                        <input type="button" value="Login" onClick={login} className="sign-btn solid" disabled={disableLogin} />
 
                         <p className="social-text">Contactez-moi sur mes réseaux</p>
                         <div className="social-media">
@@ -116,7 +120,7 @@ const Auth = () => {
                     </form>
 
 
-                    <form action="#" className="sign-up-form">
+                    <form className="sign-up-form">
                         <h2 className="title">S'inscrire</h2>
                         <div className="input-field">
                             <i> <FaUser /> </i>
@@ -134,7 +138,7 @@ const Auth = () => {
                             <i> <FaLock /> </i>
                             <input type="password" placeholder="Confirmer mot de passe" id="confirmPassword" value={confirmPassword} onChange={handleChangeRegistration} />
                         </div>
-                        <input type="submit" value="Login" onClick={register} className="sign-btn solid" disabled={disableRegistration} />
+                        <input type="button" value="S'inscrire" onClick={register} className="sign-btn solid" disabled={disableRegistration} />
 
                         <p className="social-text">Contactez-moi sur mes réseaux.</p>
                         <div className="social-media">

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
-import TransactionItem from '../components/TransactionItem';
+import ListTransactions from '../components/ListTransactions';
 
 const MbHome = () => {
 
@@ -38,15 +38,6 @@ const MbHome = () => {
 
     const showCustomer = (customer) => {
         history.push('/customers/' + customer.name);
-    }
-    const provTest = () => {
-        history.push('/test');
-    }
-
-    const dateSlice = (str) => {
-        const strSplit = str.split('-');
-        const strFinal = strSplit[2] + '/' + strSplit[1];
-        return strFinal;
     }
 
 
@@ -90,15 +81,16 @@ const MbHome = () => {
                 </div>
 
                 {transactions !== null &&
-                    <div className="transaction-list">
-                        {transactions.map((transaction, k) => {
-                            return (
-                                <div key={k} onClick={() => showCustomer(transaction)} className="transaction-line">
-                                    <TransactionItem transaction={transaction} />
-                                </div>
-                            )
-                        })}
-                    </div>
+                    // <div className="transaction-list">
+                    //     {transactions.map((transaction, k) => {
+                    //         return (
+                    //             <div key={k} onClick={() => showCustomer(transaction)} className="transaction-line">
+                    //                 <TransactionItem transaction={transaction} />
+                    //             </div>
+                    //         )
+                    //     })}
+                    // </div>
+                    <ListTransactions transactions={transactions} />
                 }
             </div>
         </div>

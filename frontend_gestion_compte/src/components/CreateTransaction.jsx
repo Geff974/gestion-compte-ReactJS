@@ -8,7 +8,6 @@ import { MdEuroSymbol } from 'react-icons/md';
 
 const CreateTransaction = React.forwardRef((props, ref) => {
 
-    const refCreateTransaction = useRef(ref)
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
     const transactions = useSelector(state => state.transactions.transactions)
@@ -66,18 +65,9 @@ const CreateTransaction = React.forwardRef((props, ref) => {
             .catch(err => alert(err));
     }
 
-    const test = () => {
-        const index = customers.findIndex(cust => cust.id == transactionToAdd.customer);
-        dispatch(customerUpdate(transactions, customers[index].name));
-    }
-
     const { date, customer, designation, amount } = transactionToAdd;
 
     const disableAdd = date === "" || customer === "" || amount === null ? true : false;
-
-    const handlerCancel = () => {
-        refCreateTransaction.current.className = 'create-transaction';
-    }
 
     return (
 
