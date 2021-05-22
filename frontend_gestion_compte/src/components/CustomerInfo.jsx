@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { customerErase } from '../Redux/Customer/actionCustomer';
+import { useHistory } from 'react-router';
+
+import axios from 'axios';
+
 import '../styles/CustomerInfo.css';
-import ButtonEraseCustomer from './smallComponents/ButtonEraseCustomer';
 
 const CustomerInfo = ({ customer = { name: 'Test', facture: 5300, paiement: -3200, email: 'test@test.com' }, edit = false, goToCustomer }) => {
 
-    const lettreLogo = customer.name.substr(0, 2);
-    const balanceSign = customer.facture + customer.paiement < 0 ? 'negatif-info' : 'positif-info';
+    const balanceSign = customer.facture + customer.paiement < 0 ? 'negative-info' : 'positive-info';
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const [erased, setErased] = useState('');
+
+    const eraseCustomer = () => {
+        axios.delete(process.env.REACT_APP_API_URL + '/customers', {
+            data: { source: customer }
+        })
+            .then(() => {
+                dispatch(customerErase(customer));
+                setErased('erased');
+            })
+            .catch(err => console.log(err))
+        history.push('/customers');
+    }
 
     return (
-        <div className="customer-info">
-            <div className="logo-info" onClick={() => goToCustomer(customer)}><p>{lettreLogo}</p></div>
+        <div className={`customer-info ${erased}`}>
+            <div className="erased-bloc"></div>
             <div className="customer-name-info" onClick={() => goToCustomer(customer)}>
                 <h4>{customer.name}</h4>
                 <p className="facture-paiement-info">
@@ -20,7 +39,9 @@ const CustomerInfo = ({ customer = { name: 'Test', facture: 5300, paiement: -320
             <div className={`balance-info ${balanceSign}`}>
                 {customer.facture + customer.paiement}.00 €
                 {edit &&
-                    <ButtonEraseCustomer customer={customer} />
+                    <div className="btn-erase-customer">
+                        <p className="btn-erase" onClick={eraseCustomer}>X</p>
+                    </div>
                 }
             </div>
         </div>

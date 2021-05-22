@@ -46,7 +46,7 @@ const MbHome = () => {
             <header className='header-MbHome'>
                 <div>
                     <h3>Bienvenue</h3>
-                    <h1>Geffrey SAID</h1>
+                    <h1>{user.username}</h1>
                 </div>
                 <div className="profilImg">
                 </div>

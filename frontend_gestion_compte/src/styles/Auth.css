@@ -280,6 +280,10 @@
         height: 100vh;
     }
 
+    .auth-container form {
+        margin-top: 3em;
+    }
+
     .auth-container::before {
         width: 1500px;
         height: 1500px;
@@ -357,7 +361,7 @@
 
     .auth-container.sign-up-mode .left-panel .image,
     .auth-container.sign-up-mode .left-panel .content {
-        transform: translateY(-500px);
+        transform: translateY(-400px);
     }
 
     .auth-container.sign-up-mode .signin-signup {
@@ -370,7 +374,9 @@
 
 @media (max-width: 570px) {
     .auth-container form {
-        padding: 0 1.5rem 2.5rem;
+        padding: 0 1.5rem 2rem;
+        margin-top: 3em;
+        transition: 0.2s 0.5s ease-in-out;
     }
 
     .image {
@@ -378,16 +384,12 @@
     }
 
     .panel .content {
-        padding: 0.5rem 1rem;
+        padding: 0.5em 1em;
     }
 
     .auth-container::before {
         bottom: 70%;
         left: 50%;
-    }
-
-    .auth-container form {
-        transition: 0.2s 0.5s ease-in-out;
     }
 
     .auth-container.sign-up-mode::before {

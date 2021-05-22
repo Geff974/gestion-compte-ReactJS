@@ -16,6 +16,9 @@
 }
 
 .customers-list {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 5%;
     transition: cubic-bezier(.58, -0.13, .19, 1.41) .7s .2s;
 }
 
