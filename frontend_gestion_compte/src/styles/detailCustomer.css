@@ -1,13 +1,5 @@
-.customerTitle {
-    text-align: center;
-    margin-top: 2em;
-    margin-bottom: 1em;
-}
-
-.balance {
-    text-align: center;
-    font-size: large;
-    margin-bottom: 2em;
+.customer-detail-component {
+    position: relative;
 }
 
 .negative {
@@ -16,4 +8,25 @@
 
 .positive {
     color: green;
+}
+
+.header-customer-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.customer-detail-component .header-img {
+    /* position: absolute;
+    width: 200px;
+    right: 0; */
+}
+
+.header-customer-detail .customer-title {
+    position: absolute;
+    top: 0;
+}
+
+.customer-detail-component .balance {
+    font-size: 24px;
 }

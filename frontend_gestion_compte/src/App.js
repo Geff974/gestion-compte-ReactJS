@@ -7,7 +7,7 @@ import { transactionReinit } from './Redux/Transaction/actionTransaction';
 import { customerReinit } from './Redux/Customer/actionCustomer';
 
 import MbHome from './pages/MbHome';
-import DetailCustomer from './components/detailCustomer';
+import DetailCustomer from './components/detailCustomer.jsx';
 import Customers from './pages/Customers.jsx';
 import Transactions from './pages/Transactions.jsx';
 import NotFound from './pages/NotFound';

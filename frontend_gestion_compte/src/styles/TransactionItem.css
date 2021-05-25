@@ -1,8 +1,17 @@
+.transaction-item-component {
+    position: relative;
+    overflow: hidden;
+    transition: all .8s ease-in-out;
+}
+
 .transaction-item {
     display: grid;
     grid-template-columns: 1fr 3fr 2fr;
+    grid-gap: 5px;
     position: relative;
     padding: 1em;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
 }
 
 .transaction-item::after {
@@ -22,6 +31,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateX(-150%);
+    animation: entrance-transactionItem-left 1s .2s forwards;
 }
 
 .trans-item-icon.positive {
@@ -47,6 +58,11 @@
     color: var(--color-secondary);
 }
 
+.trans-item-info {
+    transform: translateY(-150%);
+    animation: entrance-transactionItem-top 1s .3s forwards;
+}
+
 .trans-item-info,
 .trans-item-date-amount {
     display: flex;
@@ -56,4 +72,88 @@
 
 .trans-item-date-amount {
     text-align: right;
+    transform: translateX(150%);
+    animation: entrance-transactionItem-right 1s .4s forwards
+}
+
+.transaction-erase-bloc {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    padding-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--color-secondary);
+    transform: translateX(50%);
+    transition: all .3s ease-in-out;
+}
+
+.transaction-item-component.erase-mode .transaction-erase-bloc {
+    transform: translateX(0);
+}
+
+.transaction-item-component.erase-mode .transaction-item {
+    transform: translateX(-50px);
+}
+
+/* .transaction-item-component.erased {
+    animation: erased-animation .5s forwards;
+} */
+
+.transaction-item-component.erased::before {
+    content: 'Effacée';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: -100%;
+    color: #fff;
+    font-size: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    z-index: 2;
+    background: var(--color-secondary);
+    animation: erased-animation 1s forwards;
+}
+
+@keyframes erased-animation {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes entrance-transactionItem-left {
+    0% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes entrance-transactionItem-top {
+    0% {
+        transform: translateY(-150%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes entrance-transactionItem-right {
+    0% {
+        transform: translateX(150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }

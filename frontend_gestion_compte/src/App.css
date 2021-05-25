@@ -10,6 +10,7 @@ body {
     --color-primary-light: #F1F6F5;
     --color-secondary-light: #F9ECEA;
     --color-tertiary-light: #f1eae1;
+    --color-gray-light: #acacac;
 }
 
 .App {

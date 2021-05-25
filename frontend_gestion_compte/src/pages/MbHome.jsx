@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
+import { BiRightArrow } from 'react-icons/bi';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
 import ListTransactions from '../components/ListTransactions';
@@ -19,10 +20,19 @@ const MbHome = () => {
     const transactions = useSelector(state => state.transactions.transactions);
     const [totFactures, setTotFactures] = useState(0);
     const [totPaiements, setTotPaiements] = useState(0);
+    const [recentlyTransaction, setRecentlyTransaction] = useState([])
 
-    useEffect(() => {
-        calcTot();
-    }, [transactions])
+    // useEffect(() => {
+    //     calcTot();
+    //     setRecentlyTransaction(transactions);
+    //     let i = 0
+    //     while (recentlyTransaction[3]) {
+    //         recentlyTransaction.splice(3, recentlyTransaction.length - 3);
+    //         i++;
+    //     }
+    //     // if (recentlyTransaction.length > 4) {
+    //     // }
+    // }, [transactions])
 
     const calcTot = () => {
         setTotPaiements(0);
@@ -38,6 +48,10 @@ const MbHome = () => {
 
     const showCustomer = (customer) => {
         history.push('/customers/' + customer.name);
+    }
+
+    const goToTransactions = () => {
+        history.push('/transactions');
     }
 
 
@@ -80,17 +94,12 @@ const MbHome = () => {
                     </div>
                 </div>
 
-                {transactions !== null &&
-                    // <div className="transaction-list">
-                    //     {transactions.map((transaction, k) => {
-                    //         return (
-                    //             <div key={k} onClick={() => showCustomer(transaction)} className="transaction-line">
-                    //                 <TransactionItem transaction={transaction} />
-                    //             </div>
-                    //         )
-                    //     })}
-                    // </div>
-                    <ListTransactions transactions={transactions} />
+                {transactions !== undefined &&
+                    <div className="transactions-list">
+                        <h4>Dernières transactions</h4>
+                        <p className="more-btn" onClick={goToTransactions}>Plus <BiRightArrow className="arrow-more-btn" /> </p>
+                        <ListTransactions transactions={transactions} />
+                    </div>
                 }
             </div>
         </div>

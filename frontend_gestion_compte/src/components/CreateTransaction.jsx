@@ -22,13 +22,18 @@ const CreateTransaction = React.forwardRef((props, ref) => {
         id_user: user.id
     });
 
+    // useEffect(() => {
+    //     if (props.nameCustomer) {
+    //         const indexOfCustomer = customers.findIndex(cust => cust.name === props.nameCustomer);
+    //         setCurrentCustomer(customers[indexOfCustomer]);
+    //     }
+    // }, [])
+
     useEffect(() => {
-        if (props.nameCustomer) {
-            const indexOfCustomer = customers.findIndex(cust => cust.name === props.nameCustomer);
-            setCurrentCustomer(customers[indexOfCustomer]);
+        if (props.customer) {
+            setTransactionToAdd({ ...transactionToAdd, customer: props.customer.id })
         }
     }, [])
-
 
 
     const changeHandler = e => {

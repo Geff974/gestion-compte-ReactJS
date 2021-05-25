@@ -43,6 +43,9 @@
     min-width: 230px;
     padding: 5px;
     height: 120px;
+    overflow: hidden;
+    transform: translateX(100vw);
+    animation: entranceCard .8s .5s forwards;
 }
 
 .customer-card h4 {
@@ -108,7 +111,8 @@
     flex-wrap: wrap;
 }
 
-.transaction-list {
+.transactions-list {
+    position: relative;
     border-radius: 15px;
     padding: 15px;
     background: #fff;
@@ -116,12 +120,20 @@
     margin: auto;
 }
 
-/* .transaction-line {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-    padding: 3px 0;
-} */
+.transactions-list h4 {
+    font-size: 22px;
+}
+
+.transactions-list .more-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--color-primary);
+}
+
+.transactions-list .arrow-more-btn {
+    vertical-align: middle;
+}
 
 .arrow-line {
     margin: 0 10px 0 0;
@@ -150,4 +162,18 @@
 
 .trans-amount {
     margin-left: auto;
+}
+
+@keyframes entranceCard {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const database = require('./database');
-
+const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(bodyParser.json());
@@ -58,27 +58,29 @@ app.get('/test', (req, res) => {
 
 // -------------- CREATE --------------
 
-app.post('/api/register', (req, res) => {
-    console.log(req.body);
-    database.query('INSERT INTO users (username, email, password) VALUE (?,?,?)', [req.body.usernameRegistration, req.body.emailRegistration, req.body.passwordRegistration], (err, result) => {
-        if(err) {
-            res.send({err: err});
-        } else {
-            res.send(result);
-        }
+app.post('/api/register', async (req, res) => {
+    console.log('enter')
+        const hash = await bcrypt.hash(req.body.passwordRegistration, await bcrypt.genSalt(10));
+        console.log(req.body);
+        database.query('INSERT INTO users (username, email, password) VALUE (?,?,?)', [req.body.usernameRegistration, req.body.emailRegistration, hash], (err, result) => {
+            if(err) {
+                res.send({err: err});
+            } else {
+                res.send(result);
+            }
+        })
     })
-})
 
 app.post('/api/login', (req, res) => {
-    database.query("SELECT * FROM users WHERE username=? AND password=?",
-    [req.body.usernameLogin, req.body.passwordLogin],
-    (err, result) => {
+    database.query("SELECT * FROM users WHERE username=?",
+    [req.body.usernameLogin],
+    async (err, result) => {
         if(err) {
             res.send({err: err});
         }
         
-        if (result.length > 0) {
-            res.send(result[0]);
+        if (await bcrypt.compare(req.body.passwordLogin, result[0].password)) {
+            res.send(result[0])
         } else {
             res.send({ message: "Wrong username/password combination !" });
         }
