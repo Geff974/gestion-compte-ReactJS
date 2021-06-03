@@ -20,25 +20,24 @@ const MbHome = () => {
     const transactions = useSelector(state => state.transactions.transactions);
     const [totFactures, setTotFactures] = useState(0);
     const [totPaiements, setTotPaiements] = useState(0);
-    const [recentlyTransaction, setRecentlyTransaction] = useState([])
 
-    // useEffect(() => {
-    //     calcTot();
-    //     setRecentlyTransaction(transactions);
-    //     let i = 0
-    //     while (recentlyTransaction[3]) {
-    //         recentlyTransaction.splice(3, recentlyTransaction.length - 3);
-    //         i++;
-    //     }
-    //     // if (recentlyTransaction.length > 4) {
-    //     // }
-    // }, [transactions])
+    useEffect(() => {
+        calcTot();
+    }, [transactions])
 
     const calcTot = () => {
         setTotPaiements(0);
         setTotFactures(0);
         transactions.forEach(transaction => {
-            transaction.amount > 0 ? setTotFactures(prevState => prevState + transaction.amount) : setTotPaiements(prevState => prevState - transaction.amount);
+            const date = new Date(transaction.date);
+            const today = new Date();
+            if (date.getMonth() === today.getMonth()) {
+                if (transaction.amount > 0) {
+                    setTotFactures(prevState => prevState + transaction.amount);
+                } else {
+                    setTotPaiements(prevState => prevState - transaction.amount);
+                }
+            }
         });
     }
 
@@ -98,7 +97,7 @@ const MbHome = () => {
                     <div className="transactions-list">
                         <h4>Dernières transactions</h4>
                         <p className="more-btn" onClick={goToTransactions}>Plus <BiRightArrow className="arrow-more-btn" /> </p>
-                        <ListTransactions transactions={transactions} />
+                        <ListTransactions transactions={transactions} nbrRepeat={3} />
                     </div>
                 }
             </div>
