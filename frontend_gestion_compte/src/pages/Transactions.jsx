@@ -15,13 +15,7 @@ const Transactions = () => {
     const refEditTransaction = useRef(null);
     const refCreateTransaction = useRef(null);
     const tableTransaction = useRef(null);
-    const user = useSelector(state => state.user.info);
     let history = useHistory();
-    useEffect(() => {
-        if (user.id === null) {
-            history.push('/login');
-        }
-    }, [])
 
 
     const transactions = useSelector(state => state.transactions.transactions);
@@ -71,15 +65,6 @@ const Transactions = () => {
                 </div>
                 <div>
                     {transactions !== undefined &&
-                        // <div>
-                        //     {transactions.map((transaction, k) => {
-                        //         return (
-                        //             <div key={k} onDoubleClick={() => editTransaction(transaction)}>
-                        //                 <TransactionItem transaction={transaction} edit={edit} />
-                        //             </div>
-                        //         )
-                        //     })}
-                        // </div>
                         <div>
                             <ListTransactions transactions={transactions} edit={edit} doubleClick={editTransaction} />
                         </div>

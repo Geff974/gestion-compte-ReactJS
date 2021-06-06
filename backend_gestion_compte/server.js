@@ -82,7 +82,7 @@ app.post('/api/login', (req, res) => {
         if (await bcrypt.compare(req.body.passwordLogin, result[0].password)) {
             res.send(result[0])
         } else {
-            res.send({ message: "Wrong username/password combination !" });
+            res.send({ message: "Mauvaise combinaison username/password !" });
         }
     })
 })

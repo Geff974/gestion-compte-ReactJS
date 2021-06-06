@@ -13,13 +13,7 @@ import EditAdd from '../components/smallComponents/EditAdd';
 const Customers = () => {
 
     const customers = useSelector(state => state.customers.customers);
-    const user = useSelector(state => state.user.info);
     let history = useHistory();
-    useEffect(() => {
-        if (user.id === null) {
-            history.push('/login');
-        }
-    }, [])
 
     const refCreateCustomer = useRef(null);
     const customersList = useRef(null);

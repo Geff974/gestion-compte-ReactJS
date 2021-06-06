@@ -11,11 +11,6 @@ const MbHome = () => {
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
     let history = useHistory();
-    useEffect(() => {
-        if (user.id === null) {
-            history.push('/login');
-        }
-    }, [])
 
     const transactions = useSelector(state => state.transactions.transactions);
     const [totFactures, setTotFactures] = useState(0);

@@ -1,22 +1,15 @@
 import React, { useRef, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userUnAuth } from './Redux/User/actionUser';
 import { transactionReinit } from './Redux/Transaction/actionTransaction';
 import { customerReinit } from './Redux/Customer/actionCustomer';
 
-import MbHome from './pages/MbHome';
-import DetailCustomer from './components/detailCustomer.jsx';
-import Customers from './pages/Customers.jsx';
-import Transactions from './pages/Transactions.jsx';
-import NotFound from './pages/NotFound';
-import Auth from './pages/Auth';
-
 import { MdDashboard, MdSupervisorAccount, MdList } from "react-icons/md";
 import './App.css';
-import Account from './pages/Account';
-import CustomerInfo from './components/CustomerInfo';
+import { Routes } from './Routes';
+import UserContext from './context/UserContext';
 
 
 const App = () => {
@@ -36,13 +29,26 @@ const App = () => {
     setOpen(!open);
   }
 
-  const isAuth = useSelector(state => state.user.isAuth);
+  // const isAuth = useSelector(state => state.user.isAuth);
   const dispatch = useDispatch();
   const unAuth = () => {
     showMenu();
     dispatch(userUnAuth());
     dispatch(transactionReinit());
     dispatch(customerReinit());
+  }
+
+  const [auth, setAuth] = useState(false)
+  const [user, setUser] = useState({
+    id: 0,
+    username: '',
+    email: ''
+  });
+  const userContext = {
+    auth,
+    setAuth,
+    user,
+    setUser
   }
 
   return (
@@ -54,7 +60,7 @@ const App = () => {
             <li> <NavLink to='/mb/home' onClick={showMenu} activeClassName='active' className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Accueil</span> </NavLink> </li>
             <li> <NavLink to='/customers' onClick={showMenu} exact activeClassName='active' className="nav-link"><MdSupervisorAccount size={20} /> <span className="nav_text"> Clients</span></NavLink> </li>
             <li> <NavLink to='/transactions' onClick={showMenu} exact activeClassName='active' className="nav-link"><MdList size={20} /> <span className="nav_text"> Transaction</span></NavLink> </li>
-            {isAuth &&
+            {userContext.auth &&
               <div>
                 <li> <NavLink to='/account' onClick={showMenu} className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Mon compte</span> </NavLink> </li>
                 <li> <NavLink to='/login' onClick={unAuth} className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Deconnexion</span> </NavLink> </li>
@@ -64,17 +70,11 @@ const App = () => {
         </div>
 
         <div className='main-content' ref={mainContent}>
-          <Switch>
-            <Route path='/' exact component={MbHome} />
-            <Route path='/login' component={Auth} />
-            <Route path='/account' component={Account} />
-            <Route path='/customers/:name' component={DetailCustomer} />
-            <Route path='/customers' component={Customers} />
-            <Route path='/transactions' component={Transactions} />
-            <Route path='/mb/home' component={MbHome} />
-            <Route path='/test' component={CustomerInfo} />
-            <Route path='*' component={NotFound} />
-          </Switch>
+
+          <UserContext.Provider value={userContext}>
+            <Routes />
+          </UserContext.Provider>
+
         </div>
       </Router>
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { FaEnvelope, FaExternalLinkAlt, FaLinkedinIn, FaLock, FaRegEnvelope, FaUser, FaWhatsapp } from 'react-icons/fa';
@@ -9,9 +9,11 @@ import axios from 'axios';
 import { userInfo } from '../Redux/User/actionUser';
 import { customerAdd } from '../Redux/Customer/actionCustomer';
 import { transactionAdd } from '../Redux/Transaction/actionTransaction';
+import UserContext from '../context/UserContext';
 
 const Auth = () => {
 
+    const userContext = useContext(UserContext)
     let history = useHistory();
     const dispatch = useDispatch();
 
@@ -55,6 +57,8 @@ const Auth = () => {
                     alert(response.data.message);
                 } else {
                     dispatch(userInfo(response.data));
+                    userContext.setUser(response.data);
+                    userContext.setAuth(true);
                     getData(response.data.id);
                     history.push('/');
                 }
