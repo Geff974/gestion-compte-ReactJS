@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionErase } from '../Redux/Transaction/actionTransaction';
 
@@ -6,9 +6,11 @@ import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import '../styles/TransactionItem.css';
 import axios from 'axios';
+import UserContext from '../context/UserContext';
 
 const TransactionItem = ({ transaction, edit = false }) => {
 
+    const userContext = useContext(UserContext);
     const signAmount = transaction.amount > 0 ? 'positive' : 'negative';
     const customers = useSelector(state => state.customers.customers);
     const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const TransactionItem = ({ transaction, edit = false }) => {
 
     const eraseTransaction = () => {
         const id_customer = customers.find(cust => cust.name === transaction.name);
+        const index_customerContext = userContext.customers.findIndex(cust => cust.name === transaction.name);
         const transactionToDelete = {
             id_customer: id_customer.id,
             id_transaction: transaction.id
@@ -41,6 +44,7 @@ const TransactionItem = ({ transaction, edit = false }) => {
         })
             .then(() => {
                 dispatch(transactionErase(transaction.id));
+                userContext.transactions.splice(index_customerContext, 1);
                 setErased('erased');
             })
             .catch(err => console.log(err));

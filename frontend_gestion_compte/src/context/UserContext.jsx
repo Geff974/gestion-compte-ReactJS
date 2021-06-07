@@ -7,6 +7,24 @@ export default React.createContext({
         username: '',
         email: ''
     },
+    customers: [{
+        id: 0,
+        name: '',
+        facture: 0,
+        paiement: 0,
+        email: '',
+        id_user: 0,
+    }],
+    transactions: [{
+        id: 0,
+        date: '',
+        name: '',
+        designation: '',
+        amount: ''
+    }],
+
     setAuth: (auth) => { },
-    setUser: (user) => { }
+    setUser: (user) => { },
+    setTransactions: (transaction) => { },
+    setCustomers: (customer) => { }
 })

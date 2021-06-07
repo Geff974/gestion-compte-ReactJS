@@ -39,16 +39,19 @@ const App = () => {
   }
 
   const [auth, setAuth] = useState(false)
-  const [user, setUser] = useState({
-    id: 0,
-    username: '',
-    email: ''
-  });
+  const [user, setUser] = useState({});
+    const [customers, setCustomers] = useState([])
+  const [transactions, setTransactions] = useState([]);
+
   const userContext = {
     auth,
-    setAuth,
     user,
-    setUser
+    customers,
+    transactions,
+    setAuth,
+    setUser,
+    setCustomers,
+    setTransactions
   }
 
   return (

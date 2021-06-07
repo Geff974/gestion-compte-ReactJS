@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useHistory } from 'react-router';
 import { AiOutlineLeftCircle } from 'react-icons/ai';
 import CreateTransaction from '../components/CreateTransaction.jsx';
@@ -9,13 +9,19 @@ import EditTransaction from '../components/EditTransaction';
 import { ReactComponent as HeaderImg } from '../styles/img/header-transaction.svg';
 import EditAdd from '../components/smallComponents/EditAdd.jsx';
 import ListTransactions from '../components/ListTransactions.jsx';
+import UserContext from '../context/UserContext';
 
 const Transactions = () => {
 
+    const userContext = useContext(UserContext)
     const refEditTransaction = useRef(null);
     const refCreateTransaction = useRef(null);
     const tableTransaction = useRef(null);
     let history = useHistory();
+
+    useEffect(() => {
+        console.log('entrer');
+    }, [userContext.transactions])
 
 
     const transactions = useSelector(state => state.transactions.transactions);
@@ -64,9 +70,9 @@ const Transactions = () => {
                     <h4>Liste des transaction</h4>
                 </div>
                 <div>
-                    {transactions !== undefined &&
+                    {userContext.transactions !== undefined &&
                         <div>
-                            <ListTransactions transactions={transactions} edit={edit} doubleClick={editTransaction} />
+                            <ListTransactions transactions={userContext.transactions} edit={edit} doubleClick={editTransaction} />
                         </div>
                     }
                 </div>

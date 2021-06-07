@@ -1,20 +1,16 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { customerAdd } from '../Redux/Customer/actionCustomer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import '../styles/CreateCustomer.css';
+import UserContext from '../context/UserContext';
 
 const CreateCustomer = React.forwardRef((props, ref) => {
 
+    const userContext = useContext(UserContext);
     const user = useSelector(state => state.user.info);
-    let history = useHistory();
-    useEffect(() => {
-        if (user.id === null) {
-            history.push('/login');
-        }
-    }, [])
 
     const dispatch = useDispatch();
 
@@ -34,6 +30,7 @@ const CreateCustomer = React.forwardRef((props, ref) => {
             .then((res) => {
                 dispatch(customerAdd(res.data));
                 setCustomer({ nameCustomer: '', email: '', id_user: user.id });
+                userContext.customers.push(res.data);
                 props.hideCreateCustomer();
             })
             .catch(err => alert(err));

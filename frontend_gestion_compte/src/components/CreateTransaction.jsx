@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionAdd } from '../Redux/Transaction/actionTransaction';
 import axios from 'axios';
 import '../styles/CreateTransaction.css';
 import { customerUpdate } from '../Redux/Customer/actionCustomer';
 import { MdEuroSymbol } from 'react-icons/md';
+import UserContext from '../context/UserContext';
 
 const CreateTransaction = React.forwardRef((props, ref) => {
 
+    const userContext = useContext(UserContext);
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
     const transactions = useSelector(state => state.transactions.transactions)
@@ -57,6 +59,7 @@ const CreateTransaction = React.forwardRef((props, ref) => {
             .then((res) => {
                 console.log(res);
                 dispatch(transactionAdd(res.data));
+                userContext.transactions.push(res.data);
                 dispatch(customerUpdate(transactions, res.data.name));
                 setTransactionToAdd({
                     ...transactionToAdd,

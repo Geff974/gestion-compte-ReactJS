@@ -85,6 +85,17 @@ const Auth = () => {
         axios.get(process.env.REACT_APP_API_URL + '/transactions/' + id_user)
             .then(res => res.data.forEach(trans => dispatch(transactionAdd(trans))))
             .catch(err => alert(err));
+
+        // Context
+        axios.get(process.env.REACT_APP_API_URL + '/customers/' + id_user)
+            .then(res => res.data.forEach(cust => {
+                userContext.customers.push(cust)
+            }))
+            .catch(err => alert(err));
+
+        axios.get(process.env.REACT_APP_API_URL + '/transactions/' + id_user)
+            .then(res => res.data.forEach(trans => userContext.transactions.push(trans)))
+            .catch(err => alert(err));
     }
 
 

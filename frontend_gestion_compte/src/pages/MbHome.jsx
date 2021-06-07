@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { BiRightArrow } from 'react-icons/bi';
 import { useHistory } from 'react-router';
 import '../styles/MbHome.css';
 import ListTransactions from '../components/ListTransactions';
+import UserContext from '../context/UserContext';
 
 const MbHome = () => {
 
+    const userContext = useContext(UserContext);
+    userContext.customers.forEach(cust => {
+        cust.paiement = 0;
+        cust.facture = 0;
+        userContext.transactions.forEach(trans => {
+            if (trans.name === cust.name) {
+                trans.amount > 0 ? cust.facture += trans.amount : cust.paiement += trans.amount;
+            }
+        })
+    })
     const customers = useSelector(state => state.customers.customers);
     const user = useSelector(state => state.user.info);
     let history = useHistory();
@@ -60,10 +71,10 @@ const MbHome = () => {
                 </div>
             </header>
             <div>
-                {customers !== null &&
+                {userContext.customers !== null &&
                     <div className='card-list'>
                         {
-                            customers.map(((customer, k) => {
+                            userContext.customers.map(((customer, k) => {
                                 return (
                                     <div key={k} className="customer-card" onClick={() => showCustomer(customer)}>
                                         <h4>{customer.name} <span>VISA</span></h4>

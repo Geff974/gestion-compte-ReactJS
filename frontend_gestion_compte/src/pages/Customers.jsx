@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -9,9 +9,12 @@ import { AiOutlineLeftCircle } from 'react-icons/ai';
 
 import { ReactComponent as HeaderImg } from '../styles/img/header-customer.svg'
 import EditAdd from '../components/smallComponents/EditAdd';
+import UserContext from '../context/UserContext';
 
 const Customers = () => {
 
+    const userContext = useContext(UserContext);
+    console.log(userContext);
     const customers = useSelector(state => state.customers.customers);
     let history = useHistory();
 
@@ -54,7 +57,7 @@ const Customers = () => {
                 <CreateCustomer ref={refCreateCustomer} hideCreateCustomer={hideCreateCustomer} />
             </div>
             <div ref={customersList} className="customers-list">
-                {customers.map((customer, k) => {
+                {userContext.customers.map((customer, k) => {
                     return (
                         <div key={k} className="customers-customerInfo">
                             <div>

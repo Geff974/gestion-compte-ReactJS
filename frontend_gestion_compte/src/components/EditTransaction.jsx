@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../styles/EditTransaction.css';
@@ -6,9 +6,11 @@ import axios from 'axios';
 import { transactionUpdate } from '../Redux/Transaction/actionTransaction';
 import { customerUpdate } from '../Redux/Customer/actionCustomer';
 import { MdEuroSymbol } from 'react-icons/md';
+import UserContext from '../context/UserContext';
 
 const EditTransaction = React.forwardRef((props, ref) => {
 
+    const userContext = useContext(UserContext);
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.user.info);
@@ -64,11 +66,15 @@ const EditTransaction = React.forwardRef((props, ref) => {
     const sendEdit = e => {
         e.preventDefault();
         const customerSelected = customers.find(cust => cust.id == transactionEdit.name);
+        const indexTransaction = userContext.transactions.findIndex(trans => trans.id === transactionEdit.id)
         let transactionToDispatch = {};
         axios.put(process.env.REACT_APP_API_URL + '/transactions', transactionEdit)
             .then(result => {
                 transactionToDispatch = result.data[0];
-                transactionToDispatch = { ...transactionToDispatch, name: customerSelected.name }
+                transactionToDispatch = { ...transactionToDispatch, name: customerSelected.name };
+                userContext.transactions.splice(indexTransaction, 1, transactionToDispatch);
+                const test = userContext.transactions;
+                userContext.setTransactions(test);
                 dispatch(transactionUpdate(transactionToDispatch));
                 dispatch(customerUpdate(transactions, customerSelected.name));
             })
