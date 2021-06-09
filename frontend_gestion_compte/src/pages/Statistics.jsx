@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import { Line } from 'react-chartjs-2';
-import '../styles/Account.css';
+import '../styles/Statistics.css';
 
-const Account = () => {
+const Statistics = () => {
 
     const transactions = useSelector(state => state.transactions.transactions)
     const month = ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'];
@@ -16,7 +16,6 @@ const Account = () => {
 
     transactions.forEach(trans => {
         const monthTrans = new Date(trans.date).getMonth();
-        const year = new Date(trans.date).getFullYear();
         if (new Date(trans.date).getFullYear() === new Date().getFullYear()) {
             if (trans.amount > 0) {
                 positifAmounts[monthTrans] = positifAmounts[monthTrans] + trans.amount;
@@ -58,10 +57,8 @@ const Account = () => {
 
             <Line
                 data={data}
-                // height={200}
                 options={{
                     responsive: true,
-                    // maintainAspectRatio: false,
                     scales: {
                         yAxes: [
                             {
@@ -77,4 +74,4 @@ const Account = () => {
     );
 };
 
-export default Account;
+export default Statistics;

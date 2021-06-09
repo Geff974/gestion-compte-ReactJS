@@ -62,7 +62,7 @@ const App = () => {
             <li> <NavLink to='/transactions' onClick={showMenu} exact activeClassName='active' className="nav-link"><MdList size={20} /> <span className="nav_text"> Transaction</span></NavLink> </li>
             {userContext.auth &&
               <div>
-                <li> <NavLink to='/account' onClick={showMenu} className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Mon compte</span> </NavLink> </li>
+                <li> <NavLink to='/statistics' onClick={showMenu} className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Statistiques</span> </NavLink> </li>
                 <li> <NavLink to='/login' onClick={unAuth} className='nav-link'> <MdDashboard size={20} /> <span className="nav_text">Deconnexion</span> </NavLink> </li>
               </div>
             }

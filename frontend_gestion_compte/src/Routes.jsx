@@ -4,12 +4,12 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import MbHome from './pages/MbHome';
 import Auth from './pages/Auth';
-import Account from './pages/Account';
 import DetailCustomer from './components/DetailCustomer';
 import Customers from './pages/Customers';
 import Transactions from './pages/Transactions';
 import CustomerInfo from './components/CustomerInfo';
 import NotFound from './pages/NotFound';
+import Statistics from './pages/Statistics';
 
 export const Routes = () => {
     const userContext = useContext(UserContext);
@@ -18,7 +18,7 @@ export const Routes = () => {
         <Switch>
             <ProtectedRoute path='/' auth={userContext.auth} exact component={MbHome} />
             <ProtectedLogin path='/login' auth={userContext.auth} component={Auth} />
-            <ProtectedRoute path='/account' auth={userContext.auth} component={Account} />
+            <ProtectedRoute path='/statistics' auth={userContext.auth} component={Statistics} />
             <ProtectedRoute path='/customers/:name' auth={userContext.auth} component={DetailCustomer} />
             <ProtectedRoute path='/customers' auth={userContext.auth} component={Customers} />
             <ProtectedRoute path='/transactions' auth={userContext.auth} component={Transactions} />
