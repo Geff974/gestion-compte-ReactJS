@@ -36,6 +36,7 @@ const App = () => {
     dispatch(userUnAuth());
     dispatch(transactionReinit());
     dispatch(customerReinit());
+    setAuth(false);
   }
 
   const [auth, setAuth] = useState(false)
